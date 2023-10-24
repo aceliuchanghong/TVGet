@@ -1,11 +1,14 @@
 # 如lxml或xml.etree.ElementTree来解析XML或HTML文档，并使用XPath表达式来提取需要的值。
 from crawl.spiderDealer.Result import Result
 from crawl.spiderDealer.urlFileGet import parseUrlGetPic
+from crawl.spiderDealer.checkPath import check
 
 
 def parse(fileName):
     from lxml import etree
 
+    basicpath = "../../crawl/files/response/"
+    check(basicpath)
     filepath = "../../crawl/files/response/" + fileName
     # 打开文件并读取内容
     with open(filepath, 'r', encoding='utf-8') as file:
