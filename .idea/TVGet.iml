@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/links" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/mp3" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/mp4" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/srt" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/response" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/pic" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
