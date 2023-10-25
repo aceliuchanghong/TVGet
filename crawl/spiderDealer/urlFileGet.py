@@ -1,7 +1,6 @@
 # 网页内容保存成合适文档保存与本地response路径下面
 from crawl.spiderDealer.checkPath import check
 
-
 def getFile(url):
     import requests
 
