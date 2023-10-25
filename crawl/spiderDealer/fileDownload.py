@@ -1,11 +1,16 @@
 from crawl.spiderDealer.checkPath import check
-def download(fileUrl):
-    import requests
+import requests
+
+
+def download(fileUrl, name=None):
     try:
         # Download file
         response = requests.get(fileUrl, stream=True)
         # Get file name
         fileName = fileUrl.split('/')[-1]
+        if name is not None:
+            fileName = name
+
         # Get file extension
         fileExtension = fileUrl.split('.')[-1]
 
@@ -24,8 +29,3 @@ def download(fileUrl):
     except Exception as e:
         print(e)
         return None
-
-
-# url = 'https://svideo.mfa.gov.cn/masvod/public/2023/10/09/20231009_18b1474a8fa_r1_1200k.mp4'
-# print(download('https://svideo.mfa.gov.cn/masvod/public/2023/10/09/17603.images/v17603_b1696855283735.jpg'))
-# download(url)

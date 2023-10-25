@@ -2,11 +2,9 @@
 from crawl.spiderDealer.Result import Result
 from crawl.spiderDealer.urlFileGet import parseUrlGetPic, parseUrlGetMp4
 from crawl.spiderDealer.checkPath import check
-
+from lxml import etree
 
 def parse(fileName):
-    from lxml import etree
-
     basicpath = "../../crawl/files/response/"
     check(basicpath)
     filepath = "../../crawl/files/response/" + fileName

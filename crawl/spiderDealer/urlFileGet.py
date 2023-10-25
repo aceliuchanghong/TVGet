@@ -1,9 +1,11 @@
 # 网页内容保存成合适文档保存与本地response路径下面
 from crawl.spiderDealer.checkPath import check
-
+import requests
+import re
+from urllib.parse import urlparse, parse_qs
+import json
 
 def getFile(url):
-    import requests
 
     response = requests.get(url)
     html_content = response.content.decode('utf-8')
@@ -23,8 +25,6 @@ def getFile(url):
 
 
 def parseUrlGetPic(url):
-    import requests
-    import re
 
     response = requests.get(url)
     html_content = response.content.decode('utf-8')
@@ -42,10 +42,7 @@ def parseUrlGetPic(url):
 
 
 def parseUrlGetMp4(url):
-    import requests
-    import re
-    from urllib.parse import urlparse, parse_qs
-    import json
+
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -100,9 +97,3 @@ def parseUrlGetMp4(url):
 
     http_url = data["streamsMap"]["h"]["httpURL"]
     return http_url
-
-
-url = 'https://svideo.mfa.gov.cn/mas/openapi/pages.do?method=exPlay&appKey=gov&id=17603&autoPlay=false'
-
-print()
-
