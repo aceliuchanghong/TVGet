@@ -29,12 +29,12 @@ def mp32srt(result, name=None):
     relative_path = '../../crawl/files/srt/'
     check(relative_path)
     realFilePath = relative_path + output_file
-    prompt = "这是一段关于中国外交部的发言稿,主要包括" + result.title
+    prompt = "这是一段关于中国外交部的发言稿,主要包括" + result.title + " 注意,生成字幕的时候每5秒一行"
     # print(realFilePath, prompt)
 
     try:
         file = open(mp3path, "rb")
-        transcript = openai.Audio.transcribe("whisper-1", file, response_format="srt",
+        transcript = openai.Audio.transcribe("whisper-1", file, model='gpt-4', response_format="srt",
                                              prompt=prompt)
         with open(realFilePath, 'w') as f:
             f.write(transcript)
