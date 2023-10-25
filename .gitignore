@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea/*
+/crawl/ffmpeg/*
 # C extensions
 *.so
 crawl/files/*/*
