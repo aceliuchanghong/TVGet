@@ -9,4 +9,5 @@ url2 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t202310
 filename = getFile(url)
 result = parse(filename)
 download(result.poster)
+download(result.mp4url)
 print(result)

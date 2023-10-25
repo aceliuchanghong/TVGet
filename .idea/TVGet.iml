@@ -7,9 +7,12 @@
       <excludeFolder url="file://$MODULE_DIR$/crawl/files/mp4" />
       <excludeFolder url="file://$MODULE_DIR$/crawl/files/srt" />
       <excludeFolder url="file://$MODULE_DIR$/crawl/files/response" />
-      <excludeFolder url="file://$MODULE_DIR$/crawl/files/pic" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/jpg" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/jpeg" />
+      <excludeFolder url="file://$MODULE_DIR$/crawl/files/png" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (venv)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (TVGet)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
