@@ -18,7 +18,7 @@ def srtAdd(result):
     relative_path = '../../crawl/files/ans/'
     check(relative_path)
 
-    command = f'ffmpeg -y -i "{result.anspath}" -vf "subtitles={result.srtpath}:charenc=GBK" "{relative_path + result.mp4name}"'
+    command = f'ffmpeg -y -i "{result.anspath}" -vf "subtitles={result.srtpath}:force_style=\'Fontsize=10\'" "{relative_path + result.mp4name}"'
     # print(command)
     subprocess.call(command, shell=True)
     print("srt add SUC")

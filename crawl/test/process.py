@@ -1,6 +1,5 @@
 from crawl.spiderDealer.Result import Result
 from crawl.spiderDealer.fileDownload import download
-from crawl.spiderDealer.mergeMp4 import merge_video_with_subtitles
 from crawl.spiderDealer.mp3Get import mp423
 from crawl.spiderDealer.mp4Deal import *
 from crawl.spiderDealer.praseFile import parse
@@ -11,7 +10,7 @@ from crawl.spiderDealer.srt2Txt import summarySrt
 url = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158313.shtml'
 url2 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158311.shtml'
 
-filename = getFile(url2)
+filename = getFile(url)
 result = parse(filename)
 result.coverpath = download(result.poster)
 result.mp4path = download(result.mp4url)

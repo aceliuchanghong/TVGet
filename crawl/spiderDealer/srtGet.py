@@ -4,6 +4,8 @@ import sys
 import openai
 import io
 
+from crawl.spiderDealer.srt2Txt import modify_subtitle
+
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
@@ -34,12 +36,16 @@ def mp32srt(result, name=None):
 
     try:
         file = open(mp3path, "rb")
-        transcript = openai.Audio.transcribe("whisper-1", file, model='gpt-4', response_format="srt",
+        transcript = openai.Audio.transcribe("whisper-1", file, response_format="srt",
                                              prompt=prompt)
         with open(realFilePath, 'w') as f:
             f.write(transcript)
         print("srt from gpt SUC")
+
     except Exception as e:
         print("Srt deal Error:", e)
 
-    return realFilePath
+    last_path = modify_subtitle(realFilePath, 15)
+    print("srt modify SUC")
+
+    return last_path

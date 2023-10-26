@@ -1,9 +1,10 @@
 import os
 import openai
+import pysrt
 
 
 def summarySrt(srtpath):
-    with open(srtpath, "r") as file:
+    with open(srtpath, "r", encoding='utf-8') as file:
         content = file.read()
         # print(content)
     lines = content.split('\n')
@@ -41,3 +42,23 @@ def response(prompt):
     )
     print("gpt ans SUC")
     return completion.choices[0].message.content
+
+
+def modify_subtitle(srt_path, chars_per_line):
+    subs = pysrt.open(srt_path, encoding='gbk')
+
+    for sub in subs:
+        text = sub.text
+        # print(text)
+        new_text = ""
+
+        # 将字幕文本分割成每行包含指定数量的字
+        for i in range(0, len(text), chars_per_line):
+            line = text[i:i + chars_per_line]
+            new_text += line + "\n"
+
+        sub.text = new_text.strip()
+    last_srt_path = srt_path.replace(".srt", "_utf-8.srt")
+    subs.save(last_srt_path, encoding='utf-8')
+
+    return last_srt_path
