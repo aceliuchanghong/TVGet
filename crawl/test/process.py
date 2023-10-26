@@ -11,19 +11,23 @@ from crawl.spiderDealer.srt2Txt import summarySrt
 url = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158313.shtml'
 url2 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158311.shtml'
 
-filename = getFile(url2)
-result = parse(filename)
-result.coverpath = download(result.poster)
-result.mp4path = download(result.mp4url)
 
-result.mp3path = mp423(result.mp4path)
+def create(url):
+    filename = getFile(url)
+    result = parse(filename)
+    result.coverpath = download(result.poster)
+    result.mp4path = download(result.mp4url)
 
-result.srtpath = mp32srt(result)
-result.describe = summarySrt(result.srtpath)
+    result.mp3path = mp423(result.mp4path)
 
-result.anspath = cutMp4(result.mp4path)
-result.anspath = srtAdd(result)
-result.coverpath = dealPoster(result)
+    result.srtpath = mp32srt(result)
+    result.describe = summarySrt(result.srtpath)
+
+    result.anspath = cutMp4(result.mp4path)
+    result.anspath = srtAdd(result)
+    result.coverpath = dealPoster(result)
+    
+    print(result)
 
 # result = Result(
 #     name="毛宁",
@@ -39,5 +43,3 @@ result.coverpath = dealPoster(result)
 #     anspath=None,
 #     describe="中方关注巴以冲突，呼吁停火恢复和平，并推动政治解决。"
 # )
-
-print(result)

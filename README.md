@@ -53,4 +53,6 @@ git clone git@github.com:aceliuchanghong/TVGet.git
 ```bash
 pip install .
 ```
-run process.py即可开始执行
+
+python setup.py
+即可开始执行

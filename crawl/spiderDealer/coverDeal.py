@@ -6,7 +6,7 @@ from crawl.spiderDealer.checkPath import check
 
 def dealPoster(result):
     poster_path = result.coverpath
-    fileName = poster_path.split('/')[-1]
+    fileName = result.title + '.jpg'
     # 打开原始图片
     image = Image.open(poster_path)
 
