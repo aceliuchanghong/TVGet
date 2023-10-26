@@ -45,4 +45,12 @@ https://www.mfa.gov.cn/web/ziliao_674904/wjrw_674925/2166_674931/201303/t2013031
 张维为
 https://www.x-mol.com/university/faculty/265076
 
-
+### Install
+```bash
+git clone git@github.com:aceliuchanghong/TVGet.git
+```
+解压ffmpeg的zip到ffmpeg目录下,添加环境变量
+```bash
+pip install .
+```
+run process.py即可开始执行
