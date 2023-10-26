@@ -16,4 +16,5 @@ def mp423(mp4path, name=None):
     check(relative_path)
     mp3path = relative_path + output_file
     audio.write_audiofile(mp3path)
+    print("mp3 get SUC")
     return mp3path

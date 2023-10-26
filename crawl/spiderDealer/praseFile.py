@@ -26,5 +26,5 @@ def parse(fileName):
     mp4url = parseUrlGetMp4(mp4urlstart)
 
     result = Result(name, date, title, poster, mp4name, mp4url)
-
+    print("prase file suc")
     return result

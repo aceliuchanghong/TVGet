@@ -38,6 +38,7 @@ def mp32srt(result, name=None):
                                              prompt=prompt)
         with open(realFilePath, 'w') as f:
             f.write(transcript)
+        print("srt from gpt SUC")
     except Exception as e:
         print("Srt deal Error:", e)
 

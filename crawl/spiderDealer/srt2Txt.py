@@ -17,7 +17,7 @@ def summarySrt(srtpath):
     result = ''.join(cleaned_lines)
 
     prompt = "总结以下内容为15个字以内的句子:" + result
-
+    print("summary SUC")
     return response(prompt)
 
 
@@ -39,4 +39,5 @@ def response(prompt):
             {"role": "system", "content": prompt},
         ]
     )
+    print("gpt ans SUC")
     return completion.choices[0].message.content

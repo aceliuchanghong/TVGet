@@ -25,6 +25,7 @@ def download(fileUrl, name=None):
                 if chunk:
                     f.write(chunk)
         # Return file path
+        print("download SUC")
         return filePath
     except Exception as e:
         print(e)

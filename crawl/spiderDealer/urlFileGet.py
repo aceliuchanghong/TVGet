@@ -20,7 +20,7 @@ def getFile(url):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(html_content)
     # print('网页内容已保存到:', file_path)
-
+    print("url file download SUC")
     return filename
 
 
@@ -37,7 +37,7 @@ def parseUrlGetPic(url):
     else:
         result = None
         print("No pic match found.")
-
+    print("poster SUC")
     return result
 
 
@@ -96,4 +96,5 @@ def parseUrlGetMp4(url):
     data = json.loads(html_content)
 
     http_url = data["streamsMap"]["h"]["httpURL"]
+    print("mp4 url SUC")
     return http_url

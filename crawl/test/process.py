@@ -11,7 +11,7 @@ from crawl.spiderDealer.srt2Txt import summarySrt
 url = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158313.shtml'
 url2 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158311.shtml'
 
-filename = getFile(url)
+filename = getFile(url2)
 result = parse(filename)
 result.coverpath = download(result.poster)
 result.mp4path = download(result.mp4url)
@@ -19,10 +19,10 @@ result.mp4path = download(result.mp4url)
 result.mp3path = mp423(result.mp4path)
 
 result.srtpath = mp32srt(result)
-# result.describe = summarySrt(result.srtpath)
-#
-# result.anspath = cutMp4(result.mp4path)
-# result.anspath = srtAdd(result)
+result.describe = summarySrt(result.srtpath)
+
+result.anspath = cutMp4(result.mp4path)
+result.anspath = srtAdd(result)
 
 # result = Result(
 #     name="毛宁",

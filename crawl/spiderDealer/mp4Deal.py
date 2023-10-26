@@ -10,6 +10,7 @@ def cutMp4(mp4path):
     video = VideoFileClip(mp4path)
     video = video.subclip(0, video.duration - 2)
     video.write_videofile(relative_path + output_file)
+    print("mp4 cut SUC")
     return relative_path + output_file
 
 
@@ -20,4 +21,5 @@ def srtAdd(result):
     command = f'ffmpeg -y -i "{result.anspath}" -vf "subtitles={result.srtpath}:charenc=GBK" "{relative_path + result.mp4name}"'
     # print(command)
     subprocess.call(command, shell=True)
+    print("srt add SUC")
     return relative_path + result.mp4name
