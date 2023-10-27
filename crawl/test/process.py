@@ -19,7 +19,6 @@ def create(url):
         return
     filename = getFile(url)
     result = parse(filename)
-    # print(result)
     if "-横" in result.mp4name:
         print("视频:" + result.date + "-" + result.title + " 横版视频，跳过")
         return result
@@ -30,19 +29,21 @@ def create(url):
 
     result.srtpath = mp32srt(result)
     result.describe = summarySrt(result.srtpath)
-
+    print(result)
     result.anspath = cutMp4(result.mp4path)
     result.anspath = srtAdd(result)
     result.coverpath = dealPoster(result)
+    print(result)
 
     des = "../../crawl/files/publish/" + result.date + "." + result.title + "/"
     check(des)
+    print(result.anspath, des + result.title)
     shutil.move(result.anspath, des + result.title + ".mp4")
     shutil.move(result.coverpath, des + result.title + ".jpg")
     with open(des + result.title + '.txt', 'w') as file:
         file.write(str(result))
     print(result.title + " create suc")
-    print(result)
+
     return result
 
 # result = Result(

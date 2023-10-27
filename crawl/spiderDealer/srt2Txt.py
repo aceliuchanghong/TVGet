@@ -45,7 +45,7 @@ def response(prompt):
 
 
 def modify_subtitle(srt_path, chars_per_line):
-    subs = pysrt.open(srt_path, encoding='gbk')
+    subs = pysrt.open(srt_path, encoding='utf-8')
 
     for sub in subs:
         text = sub.text

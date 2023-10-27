@@ -1,6 +1,6 @@
 from crawl.spiderDealer.checkPath import check
 import requests
-
+import os
 
 def download(fileUrl, name=None):
     try:
@@ -19,13 +19,14 @@ def download(fileUrl, name=None):
 
         # Get file path
         filePath = relative_path + fileExtension + '/' + fileName
-        # Write file
-        with open(filePath, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=1024):
-                if chunk:
-                    f.write(chunk)
-        # Return file path
-        print("download SUC")
+        if not os.path.exists(filePath):
+            # Write file
+            with open(filePath, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk:
+                        f.write(chunk)
+            # Return file path
+            print("download SUC")
         return filePath
     except Exception as e:
         print(e)
