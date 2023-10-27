@@ -36,7 +36,7 @@ def create(url):
     print(result)
 
     des = "../../crawl/files/publish/" + result.date + "." + result.title + "/"
-    # check(des)
+    check(des)
     print(result.anspath, des + result.title)
     shutil.move(result.anspath, des + result.title + ".mp4")
     shutil.move(result.coverpath, des + result.title + ".jpg")

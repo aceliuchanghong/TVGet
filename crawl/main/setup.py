@@ -7,8 +7,9 @@ url_list = run_every_day()
 if len(url_list) == 0:
     print("url is none")
 else:
-    for url in url_list:
+    for i, url in enumerate(url_list):
         try:
+            print(i)
             create(url[0])
         except Exception as e:
             print("create error:", e)
