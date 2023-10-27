@@ -7,14 +7,22 @@ from crawl.spiderDealer.praseFile import parse
 from crawl.spiderDealer.srtGet import mp32srt
 from crawl.spiderDealer.urlFileGet import getFile
 from crawl.spiderDealer.srt2Txt import summarySrt
+import shutil
 
 url = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158313.shtml'
 url2 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202310/t20231009_11158311.shtml'
 
 
 def create(url):
+    if len(url) <= 10:
+        print("url is None")
+        return
     filename = getFile(url)
     result = parse(filename)
+    # print(result)
+    if "-横" in result.mp4name:
+        print("视频:" + result.date + "-" + result.title + " 横版视频，跳过")
+        return result
     result.coverpath = download(result.poster)
     result.mp4path = download(result.mp4url)
 
@@ -26,8 +34,16 @@ def create(url):
     result.anspath = cutMp4(result.mp4path)
     result.anspath = srtAdd(result)
     result.coverpath = dealPoster(result)
-    
+
+    des = "../../crawl/files/publish/" + result.date + "." + result.title + "/"
+    check(des)
+    shutil.move(result.anspath, des + result.title + ".mp4")
+    shutil.move(result.coverpath, des + result.title + ".jpg")
+    with open(des + result.title + '.txt', 'w') as file:
+        file.write(str(result))
+    print(result.title + " create suc")
     print(result)
+    return result
 
 # result = Result(
 #     name="毛宁",
@@ -43,3 +59,4 @@ def create(url):
 #     anspath=None,
 #     describe="中方关注巴以冲突，呼吁停火恢复和平，并推动政治解决。"
 # )
+# print(str(result))

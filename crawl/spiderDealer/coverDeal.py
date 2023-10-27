@@ -9,7 +9,9 @@ def dealPoster(result):
     fileName = result.title + '.jpg'
     # 打开原始图片
     image = Image.open(poster_path)
-
+    # 获取图片的宽度和高度
+    width, height = image.size
+    # print(width, height)
     # 创建绘图对象
     draw = ImageDraw.Draw(image)
 
@@ -19,7 +21,7 @@ def dealPoster(result):
     # 设置文本内容和位置
     text = result.describe
     text = re.sub(r'([，。、！？])', r'\1\n', text)
-    text_position = (50, 1000)
+    text_position = (width/20, height/2)
 
     # 设置文本颜色
     text_color = (255, 0, 0)  # 使用RGB颜色值，这里是红色

@@ -20,7 +20,7 @@ def getFile(url):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(html_content)
     # print('网页内容已保存到:', file_path)
-    print("url file download SUC")
+    print("\nurl file download SUC")
     return filename
 
 
