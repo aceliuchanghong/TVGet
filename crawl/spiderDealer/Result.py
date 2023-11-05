@@ -15,4 +15,15 @@ class Result:
         self.describe = describe
 
     def __str__(self):
-        return f"Name: {self.name}\nDate: {self.date}\nTitle: {self.title}\nPoster: {self.poster}\nMP4 Name: {self.mp4name}\nMP4 URL: {self.mp4url}\nMP4 Path: {self.mp4path}\nMP3 Path: {self.mp3path}\nSRT Path: {self.srtpath}\nCover Path: {self.coverpath}\nAnswer Path: {self.anspath}\nDescribe Path: {self.describe}"
+        return f'name="{self.name}",\n' \
+               f'date="{self.date}",\n' \
+               f'title="{self.title}",\n' \
+               f'poster="{self.poster}",\n' \
+               f'mp4name="{self.mp4name}",\n' \
+               f'mp4url="{self.mp4url}",\n' \
+               f'mp4path="{self.mp4path}",\n' \
+               f'mp3path="{self.mp3path}",\n' \
+               f'srtpath="{self.srtpath}",\n' \
+               f'coverpath="{self.coverpath}",\n' \
+               f'anspath="{self.anspath}",\n' \
+               f'describe="{self.describe}"'
