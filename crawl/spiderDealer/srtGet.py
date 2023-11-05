@@ -33,7 +33,7 @@ def mp32srt(result, name=None):
     realFilePath = relative_path + output_file
     if not os.path.exists(realFilePath):
         prompt = "这是一段关于中国外交部的发言稿,主要包括" + result.title
-        print(realFilePath, prompt)
+        # print(realFilePath, prompt)
 
         try:
             file = open(mp3path, "rb")
