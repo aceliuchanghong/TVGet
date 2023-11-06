@@ -1,5 +1,7 @@
 from crawl.spiderDealer.sourceDeal import *
 from crawl.test.process import create
+from douyin_upload.test.testCookie import main
+import asyncio
 
 url_list = run_every_day()
 # url_list = run_once()
@@ -9,8 +11,11 @@ if len(url_list) == 0:
 else:
     for i, url in enumerate(url_list):
         try:
+            # cd .\douyin_upload\test
+            # playwright codegen www.douyin.com --save-storage=cookie.json
             print(i)
-            create(url[0])
+            result = create(url[0])
+            # asyncio.run(main(result))
         except Exception as e:
             print("create error:", e)
             print(url[0])

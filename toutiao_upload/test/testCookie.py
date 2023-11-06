@@ -12,17 +12,13 @@ from crawl.spiderDealer.Result import Result
 
 async def upload(playwright, result):
     upload_url1 = "https://mp.toutiao.com/profile_v4/xigua/upload-video"
-    upload_url2 = "https://creator.douyin.com/creator-micro/content/publish?enter_from=publish_page"
 
     browser = await playwright.chromium.launch(headless=False)
     current_path = os.path.dirname(os.path.abspath(__file__))
     cookie_path = os.path.join(current_path, "cookie.json")
 
-    # Check if the cookie.json file exists and is not empty
     if not os.path.exists(cookie_path) or os.path.getsize(cookie_path) == 0:
         raise FileNotFoundError("The cookie.json file is missing or empty.")
-
-    # Try to read the cookie.json file and parse it as JSON
     try:
         with open(cookie_path, 'r', encoding='utf-8') as cookie_file:
             storage_state = json.load(cookie_file)
@@ -42,7 +38,6 @@ async def upload(playwright, result):
     print("a4")
     await page.set_input_files('input[type="file"]', result.anspath)
 
-    await page.wait_for_url(upload_url2)
     print("a5")
     # 视频越大间隔应越长
     time.sleep(3)
