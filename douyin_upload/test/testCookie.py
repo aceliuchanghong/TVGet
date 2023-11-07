@@ -31,21 +31,19 @@ async def upload(playwright, result):
 
     await page.goto(upload_url1)
     await page.wait_for_url(upload_url1)
-
-    print("a3")
+    print("准备上传视频")
     await page.locator(
         "label:has-text(\"为了更好的观看体验和平台安全，平台将对上传的视频预审。超过40秒的视频建议上传横版视频\")").set_input_files(
         result.anspath)
-    print("a4")
     await page.wait_for_url(upload_url2)
-    print("a5")
+    print("标题")
     # 标题
     await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[2]/input').fill(
         result.date + ":" + result.title)
     # 作品简介
+    print("作品简介")
     await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[4]/div/div/div/div[1]/div').fill(
         result.describe)
-    print("a6")
 
     # # 设置封面 成功了,但是需要选择区域,不如不选
     # await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[7]/div/div[1]/div[1]/div[2]').click()
@@ -59,6 +57,7 @@ async def upload(playwright, result):
         # await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[13]/div[2]/div[2]/div[1]/div/span')
         await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[13]/div[2]/div[2]/div[1]/div/span/div').click()
         try:
+            print("选择合集")
             await page.locator('text=发言视频合集').click()
         except:
             print("选择不了合集")
@@ -75,13 +74,14 @@ async def upload(playwright, result):
         upload_success = any(m == "上传成功" for m in msg)
         i = 0
         # 如果没有找到"上传成功"，则等待一段时间并重新检查
-        while not upload_success and i < 10:
+        while not upload_success and i < 4:
             await asyncio.sleep(1)  # 使用异步的sleep
             msg = await page.locator('//*[@class="semi-toast-content-text"]').all_text_contents()
             upload_success = any("上传成功" in m for m in msg)
             i += 1
         # 如果上传成功，点击按钮
         if upload_success:
+            print("点击上传")
             await page.locator(
                 'xpath=//*[@id="root"]//div/button[@class="button--1SZwR primary--1AMXd fixed--3rEwh"]').click()
         else:
@@ -90,7 +90,10 @@ async def upload(playwright, result):
         print("发布时失败:", e)
 
 
-async def main(result):
+async def start(result):
+    if "-横" in result.mp4name:
+        print("视频:" + result.date + ":" + result.title + " ==>横版视频，跳过")
+        return None
     async with async_playwright() as playwright:
         await upload(playwright, result)
 
@@ -121,17 +124,5 @@ async def main(result):
 #     coverpath="../../crawl/files/publish/20231101.中美双方要切实“重回巴厘岛”，把两国元首的共识真正落到实处（2023年11月1日）/中美双方要切实“重回巴厘岛”，把两国元首的共识真正落到实处（2023年11月1日）.jpg",
 #     anspath="../../crawl/files/publish/20231101.中美双方要切实“重回巴厘岛”，把两国元首的共识真正落到实处（2023年11月1日）/中美双方要切实“重回巴厘岛”，把两国元首的共识真正落到实处（2023年11月1日）.mp4",
 #     describe="美中原则同意在旧金山举行首脑会谈，需切实落实共识。"
-name="汪文斌",
-date="20231106",
-title="希望美方同中方相向而行，为两国地方和民间交往合作创造有利条件",
-poster="https://svideo.mfa.gov.cn/masvod/public/2023/11/06/18402.images/v18402_b1699276963856.jpg",
-mp4name="希望美方同中方相向而行，为两国地方和民间交往合作创造有利条件.mp4",
-mp4url="https://svideo.mfa.gov.cn/masvod/public/2023/11/06/20231106_18ba4cc933b_r1_1200k.mp4",
-mp4path="../../crawl/files/mp4/20231106_18ba4cc933b_r1_1200k.mp4",
-mp3path="../../crawl/files/mp3/20231106_18ba4cc933b_r1_1200k.mp3",
-srtpath="../../crawl/files/srt/20231106_18ba4cc933b_r1_1200k_utf-8.srt",
-coverpath="../../crawl/files/publish/20231106.希望美方同中方相向而行，为两国地方和民间交往合作创造有利条件/希望美方同中方相向而行，为两国地方和民间交往合作创造有利条件.jpg",
-anspath="../../crawl/files/publish/20231106.希望美方同中方相向而行，为两国地方和民间交往合作创造有利条件/希望美方同中方相向而行，为两国地方和民间交往合作创造有利条件.mp4",
-describe="习近平寄信希望中美友诚大会成为交流桥梁，推动关系健康发展。"
 # )
 # asyncio.run(main(result))

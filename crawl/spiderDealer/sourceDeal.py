@@ -10,14 +10,14 @@ def get_html_url_list():
 
     param = 1
     valid_urls = []
+    index_0 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/index.shtml'
+    valid_urls.append(index_0)
     while True:
         url = url_template.format(param)
         response = requests.get(url, allow_redirects=False)
         if response.status_code != 200:
             # 无法访问到有效的网页，参数的最大值为前一个值
             max_param = param - 1
-            index_0 = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/index.shtml'
-            valid_urls.append(index_0)
             # print(max_param)
             break
         valid_urls.append(url)
@@ -60,11 +60,10 @@ def run_once():
     return all_url
 
 
-def run_every_day():
-    always_new = 'https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/index.shtml'
+def run_every_day(always_new, filename='ans'):
     ans = get_ans_url_list(always_new)
     appended_elements = []
-    with open('../main/ans.txt', 'a+') as file:
+    with open('../main/' + filename + '.txt', 'a+') as file:
         file.seek(0)  # 将文件指针移到文件开头
         existing_elements = set(line.strip().split(',', 1)[0] for line in file)
 
@@ -76,3 +75,67 @@ def run_every_day():
                 appended_elements.append(element)
 
     return appended_elements
+
+
+def run_special_day(always_new, nums=10, filename='special'):
+    ans = get_ans_url_list(always_new)
+    appended_elements = []
+    with open('../main/' + filename + '.txt', 'a+') as file:
+        file.seek(0)  # 将文件指针移到文件开头
+        existing_elements = set(line.strip().split(',', 1)[0] for line in file)
+
+        for element in ans:
+            element_str = f"{element[0]},{element[1]}"
+            if element[0] not in existing_elements and len(appended_elements) < nums:
+                file.write(f"{element_str}\n")
+                appended_elements.append(element)
+    return appended_elements
+
+
+def testUrl(param):
+    url_template = "https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/index_{}.shtml"
+    url = url_template.format(param)
+    response = requests.get(url, allow_redirects=False)
+    if response.status_code != 200:
+        return False
+    return True
+
+
+def run_specific(page_num, nums):
+    try:
+        # 判断文件是否仍然是最新的
+        need_run = False
+        with open('../main/html.url.txt', 'r') as file:
+            lines = file.readlines()
+            if lines:
+                last_line = lines[-1]
+                match = re.search(r'index_(\d+).shtml', last_line)
+                if match:
+                    max_page_num_in_file = match.group(1)
+                    if testUrl(int(max_page_num_in_file) + 1):
+                        need_run = True
+                else:
+                    print("No number found before 'shtml' in the URL.")
+            else:
+                print("The file is empty.")
+        if need_run:
+            print("获取链接中...")
+            with open('../main/html.url.txt', 'w') as file:
+                all_html = get_html_url_list()
+                for url in all_html:
+                    file.write(f"{url}\n")
+    except Exception as e:
+        print(f"An error occurred1: {e}")
+    try:
+        # 上传对应page_num的nums个未上传的视频
+        urls_list = []
+        with open('../main/html.url.txt', 'r') as file:
+            for line in file:
+                urls_list.append(line.strip())
+        if page_num > len(urls_list):
+            print("The page number is too large.")
+            return
+        this_url_elements = run_special_day(urls_list[len(urls_list) - page_num], nums)
+        return this_url_elements
+    except Exception as e:
+        print(f"An error occurred2: {e}")
