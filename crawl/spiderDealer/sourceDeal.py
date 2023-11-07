@@ -60,36 +60,39 @@ def run_once():
     return all_url
 
 
-def run_every_day(always_new, filename='ans'):
-    ans = get_ans_url_list(always_new)
-    appended_elements = []
-    with open('../main/' + filename + '.txt', 'a+') as file:
-        file.seek(0)  # 将文件指针移到文件开头
-        existing_elements = set(line.strip().split(',', 1)[0] for line in file)
+# def run_every_day(always_new, filename='ans'):
+#     ans = get_ans_url_list(always_new)
+#     appended_elements = []
+#     with open('../main/' + filename + '.txt', 'a+') as file:
+#         file.seek(0)  # 将文件指针移到文件开头
+#         existing_elements = set(line.strip().split(',', 1)[0] for line in file)
+#
+#         for element in ans:
+#             element_str = f"{element[0]},{element[1]}"
+#             if element[0] not in existing_elements:
+#                 # print(element_str)
+#                 file.write(f"{element_str}\n")
+#                 appended_elements.append(element)
+#
+#     return appended_elements
 
-        for element in ans:
-            element_str = f"{element[0]},{element[1]}"
-            if element[0] not in existing_elements:
-                # print(element_str)
-                file.write(f"{element_str}\n")
-                appended_elements.append(element)
 
-    return appended_elements
+def run_every_day(always_new, nums=10, filename='ans'):
+    try:
+        ans = get_ans_url_list(always_new)
+        appended_elements = []
+        with open('../main/' + filename + '.txt', 'a+') as file:
+            file.seek(0)  # 将文件指针移到文件开头
+            existing_elements = set(line.strip().split(',', 1)[0] for line in file)
 
-
-def run_special_day(always_new, nums=10, filename='special'):
-    ans = get_ans_url_list(always_new)
-    appended_elements = []
-    with open('../main/' + filename + '.txt', 'a+') as file:
-        file.seek(0)  # 将文件指针移到文件开头
-        existing_elements = set(line.strip().split(',', 1)[0] for line in file)
-
-        for element in ans:
-            element_str = f"{element[0]},{element[1]}"
-            if element[0] not in existing_elements and len(appended_elements) < nums:
-                file.write(f"{element_str}\n")
-                appended_elements.append(element)
-    return appended_elements
+            for element in ans:
+                element_str = f"{element[0]},{element[1]}"
+                if element[0] not in existing_elements and len(appended_elements) < nums:
+                    file.write(f"{element_str}\n")
+                    appended_elements.append(element)
+        return appended_elements
+    except Exception as e:
+        print(f"An error occurred in run_every_day: {e}")
 
 
 def testUrl(param):
@@ -135,7 +138,7 @@ def run_specific(page_num, nums):
         if page_num > len(urls_list):
             print("The page number is too large.")
             return
-        this_url_elements = run_special_day(urls_list[len(urls_list) - page_num], nums)
+        this_url_elements = run_every_day(urls_list[len(urls_list) - page_num], nums, 'special')
         return this_url_elements
     except Exception as e:
         print(f"An error occurred2: {e}")

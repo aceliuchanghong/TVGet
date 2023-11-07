@@ -1,15 +1,11 @@
 # TVGet
 视频自动上传抖音
 ### 思路
-视频来源:
-https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/
+视频来源: https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/
 
 获取视频,剪辑,加字幕,上传到抖音
 
-提取音频==>音频转字幕==>字幕+视频生成半成品==>半成品调整长宽比例+时长+以及剪辑不合适内容 ==>导出mp4
-
-==>自动上传
-
+提取音频==>音频转字幕==>字幕+视频生成半成品==>半成品调整长宽比例+时长+以及剪辑不合适内容 ==>导出mp4 ==>自动上传
 ### 重点list
 ```
 毛宁
@@ -38,7 +34,7 @@ ffmpeg==>D:\soft\ffmpeg-2023-10-23-git-ff5a3575fe-full_build\bin
 ### 安装依赖
 ```bash
 # 导出 pip freeze >requirements.txt
-#执行
+# 执行
 pip install -r requirements.txt
 ```
 ### 安装playwright以及cookie
@@ -54,7 +50,7 @@ playwright codegen www.douyin.com --save-storage=cookie.json
 #一般只需要 run_daily 即可
 cd .\crawl\main
 python run_daily.py
-# special 执行之前需要指定一下页数和数量
+# special 执行之前需要修改代码指定一下页数和数量,默认1和10
 python run_special.py
 ```
 ### 注意
