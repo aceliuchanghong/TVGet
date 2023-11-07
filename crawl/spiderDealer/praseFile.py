@@ -37,4 +37,4 @@ def parse(fileName):
         print("prase file error")
         print(result)
         print(e)
-        return result
+        return None

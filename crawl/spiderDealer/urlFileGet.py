@@ -5,44 +5,54 @@ import re
 from urllib.parse import urlparse, parse_qs
 import json
 
+
 def getFile(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        html_content = response.content.decode('utf-8')
 
-    response = requests.get(url)
-    html_content = response.content.decode('utf-8')
-    # print(html_content)
+        filename = url.split('/')[-1].split('.')[0] + '.html'
+        basicpath = '../../crawl/files/response/'
+        check(basicpath)
 
-    filename = url.split('/')[-1].split('.')[0] + '.html'
-    # 将网页内容保存到本地文件
-    basicpath = '../../crawl/files/response/'
-    check(basicpath)
+        file_path = '../../crawl/files/response/' + filename
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(html_content)
 
-    file_path = '../../crawl/files/response/' + filename
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(html_content)
-    # print('网页内容已保存到:', file_path)
-    print("\nurl file download SUC")
-    return filename
+        return filename
+    except requests.exceptions.RequestException as e:
+        print(f"getFile 函数请求发生错误：{str(e)}")
+        return None
+    except Exception as e:
+        print(f"getFile 函数发生错误：{str(e)}")
+        return None
 
 
 def parseUrlGetPic(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        html_content = response.content.decode('utf-8')
 
-    response = requests.get(url)
-    html_content = response.content.decode('utf-8')
+        pattern = r'https://svideo\.mfa\.gov\.cn/masvod/public/\d{4}/\d{2}/\d{2}/\d+\.images/v\d+_b\d+\.jpg'
 
-    pattern = r'https://svideo\.mfa\.gov\.cn/masvod/public/\d{4}/\d{2}/\d{2}/\d+\.images/v\d+_b\d+\.jpg'
-
-    match = re.search(pattern, html_content)
-    if match:
-        result = match.group()
-    else:
-        result = None
-        print("No pic match found.")
-    print("poster SUC")
-    return result
-
+        match = re.search(pattern, html_content)
+        if match:
+            result = match.group()
+        else:
+            result = None
+            print("No pic match found.")
+        # print("poster SUC")
+        return result
+    except requests.exceptions.RequestException as e:
+        print(f"parseUrlGetPic 函数请求发生错误：{str(e)}")
+        return None
+    except Exception as e:
+        print(f"parseUrlGetPic 函数发生错误：{str(e)}")
+        return None
 
 def parseUrlGetMp4(url):
-
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -96,5 +106,5 @@ def parseUrlGetMp4(url):
     data = json.loads(html_content)
 
     http_url = data["streamsMap"]["h"]["httpURL"]
-    print("mp4 url SUC")
+    print("mp4 url get suc")
     return http_url

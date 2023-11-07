@@ -29,21 +29,21 @@ def create(url):
 
     result.srtpath = mp32srt(result)
     result.describe = summarySrt(result.srtpath)
-    # print(result)
+
     result.anspath = cutMp4(result.mp4path)
     result.anspath = srtAdd(result)
     result.coverpath = dealPoster(result)
 
     des = "../../crawl/files/publish/" + result.date + "." + result.title + "/"
     check(des)
-    # print(result.anspath, des + result.title)
+
     shutil.move(result.anspath, des + result.title + ".mp4")
     result.anspath = des + result.title + ".mp4"
     shutil.move(result.coverpath, des + result.title + ".jpg")
     result.coverpath = des + result.title + ".jpg"
     with open(des + result.title + '.txt', 'w') as file:
         file.write(str(result))
-    print(result.title + " create suc")
+    # print(result.title + " create suc")
 
     print(result)
     return result

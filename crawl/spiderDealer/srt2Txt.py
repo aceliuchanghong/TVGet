@@ -42,7 +42,7 @@ def response(prompt):
             {"role": "system", "content": prompt},
         ]
     )
-    print("gpt ans SUC")
+    # print("gpt ans SUC")
     return completion.choices[0].message.content
 
 

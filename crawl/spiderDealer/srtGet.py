@@ -47,8 +47,17 @@ def mp32srt(result, name=None):
             print("Srt deal Error:", e)
             print("\n")
             print(result)
-
-    last_path = modify_subtitle(realFilePath, 15)
+    try:
+        with open(realFilePath, 'r', encoding='utf-8') as file:
+            srt_contents = file.read()
+            char_count = len(srt_contents)
+            if char_count < 10:
+                print("ERR: srt is none")
+                return None
+    except Exception as e:
+        print("Srt deal Error 2:", e)
+        return None
+    last_path = modify_subtitle(realFilePath, 13)
     print("srt modify SUC")
 
     return last_path

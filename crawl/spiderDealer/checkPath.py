@@ -2,9 +2,10 @@ import os
 
 
 def check(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
-        print(f"创建目录：{path}")
-    else:
-        pass
-
+    try:
+        if not os.path.exists(path):
+            os.makedirs(path)
+        else:
+            pass
+    except Exception as e:
+        print(f"创建目录发生错误：{str(e)}")

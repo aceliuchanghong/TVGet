@@ -16,7 +16,7 @@ def dealPoster(result):
     draw = ImageDraw.Draw(image)
 
     # 设置字体样式和大小
-    font = ImageFont.truetype('../ttf/my0.ttf', 100)  # 请将'font.ttf'替换为你的字体文件路径
+    font = ImageFont.truetype('../ttf/my0.ttf', 80)  # 请将'font.ttf'替换为你的字体文件路径
 
     # 设置文本内容和位置
     text = result.describe
@@ -33,6 +33,6 @@ def dealPoster(result):
     cover_path = '../../crawl/files/jpeg/'
     check(cover_path)
     image.save(cover_path + fileName)
-    print("cover file suc")
+    # print("cover file suc")
 
     return cover_path + fileName

@@ -11,7 +11,7 @@ def cutMp4(mp4path):
         video = VideoFileClip(mp4path)
         video = video.subclip(0, video.duration - 2)
         video.write_videofile(relative_path + output_file)
-    print("mp4 cut SUC")
+    # print("mp4 cut SUC")
     return relative_path + output_file
 
 
@@ -23,5 +23,5 @@ def srtAdd(result):
     # print(command)
     if not os.path.exists(relative_path + result.mp4name):
         subprocess.call(command, shell=True)
-    print("srt add SUC")
+    # print("srt add SUC")
     return relative_path + result.mp4name

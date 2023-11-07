@@ -15,8 +15,11 @@ def mp423(mp4path, name=None):
     check(relative_path)
     mp3path = relative_path + output_file
     if not os.path.exists(mp3path):
-        video = VideoFileClip(mp4path)
-        audio = video.audio
-        audio.write_audiofile(mp3path)
+        try:
+            video = VideoFileClip(mp4path)
+            audio = video.audio
+            audio.write_audiofile(mp3path)
+        except Exception as e:
+            print(f"mp423 函数发生错误：{str(e)}")
     print("mp3 get SUC")
     return mp3path
