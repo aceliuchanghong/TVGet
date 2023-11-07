@@ -47,7 +47,7 @@ playwright codegen www.douyin.com --save-storage=cookie.json
 ```
 ## 开始执行
 ```
-#一般只需要 run_daily 即可
+# 一般只需要 run_daily 即可
 cd .\crawl\main
 python run_daily.py
 # special 执行之前需要修改代码指定一下页数和数量,默认1和10
