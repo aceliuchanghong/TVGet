@@ -64,26 +64,15 @@ async def upload(playwright, result):
     # 发布键
     try:
         # 等待页面可能需要的加载时间
-        await asyncio.sleep(5)
-        # 获取所有的消息文本
-        msg = await page.locator('//*[@class="semi-toast-content-text"]').all_text_contents()
-        # 检查消息中是否有"上传成功"
-        upload_success = any(m == "上传成功" for m in msg)
-        i = 0
-        # 如果没有找到"上传成功"，则等待一段时间并重新检查
-        while not upload_success and i < 4:
-            await asyncio.sleep(1)  # 使用异步的sleep
-            msg = await page.locator('//*[@class="semi-toast-content-text"]').all_text_contents()
-            upload_success = any("上传成功" in m for m in msg)
-            i += 1
-        # 如果上传成功，点击按钮
-        if upload_success:
-            print("点击上传")
-            await page.locator(
-                'xpath=//*[@id="root"]//div/button[@class="button--1SZwR primary--1AMXd fixed--3rEwh"]').click()
-        else:
-            print("ERR:上传没有成功******************************************************************************************************")
+        await asyncio.sleep(10)
+        # 点击按钮
+        print("点击上传")
+        await page.locator(
+            'xpath=//*[@id="root"]//div/button[@class="button--1SZwR primary--1AMXd fixed--3rEwh"]').click()
+        print("上传成功")
+        await asyncio.sleep(1)
     except Exception as e:
+        print("ERR:上传没有成功******************************************************************************************************")
         print("发布时失败:", e)
 
 

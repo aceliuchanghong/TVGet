@@ -1,6 +1,5 @@
 import sys
-
-from crawl.main.run_daily import run
+from crawl.main.setup import run
 from crawl.spiderDealer.sourceDeal import run_specific
 
 try:
