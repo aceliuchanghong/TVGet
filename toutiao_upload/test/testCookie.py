@@ -47,7 +47,7 @@ async def upload(playwright, result):
     await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[4]/div/div/div/div[1]/div').fill(
         'self.text #发言')
     print("a6")
-    await page.wait_for_url(upload_url2)
+    # await page.wait_for_url(upload_url2)
     print("a7")
     # 发布键
     # await page.locator('xpath=//*[@id="root"]//div/button[@class="button--1SZwR primary--1AMXd fixed--3rEwh"]').click()
