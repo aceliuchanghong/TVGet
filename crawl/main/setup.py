@@ -18,7 +18,7 @@ def run(url_list):
     else:
         if not testNet():
             sys.exit()
-        print("********************START********************")
+        print("\n********************START********************")
         for i, url in enumerate(url_list):
             try:
                 print("第" + str(i + 1) + "个")

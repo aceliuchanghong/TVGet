@@ -45,8 +45,12 @@ def mp32srt(result, name=None):
 
         except Exception as e:
             print("Srt deal Error:", e)
+            # remove file
+            if os.path.exists(realFilePath):
+                os.remove(realFilePath)
             print("\n")
             print(result)
+            return None
     try:
         with open(realFilePath, 'r', encoding='utf-8') as file:
             srt_contents = file.read()
