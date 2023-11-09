@@ -77,7 +77,7 @@ def run_once():
 #     return appended_elements
 
 
-def run_every_day(always_new, nums=10, filename='ans'):
+def run_every_day(always_new, nums=1, filename='ans'):
     try:
         ans = get_ans_url_list(always_new)
         appended_elements = []
