@@ -17,8 +17,18 @@ def parse(fileName):
         tree = etree.HTML(content)
         # 使用XPath表达式提取需要的值
         alltitle = tree.xpath('/html/body/div[4]/div[2]/div/div[1]/h1/text()')
-        mp4name = tree.xpath('/html/body/div[4]/div[2]/div/div[2]/div/p[1]/iframe/@name')[0]
-        mp4urlstart = tree.xpath('/html/body/div[4]/div[2]/div/div[2]/div/p[1]/iframe/@src')[0]
+        try:
+            mp4urlstart = tree.xpath('/html/body/div[4]/div[2]/div/div[2]/div/p[1]/iframe/@src')[0]
+            mp4name = tree.xpath('/html/body/div[4]/div[2]/div/div[2]/div/p[1]/iframe/@name')[0]
+        except:
+            try:
+                mp4urlstart = tree.xpath('/html/body/div[4]/div[2]/div/div[2]/div/p[2]/iframe/@src')[0]
+                mp4name = tree.xpath('/html/body/div[4]/div[2]/div/div[2]/div/p[2]/iframe/@name')[0]
+            except Exception as e:
+                print("prase mp4 error")
+                # print(result)
+                print(e)
+                return None
         # print(alltitle[0])
         if "：" in alltitle[0]:
             name = alltitle[0].split("：")[0]
