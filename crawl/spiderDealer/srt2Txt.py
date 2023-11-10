@@ -16,7 +16,7 @@ def summarySrt(srtpath):
 
     # 将换行符替换为逗号
     result = ''.join(cleaned_lines)
-    if len(result) < 50:
+    if len(result) < 25:
         print("summary error,no result:" + result)
         return None
     prompt = "总结以下内容为15个字以内的句子:" + result

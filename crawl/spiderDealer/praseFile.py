@@ -35,6 +35,6 @@ def parse(fileName):
         return result
     except Exception as e:
         print("prase file error")
-        print(result)
+        # print(result)
         print(e)
         return None

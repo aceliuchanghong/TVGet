@@ -27,6 +27,22 @@ def run(url_list):
                 asyncio.run(start(result))
                 print("###########" + result.date + ":" + result.title)
             except Exception as e:
+                with open('../main/' + 'special' + '.txt', 'r+') as file:
+                    lines = file.readlines()
+                    file.seek(0)
+                    file.truncate()
+                    for line in lines:
+                        should_delete = any(item[0] in line for item in url_list)
+                        if not should_delete:
+                            file.write(line)
+                with open('../main/' + 'ans' + '.txt', 'r+') as file:
+                    lines = file.readlines()
+                    file.seek(0)
+                    file.truncate()
+                    for line in lines:
+                        should_delete = any(item[0] in line for item in url_list)
+                        if not should_delete:
+                            file.write(line)
                 print("第" + str(i + 1) + "个:" + "create error:", e)
                 print(url[0])
                 print(url[1])
