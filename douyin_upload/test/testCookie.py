@@ -64,7 +64,7 @@ async def upload(playwright, result):
     # 发布键
     try:
         # 等待页面可能需要的加载时间
-        await asyncio.sleep(10)
+        await asyncio.sleep(12)
         # 点击按钮
         print("点击上传")
         await page.locator(
