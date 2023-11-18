@@ -1,6 +1,7 @@
 import os
-import openai
+from openai import OpenAI
 import pysrt
+import httpx
 
 
 def summarySrt(srtpath):
@@ -25,21 +26,18 @@ def summarySrt(srtpath):
 
 
 def response(prompt):
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-
     proxyHost = "127.0.0.1"
     proxyPort = 10809
 
-    proxies = {
-        "http": f"http://{proxyHost}:{proxyPort}",
-        "https": f"http://{proxyHost}:{proxyPort}"
-    }
-    openai.proxy = proxies
+    client = OpenAI(http_client=httpx.Client(proxies=f"http://{proxyHost}:{proxyPort}"))
+    client.api_key = os.getenv("OPENAI_API_KEY")
 
-    completion = openai.ChatCompletion.create(
-        model="gpt-4-0613",  # gpt-3.5-turbo gpt-4-0613
+    completion = client.chat.completions.create(
+        model="gpt-4-1106-preview",
         messages=[
-            {"role": "system", "content": prompt},
+            {"role": "user",
+             "content": prompt
+             }
         ]
     )
     # print("gpt ans SUC")
