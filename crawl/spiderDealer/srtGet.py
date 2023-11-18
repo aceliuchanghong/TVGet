@@ -33,10 +33,11 @@ def mp32srt(result, name=None):
 
         try:
             file = open(mp3path, "rb")
-            transcript = client.audio.translations.create(model="whisper-1", file=file, response_format="srt",
-                                                 prompt=prompt)
-            #transcript = openai.Audio.transcribe("whisper-1", file, response_format="srt",
-                 #                                prompt=prompt)
+            transcript = client.audio.transcriptions.create(model="whisper-1", language='zh', file=file,
+                                                            response_format="srt",
+                                                            prompt=prompt)
+            # transcript = openai.Audio.transcribe("whisper-1", file, response_format="srt",
+            #                                prompt=prompt)
             with open(realFilePath, 'w', encoding='utf-8') as f:
                 f.write(transcript)
             print("srt from gpt SUC")
