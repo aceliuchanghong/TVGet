@@ -337,7 +337,7 @@
       <excludeFolder url="file://$MODULE_DIR$/crawl/files/publish/20230824.开展有意义对话、均衡解决各自关切，才是实现半岛长治久安的正确之道" />
       <excludeFolder url="file://$MODULE_DIR$/crawl/files/publish/20230420.希望韩方恪守一个中国原则，审慎处理台湾问题" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (venv)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (TVGet)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
