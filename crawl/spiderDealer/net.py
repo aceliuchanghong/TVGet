@@ -17,8 +17,8 @@ def testNet():
         # print("连接成功")
         return True
     except requests.exceptions.RequestException as e:
-        print(f"v2ray链接失效：{str(e)}")
+        print(f"v2ray链接失效1：{str(e)}")
         return False
     except Exception as e:
-        print(f"v2ray链接失效：{str(e)}")
+        print(f"v2ray链接失效2：{str(e)}")
         return False
