@@ -27,7 +27,7 @@ def download_youtube_video(url):
             return
 
         new_file_path = output_path + "/" + video_name + ".mp4"
-        if os.path.exists(new_file_path):
+        if os.path.exists(new_file_path) and os.path.getsize(new_file_path) > 10000:
             print("File already exists:", new_file_path)
             return
         # 获取视频的最高质量的视频流
