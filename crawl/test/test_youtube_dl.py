@@ -45,7 +45,7 @@ def download_youtube_video(url):
 # url = 'https://www.youtube.com/watch?v=7lrm2PJxNUk&ab_channel=Arrow'
 # download_youtube_video(url)
 
-urls = ['https://www.youtube.com/watch?v=pSQteFmoVz0',
+urls1 = ['https://www.youtube.com/watch?v=pSQteFmoVz0',
         'https://www.youtube.com/watch?v=XhwqyvZ8QqM',
         'https://www.youtube.com/watch?v=10tWnkBjNRI',
         'https://www.youtube.com/watch?v=jR69OHDlhSM',
@@ -107,7 +107,22 @@ urls = ['https://www.youtube.com/watch?v=pSQteFmoVz0',
         'https://www.youtube.com/watch?v=NbSRrha0b1o',
         'https://www.youtube.com/watch?v=2Ec3STz2LEQ', ]
 
+urls2 = [
+    'https://www.youtube.com/watch?v=gvSmeFHppr4',
+    'https://www.youtube.com/watch?v=UOj3EqBQxyk',
+    'https://www.youtube.com/watch?v=DpeeoknoTkk',
+    'https://www.youtube.com/watch?v=9IOMlbTAQ60',
+    'https://www.youtube.com/watch?v=_bPpMDOBT_8',
+    'https://www.youtube.com/watch?v=P-iOkgrcdCE',
+    'https://www.youtube.com/watch?v=8zFRPIXmSd0',
+    'https://www.youtube.com/watch?v=MDNwHmguBwg',
+    'https://www.youtube.com/watch?v=p8UdDhBVf5A',
+    'https://www.youtube.com/watch?v=YHkeByw8jfc',
+    'https://www.youtube.com/watch?v=vEYSSNqWXCI',
+    'https://www.youtube.com/watch?v=YHkeByw8jfc'
+]
+
 if not testNet():
     sys.exit()
-for url in urls:
+for url in urls2:
     download_youtube_video(url)
