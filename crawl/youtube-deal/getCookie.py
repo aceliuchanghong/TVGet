@@ -17,6 +17,7 @@ def run(playwright: Playwright) -> None:
     # 增加等待时间，例如等待15秒钟
     page.wait_for_timeout(15000)
 
+    context.storage_state(path="cookie.json")
 
     cookies = context.cookies()
     print(cookies)

@@ -44,7 +44,6 @@ npx playwright install
 # 生成cookie
 cd .\douyin_upload\test
 playwright codegen www.douyin.com --save-storage=cookie.json
-playwright codegen www.youtube.com --save-storage=cookie.json
 ```
 ## 开始执行
 ```
