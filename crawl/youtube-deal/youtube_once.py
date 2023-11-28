@@ -14,4 +14,4 @@ for file in mp4_files:
     spilt_file_names = split_video(file, 30)
     for spilt_file_name in spilt_file_names:
         transfered_tiktok_path = tiktok(spilt_file_name)
-        move_file(transfered_tiktok_path, output_path + "/" + os.path.basename(transfered_tiktok_path))
+        move_file(transfered_tiktok_path, output_path)

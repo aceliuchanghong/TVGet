@@ -5,12 +5,14 @@ from crawl.spiderDealer.checkPath import check
 import os
 
 
-def get_mp4_files(source_path):
-    mp4_files = []
-    for root, dirs, files in os.walk(source_path):
-        for file in files:
-            if file.endswith(".mp4"):
-                mp4_files.append(source_path + "/" + file)
+def get_mp4_files(directory):
+    # 获取目录中的所有条目
+    entries = os.listdir(directory)
+
+    # 过滤出所有的.mp4文件
+    mp4_files = [directory + "/" + file for file in entries if
+                 file.lower().endswith('.mp4') and os.path.isfile(os.path.join(directory, file))]
+
     return mp4_files
 
 
@@ -43,13 +45,14 @@ def split_video(video_path, duration):
     split_files = []
     for file in os.listdir(output_dir):
         if file.startswith(f'{video_name}_') and file.endswith('.mp4'):
-            split_files.append(os.path.join(output_dir, file))
+            split_files.append(output_dir + "/" + file)
 
     return split_files
 
 
 def copy_file(source_path, destination_path):
-    if os.path.exists(destination_path):
+    video_name = os.path.splitext(os.path.basename(source_path))[0]
+    if os.path.exists(destination_path + "/" + video_name + ".mp4"):
         print("copy File already exists in the destination.")
     elif not os.path.exists(source_path):
         print("copy Source file does not exist.")
@@ -59,7 +62,8 @@ def copy_file(source_path, destination_path):
 
 
 def move_file(source_path, destination_path):
-    if os.path.exists(destination_path):
+    video_name = os.path.splitext(os.path.basename(source_path))[0]
+    if os.path.exists(destination_path + "/" + video_name + ".mp4"):
         print("move File already exists in the destination.")
         os.remove(source_path)
     elif not os.path.exists(source_path):
@@ -102,40 +106,38 @@ def tiktok(video_path):
         '-vf', f'crop={crop_width}:{video_height}:{crop_x}:0,scale={target_width}:{target_height}',  # 裁剪并缩放
         '-preset', 'veryfast',  # 编码速度
         '-crf', '28',  # 视频质量
-        video_info['path'] + "_transform.mp4"  # 输出文件
+        video_info['path'] + ".transform.mp4"  # 输出文件
     ]
     # 执行 FFmpeg 命令
     subprocess.run(ffmpeg_command, check=True)
     # 检查文件是否创建
-    if os.path.isfile(video_info['path'] + "_transform.mp4"):
-        print("视频已转换并保存为:" + video_info['path'] + "_transform.mp4")
-    answerInfo = get_video_info(video_info['path'] + "_transform.mp4")
-    return answerInfo
+    if os.path.isfile(video_info['path'] + ".transform.mp4"):
+        print("视频已转换并保存为:" + video_info['path'] + ".transform.mp4")
+    return video_info['path'] + ".transform.mp4"
 
-
-output_path = "../../crawl/files/youtube/hitomi/out"
-publish_path = "../../crawl/files/youtube/hitomi/publish"
-source_path = "../../crawl/files/youtube/hitomi"
-test_path = "../../crawl/files/youtube/hitomi/test"
-test2_path = "../../crawl/files/youtube/hitomi/test2"
-
-check(test_path)
-check(output_path)
-check(publish_path)
-check(test2_path)
-
-mp4_files = get_mp4_files(test_path)
-for file in mp4_files:
-    video_info = get_video_info(file)
-    video_name = video_info['name']
-    video_length = video_info['duration']
-    video_size = video_info['size']
-    video_path = video_info['path']
-    print(video_name, "###", video_length, "###", video_size, "###", video_path)
-    spilt_file_names = split_video(file, 30)
-    for spilt_file_name in spilt_file_names:
-        move_file(spilt_file_name, test2_path + "/" + os.path.basename(spilt_file_name))
-    break
-
-test_file = "../../crawl/files/youtube/hitomi/test2/00_000.mp4"
-tiktok(test_file)
+# output_path = "../../crawl/files/youtube/hitomi/out"
+# publish_path = "../../crawl/files/youtube/hitomi/publish"
+# source_path = "../../crawl/files/youtube/hitomi"
+# test_path = "../../crawl/files/youtube/hitomi/test"
+# test2_path = "../../crawl/files/youtube/hitomi/test2"
+#
+# check(test_path)
+# check(output_path)
+# check(publish_path)
+# check(test2_path)
+#
+# mp4_files = get_mp4_files(test_path)
+# for file in mp4_files:
+#     video_info = get_video_info(file)
+#     video_name = video_info['name']
+#     video_length = video_info['duration']
+#     video_size = video_info['size']
+#     video_path = video_info['path']
+#     print(video_name, "###", video_length, "###", video_size, "###", video_path)
+#     spilt_file_names = split_video(file, 30)
+#     for spilt_file_name in spilt_file_names:
+#         move_file(spilt_file_name, test2_path + "/" + os.path.basename(spilt_file_name))
+#     break
+#
+# test_file = "../../crawl/files/youtube/hitomi/test2/00_000.mp4"
+# tiktok(test_file)
