@@ -60,6 +60,9 @@ def run_youtube(output_path, nums=2):
                     print("###########" + result.date + ":" + result.title)
                     asyncio.run(start(result))
                     move_file(files[i], publish_path + "/" + os.path.basename(files[i]))
+                elif nums > i and os.path.getsize(files[i]) <= 1024 * 1024:
+                    move_file(files[i], publish_path + "/" + os.path.basename(files[i]))
+                    print("###########文件过小,跳过###########")
                 else:
                     break
             except Exception as e:
