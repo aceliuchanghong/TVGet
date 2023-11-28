@@ -111,4 +111,5 @@ def tiktok(video_path):
     # 检查文件是否创建
     if os.path.isfile(video_info['path'] + ".transform.mp4"):
         print("视频已转换并保存为:" + video_info['path'] + ".transform.mp4")
+        os.remove(video_path)
     return video_info['path'] + ".transform.mp4"

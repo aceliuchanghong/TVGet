@@ -50,15 +50,15 @@ def run_youtube(output_path, nums=2):
         print(output_path + "下面没视频")
     else:
         publish_path = "../../crawl/files/youtube/hitomi/publish"
-        print("\n********************START********************")
+        print("********************START********************")
         files = get_mp4_files(output_path)
         for i in range(len(files)):
             try:
-                if nums > i:
-                    print("###########获开始上传###########")
+                if nums > i and os.path.getsize(files[i]) > 1024 * 1024:
+                    print("###########开始上传###########")
                     result = get_result(files[i])
-                    asyncio.run(start(result))
                     print("###########" + result.date + ":" + result.title)
+                    asyncio.run(start(result))
                     move_file(files[i], publish_path + "/" + os.path.basename(files[i]))
                 else:
                     break
