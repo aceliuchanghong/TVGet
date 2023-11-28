@@ -1,7 +1,5 @@
 import shutil
 import subprocess
-
-from crawl.spiderDealer.checkPath import check
 import os
 
 
@@ -114,30 +112,3 @@ def tiktok(video_path):
     if os.path.isfile(video_info['path'] + ".transform.mp4"):
         print("视频已转换并保存为:" + video_info['path'] + ".transform.mp4")
     return video_info['path'] + ".transform.mp4"
-
-# output_path = "../../crawl/files/youtube/hitomi/out"
-# publish_path = "../../crawl/files/youtube/hitomi/publish"
-# source_path = "../../crawl/files/youtube/hitomi"
-# test_path = "../../crawl/files/youtube/hitomi/test"
-# test2_path = "../../crawl/files/youtube/hitomi/test2"
-#
-# check(test_path)
-# check(output_path)
-# check(publish_path)
-# check(test2_path)
-#
-# mp4_files = get_mp4_files(test_path)
-# for file in mp4_files:
-#     video_info = get_video_info(file)
-#     video_name = video_info['name']
-#     video_length = video_info['duration']
-#     video_size = video_info['size']
-#     video_path = video_info['path']
-#     print(video_name, "###", video_length, "###", video_size, "###", video_path)
-#     spilt_file_names = split_video(file, 30)
-#     for spilt_file_name in spilt_file_names:
-#         move_file(spilt_file_name, test2_path + "/" + os.path.basename(spilt_file_name))
-#     break
-#
-# test_file = "../../crawl/files/youtube/hitomi/test2/00_000.mp4"
-# tiktok(test_file)

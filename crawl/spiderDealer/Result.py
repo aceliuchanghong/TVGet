@@ -1,5 +1,6 @@
 class Result:
-    def __init__(self, name, date, title, poster, mp4name, mp4url, mp4path=None, mp3path=None, srtpath=None,
+    def __init__(self, name=None, date=None, title=None, poster=None, mp4name=None, mp4url=None, mp4path=None,
+                 mp3path=None, srtpath=None,
                  coverpath=None, anspath=None, describe=None):
         self.name = name
         self.date = date

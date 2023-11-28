@@ -2,15 +2,10 @@ import sys
 from crawl.spiderDealer.net import testNet
 from crawl.test.process import create
 import asyncio
-
 from douyin_upload.test.testCookie import start
+from crawl.youtube_deal.youtube_util import *
+from crawl.youtube_deal.youtube_result import get_result
 
-# 测试数据
-url_list = [['https://www.fmprc.gov.cn/web/sp_683685/wjbfyrlxjzh_683691/202207/t20220711_10718477.shtml', 00]]
-
-
-# cd .\douyin_upload\test
-# playwright codegen www.douyin.com --save-storage=cookie.json
 
 def run(url_list):
     if len(url_list) == 0:
@@ -46,5 +41,28 @@ def run(url_list):
                 print("第" + str(i + 1) + "个:" + "create error:", e)
                 print(url[0])
                 print(url[1])
+                continue
+        print("********************END********************")
+
+
+def run_youtube(output_path, nums=2):
+    if not os.listdir(output_path):
+        print(output_path + "下面没视频")
+    else:
+        publish_path = "../../crawl/files/youtube/hitomi/publish"
+        print("\n********************START********************")
+        files = get_mp4_files(output_path)
+        for i in range(len(files)):
+            try:
+                if nums > i:
+                    print("###########获开始上传###########")
+                    result = get_result(files[i])
+                    asyncio.run(start(result))
+                    print("###########" + result.date + ":" + result.title)
+                    move_file(files[i], publish_path + "/" + os.path.basename(files[i]))
+                else:
+                    break
+            except Exception as e:
+                print("第" + str(i + 1) + "个:" + "上传 error:", e)
                 continue
         print("********************END********************")

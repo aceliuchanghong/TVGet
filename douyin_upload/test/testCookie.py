@@ -1,6 +1,3 @@
-# npx playwright install
-# playwright codegen www.douyin.com --save-storage=cookie.json
-
 from playwright.async_api import async_playwright
 import os
 import asyncio
@@ -55,7 +52,10 @@ async def upload(playwright, result):
         await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[13]/div[2]/div[2]/div[1]/div/span/div').click()
         try:
             print("选择合集")
-            await page.locator('text=发言视频合集').click()
+            if result.coverpath != "youtube":
+                await page.locator('text=发言视频合集').click()
+            else:
+                await page.locator('text=琵琶演奏合集').click()
         except:
             print("选择不了合集")
     except:
