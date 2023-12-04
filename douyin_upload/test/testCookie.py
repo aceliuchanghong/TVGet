@@ -32,12 +32,16 @@ async def upload(playwright, result):
     await page.wait_for_url(upload_url2)
     print("标题")
     # 标题
-    await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[2]/input').fill(
+    await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[2]/div/div/div/div[1]/div/div/input').fill(
         result.date + ":" + result.title)
+    # await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[2]/input').fill(
+    #    result.date + ":" + result.title)
     # 作品简介
     print("作品简介")
-    await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[4]/div/div/div/div[1]/div').fill(
+    await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[2]/div/div/div/div[2]/div').fill(
         result.describe)
+    # await page.locator('xpath=//*[@id="root"]/div/div/div[2]/div[1]/div[4]/div/div/div/div[1]/div').fill(
+    #    result.describe)
 
     # # 设置封面 成功了,但是需要选择区域,不如不选
     # await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[7]/div/div[1]/div[1]/div[2]').click()
@@ -49,7 +53,8 @@ async def upload(playwright, result):
     # 选择合集
     try:
         # await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[13]/div[2]/div[2]/div[1]/div/span')
-        await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[13]/div[2]/div[2]/div[1]/div/span/div').click()
+        await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[11]/div[2]/div[2]/div[1]/div/span').click()
+        # await page.locator('//*[@id="root"]/div/div/div[2]/div[1]/div[13]/div[2]/div[2]/div[1]/div/span/div').click()
         try:
             print("选择合集")
             if result.coverpath != "youtube":
@@ -64,7 +69,7 @@ async def upload(playwright, result):
     # 发布键
     try:
         # 等待页面可能需要的加载时间
-        await asyncio.sleep(12)
+        await asyncio.sleep(10)
         # 点击按钮
         print("点击上传")
         await page.locator(
