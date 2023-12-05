@@ -5,8 +5,6 @@ import os
 
 def download(fileUrl, name=None, path=None, proxies=None):
     try:
-        # Download file
-        response = requests.get(fileUrl, stream=True, proxies=proxies)
         # Get file name
         fileName = fileUrl.split('/')[-1]
         if name is not None:
@@ -24,6 +22,8 @@ def download(fileUrl, name=None, path=None, proxies=None):
             filePath = path + '/' + fileName
         if not os.path.exists(filePath):
             # Write file
+            # Download file
+            response = requests.get(fileUrl, stream=True, proxies=proxies)
             with open(filePath, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=1024):
                     if chunk:
