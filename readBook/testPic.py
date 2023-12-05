@@ -59,15 +59,18 @@ def getRedBookPic(urls_list, path=None):
     for url in urls_list:
         if url is not None and len(url) > 0:
             # 使用正则表达式提取文件名
-            pattern1 = r"/([\w-]+)\.\w+\?"
+            pattern1 = r"/([\w.-]+)\.[a-z]{3}\?"
             match = re.search(pattern1, url)
             if match:
-                match_ext = re.search(r'\.(gif|png)\?', url)
+                match_ext = re.search(r'\.(gif|png|jpg)\?', url)
                 if match_ext:
                     file_ext_1 = match_ext.group(1)
                     filename = match.group(1) + "." + file_ext_1
                 else:
                     print("后缀未匹配到！")
+                    if (len(err_list) > 0):
+                        print("未下载的图片链接：")
+                        print(err_list)
                     break
             else:
                 # print("未找到匹配的文件名！")
