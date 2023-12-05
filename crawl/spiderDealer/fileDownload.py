@@ -2,10 +2,11 @@ from crawl.spiderDealer.checkPath import check
 import requests
 import os
 
-def download(fileUrl, name=None):
+
+def download(fileUrl, name=None, path=None, proxies=None):
     try:
         # Download file
-        response = requests.get(fileUrl, stream=True)
+        response = requests.get(fileUrl, stream=True, proxies=proxies)
         # Get file name
         fileName = fileUrl.split('/')[-1]
         if name is not None:
@@ -19,6 +20,8 @@ def download(fileUrl, name=None):
 
         # Get file path
         filePath = relative_path + fileExtension + '/' + fileName
+        if path is not None:
+            filePath = path + '/' + fileName
         if not os.path.exists(filePath):
             # Write file
             with open(filePath, 'wb') as f:
@@ -26,7 +29,7 @@ def download(fileUrl, name=None):
                     if chunk:
                         f.write(chunk)
             # Return file path
-            print("download "+fileExtension+" suc")
+            print("download " + fileExtension + " suc")
         return filePath
     except Exception as e:
         print(e)
