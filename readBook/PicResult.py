@@ -14,7 +14,7 @@ class PicResult:
         self.describe = None  # 备注
 
     def __str__(self):
-        return f'name(名字)="{self.name}",\n' \
+        return f'\nname(名字)="{self.name}",\n' \
                f'ext(后缀)="{self.ext}",\n' \
                f'date(日期)="{self.date}",\n' \
                f'keyword(关键字)="{self.keyword}",\n' \
@@ -26,3 +26,14 @@ class PicResult:
                f'fix3path(3处理之后路径)="{self.fix3path}",\n' \
                f'anspath(结果路径)="{self.anspath}",\n' \
                f'describe(备注)="{self.describe}"'
+
+
+class PicInfo:
+    def __init__(self):
+        self.name = None
+        self.ext = None
+        self.width = 0
+        self.height = 0
+
+    def __str__(self):
+        return f'\n{self.name}.{self.ext}:Width={self.width}, Height={self.height}'

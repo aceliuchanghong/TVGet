@@ -172,5 +172,5 @@ def getRedBookPic(url):
 
 
 if __name__ == '__main__':
-    picResult = getRedBookPic(urls_list[1])
+    picResult = getRedBookPic(urls_list[2])
     print(picResult)
