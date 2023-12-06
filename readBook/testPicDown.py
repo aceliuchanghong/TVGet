@@ -2,6 +2,8 @@ from crawl.spiderDealer.checkPath import check
 from crawl.spiderDealer.fileDownload import download
 import re
 
+from readBook.PicResult import PicResult
+
 urls_list = [
     'https://cdn.discordapp.com/attachments/951197655021797436/1181316240761950298/grnkrby_A_technological_computer_screen_coded_in_old_programmin_e5cbf877-dda1-44ff-8caf-db3d88de1f9f.png?ex=657fdb',
     'https://cdn.discordapp.com/attachments/951197655021797436/1181366776353804399/croakie_black_woman_afro_portrait_cartoon__gel_plate_Lithograph_4c9ee6a3-41bd-47ce-9974-2ae9ec4dc0fb.png?ex=657fdb',
@@ -41,11 +43,49 @@ urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353474739417168/stevenbills_silky._Following._Smoke._Gloomy._sharp._cenobite._9a0cea48-989b-42d0-87f9-9aa380859a25.png?ex=6580c028&is=656e4b28&hm=a8eaa557a166f8658e7f2033745ce96fe1e47dccd25c4d6a6cba627d1158f7a9&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353475192406089/stevenbills_silky._Following._Smoke._Gloomy._sharp._cenobite._b6480c04-a39b-481b-9071-1aca86e66d3d.png?ex=6580c028&is=656e4b28&hm=e339b84d97b03cbfdc70e29e88e80da76dfaee31542bb47c8b8e678fbe00f38c&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353479848083526/stevenbills_silky._Following._Smoke._Gloomy._Horror_4890c6af-e6d9-479a-9eae-8fbb0a176caa.png?ex=6580c02a&is=656e4b2a&hm=c61bcd5367388cf33752813ba0740a9ef4dd0ab4d5940c5e8ce41dd8b93a181c&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1181342115570131004/image.png?ex=6580b594&is=656e4094&hm=1c773417cc703d3141152b656446e29b1cad5cf6abf5abfd0a4beef458c11acb&'
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1181342115570131004/image.png?ex=6580b594&is=656e4094&hm=1c773417cc703d3141152b656446e29b1cad5cf6abf5abfd0a4beef458c11acb&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1181796931173888060/scarletbobjoe_the_unicorn_in_purple_wears_the_floral_decoration_c7392af6-576e-4f6e-bce9-e9d2360fe45f.png?ex=65825d29&is=656fe829&hm=280e3bd1bdfb8d2da02bd5d573ea6c9744019bb024bd8aee086f21a031dae496&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1181798754043564123/scarletbobjoe_an_adorable_unicorn_horse_with_long_brown_hair_in_8436cafb-cbcf-4094-88b7-2f815ba1620b.png?ex=65825edb&is=656fe9db&hm=ce9aafecc5acb376fc6e091d4b4a8d5f855211da260183d591b58fe4d5975928&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1181798769151455322/scarletbobjoe_the_unicorn_has_light_blue_hair_and_white_flowers_71abd865-4f65-44f9-86df-045cafb0300d.png?ex=65825edf&is=656fe9df&hm=38da6b4fd51567ffd8c1cca7d2deb20863ceb1c0f44136d42901bec25f380c09&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1181798948403433633/scarletbobjoe_Subtlety_coloured_pony__full_body_stars_sparkles__38b3208e-45ef-4e29-ad57-78cc5a515f9c.png?ex=65825f0a&is=656fea0a&hm=f0043c004396b2c46b258b8bcbf3ce4e87ac63cdfacdc9beb2e2aadf96751521&',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
+
 ]
 
 
-def getRedBookPic(urls_list, path=None):
+def getRedBookPic2(urls_list, path=None):
     proxy_host = '127.0.0.1'
     proxy_port = 10809
     proxies = {
@@ -85,5 +125,52 @@ def getRedBookPic(urls_list, path=None):
         print(err_list)
 
 
+def getRedBookPic(url):
+    proxy_host = '127.0.0.1'
+    proxy_port = 10809
+    proxies = {
+        'http': f'http://{proxy_host}:{proxy_port}',
+        'https': f'http://{proxy_host}:{proxy_port}'
+    }
+    path = '../crawl/files/redbook/original_pic'
+    check(path)
+    picResult = PicResult()
+
+    if url is not None and len(url) > 0:
+        # 使用正则表达式提取文件名
+        pattern1 = r"/([\w.-]+)\.[a-z]{3}\?"
+        match = re.search(pattern1, url)
+        if match:
+            match_ext = re.search(r'\.(gif|png|jpg)\?', url)
+            if match_ext:
+                file_ext_1 = match_ext.group(1)
+                filename = match.group(1) + "." + file_ext_1
+
+                pattern2 = r'\?.*'
+                clean_url = re.sub(pattern2, '', url)
+                filePath = download(fileUrl=clean_url, name=filename, path=path, proxies=proxies)
+                picResult.url = clean_url
+                picResult.name = filename
+                picResult.ext = file_ext_1
+                picResult.downpath = filePath
+                picResult.describe = "SUC"
+                return picResult
+            else:
+                # print("后缀未匹配到！未下载的图片链接：")
+                # print(url)
+                picResult.url = url
+                picResult.describe = "ERR:EXT"
+                return picResult
+        else:
+            # print("未找到匹配的文件名！")
+            picResult.url = url
+            picResult.describe = "ERR:URL"
+            return picResult
+    else:
+        picResult.describe = "ERR:NULL URL"
+        return picResult
+
+
 if __name__ == '__main__':
-    getRedBookPic(urls_list)
+    picResult = getRedBookPic(urls_list[1])
+    print(picResult)
