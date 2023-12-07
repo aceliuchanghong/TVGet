@@ -76,6 +76,68 @@ def blur_image(input_image_path, output_image_path, blur_strength=5, width=1280,
         return picResult
 
 
+# 待修改
+def ficPic(picPath, width, height):
+    picResult = PicResult()
+    picInfo = get_image_size(picPath)
+    if picInfo.width > picInfo.height:
+        newHight = picInfo.height
+        newWidth = newHight * width / height
+    else:
+        newWidth = picInfo.width
+        newHight = newWidth * height / width
+    try:
+        # 判断是否需要调整图像尺寸
+        if picInfo.width < width or picInfo.height < height:
+            vf_filter = f'crop={newWidth}:{newHight}'
+        else:
+            vf_filter = f'crop={width}:{height}'
+
+        # 构建ffmpeg命令
+        command = [
+            'ffmpeg',
+            '-i', picPath,  # 输入图片文件
+            '-vf', vf_filter,
+            '-y',  # 覆盖输出文件（如果已经存在）
+            picPath  # 输出图片文件
+        ]
+
+        # 执行命令
+        if not exists(picPath):
+            subprocess.run(command, check=True)
+        picResult.fix1path = picPath
+        return picResult
+    except Exception as e:
+        print(e)
+        picResult.describe = 'ERR:FIX'
+        return picResult
+
+
+# 待修改
+def mergePic(smallPic, bigPic, smallPicCenterAxios):
+    picResult = PicResult()
+    try:
+        # 构建ffmpeg命令
+        command = [
+            'ffmpeg',
+            '-i', smallPic,  # 输入图片文件
+            '-i', bigPic,  # 输入图片文件
+            '-filter_complex', 'overlay=0:0',
+            '-y',  # 覆盖输出文件（如果已经存在）
+            bigPic  # 输出图片文件
+        ]
+
+        # 执行命令
+        if not exists(bigPic):
+            subprocess.run(command, check=True)
+        picResult.fix2path = bigPic
+        return picResult
+    except Exception as e:
+        print(e)
+        picResult.describe = 'ERR:MER'
+        return picResult
+
+
 pic_result = PicResult()
 pic_result.name = "eggon_a_production_still_from_1987_of_a_live-action_Yoshitaka__62c47ec4-54b2-43ce-8556-d6bcde4fd4cb.png"
 pic_result.ext = "png"
