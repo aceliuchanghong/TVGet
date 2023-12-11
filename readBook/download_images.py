@@ -171,6 +171,42 @@ def getRedBookPic(url):
         return picResult
 
 
+def download_url(url, use_proxy=True):
+    proxy_host = '127.0.0.1'
+    proxy_port = 10809
+    proxies = {
+        'http': f'http://{proxy_host}:{proxy_port}',
+        'https': f'http://{proxy_host}:{proxy_port}'
+    }
+    path = '../crawl/files/redbook/original_pic'
+    check(path)
+    if not use_proxy:
+        proxies = None
+
+    if url is not None and len(url) > 10:
+        # 使用正则表达式提取文件名
+        pattern1 = r"/([\w.-]+)\.[a-z]{3}\?"
+        match = re.search(pattern1, url)
+        if match:
+            match_ext = re.search(r'\.(gif|png|jpg)\?', url)
+            if match_ext:
+                file_ext_1 = match_ext.group(1)
+                filename = match.group(1) + "." + file_ext_1
+                pattern2 = r'\?.*'
+                clean_url = re.sub(pattern2, '', url)
+                filePath = download(fileUrl=clean_url, name=filename, path=path, proxies=proxies)
+                return filePath
+            else:
+                print("ERR:EXT")
+                return None
+        else:
+            print("ERR:URL")
+            return None
+    else:
+        print("ERR:NULL URL")
+        return None
+
+
 if __name__ == '__main__':
     picResult = getRedBookPic(urls_list[2])
     print(picResult)

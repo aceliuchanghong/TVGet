@@ -1,6 +1,8 @@
-from readBook.PicResult import PicResult
+from datetime import datetime
 
-picResult = PicResult()
+# 获取当前日期和时间
+now = datetime.now()
 
-picResult.date = "2020-01-01"
-print(picResult)
+# 格式化日期为 'yyyymmdd' 格式
+date_str = now.strftime("%Y%m%d")
+print(date_str)
