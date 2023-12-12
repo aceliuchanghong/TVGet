@@ -76,35 +76,28 @@ def blur_bg_image(input_image_path, output_image_path, blur_strength=5, width=12
         return "ERR:BLUR"
 
 
-def resize_image_proportionally(picResult, scale_factor=0.5):
-    picPath = picResult.downpath
-    output_image_path = "../crawl/files/redbook/resize_pic/"
-    check(output_image_path)
-    output_image = output_image_path + str(scale_factor * 10) + picResult.name
+def resize_image_proportionally(input_image_path, output_image_path, scale_factor=0.5, re_run=False):
     try:
         # 构建ffmpeg命令
         command = [
             'ffmpeg',
-            '-i', picPath,  # 输入图片文件
+            '-i', input_image_path,  # 输入图片文件
             '-vf', f'scale=iw*{scale_factor}:ih*{scale_factor}',
             '-y',  # 覆盖输出文件（如果已经存在）
-            output_image  # 输出图片文件
+            output_image_path  # 输出图片文件
         ]
-
         # 执行命令
-        if not exists(output_image):
+        if not exists(output_image_path) or re_run:
             subprocess.run(command, check=True)
-        picResult.fix2path = output_image
-        return picResult
+        return output_image_path
     except Exception as e:
         print(e)
-        picResult.describe = 'ERR:RESIZE'
-        return picResult
+        return "ERR:resize"
 
 
 def merge_images(input_image_path, output_image_path, background_image, smallPicCenterAxes=(0, 0), re_run=False):
     try:
-        picinfo  = get_image_size(input_image_path)
+        picinfo = get_image_size(input_image_path)
         # 构建ffmpeg命令
         command = [
             'ffmpeg',
@@ -125,30 +118,49 @@ def merge_images(input_image_path, output_image_path, background_image, smallPic
         return "ERR:merge"
 
 
-def put_words_on_image(words, picResult, axes=(0, 0)):
-    picPath = picResult.fix3path
-    output_image_path = "../crawl/files/redbook/words_pic/"
-    check(output_image_path)
-    output_image = output_image_path + picResult.name
+def cut_image(input_image_path, output_image_path, width, height, center_coords=(0, 0), re_run=False):
+    try:
+        # 计算剪切区域的起始点
+        start_x = center_coords[0] - width // 2
+        start_y = center_coords[1] - height // 2
+
+        # 构建ffmpeg命令
+        command = [
+            'ffmpeg',
+            '-i', input_image_path,  # 输入图片文件
+            '-filter_complex',
+            f'crop={width}:{height}:{start_x}:{start_y}',  # 剪切区域和起始点
+            '-y',  # 覆盖输出文件（如果已经存在）
+            output_image_path  # 输出图片文件
+        ]
+
+        # 执行命令
+        if not exists(output_image_path) or re_run:
+            subprocess.run(command, check=True)
+        return output_image_path
+    except Exception as e:
+        print(e)
+        return "ERR:cut"
+
+
+def put_words_on_image(words, input_image_path, output_image_path, center_coords=(0, 0), re_run=False):
     try:
         # 构建ffmpeg命令
         command = [
             'ffmpeg',
-            '-i', picPath,  # 输入图片文件
-            '-vf', f'drawtext=fontfile=my.ttf:text={words}:fontcolor=black:fontsize=24:x={axes[0]}:y={axes[1]}',
+            '-i', input_image_path,  # 输入图片文件
+            '-vf',
+            f'drawtext=fontfile=my.ttf:text={words}:fontcolor=black:fontsize=24:x={center_coords[0]}:y={center_coords[1]}',
             '-y',  # 覆盖输出文件（如果已经存在）
-            output_image  # 输出图片文件
+            output_image_path  # 输出图片文件
         ]
-
         # 执行命令
-        if not exists(output_image):
+        if not exists(output_image_path) or re_run:
             subprocess.run(command, check=True)
-        picResult.anspath = output_image
-        return picResult
+        return output_image_path
     except Exception as e:
         print(e)
-        picResult.describe = 'ERR:WORDS'
-        return picResult
+        return "ERR:WORDS"
 
 
 def copy_file(source_path, destination_path, re_run=False):

@@ -1,6 +1,6 @@
 class PicResult:
     def __init__(self):
-        self.name = None  # 名字
+        self.name = None  # 文件名字
         self.ext = None  # 后缀
         self.date = None  # 日期
         self.keyword = None  # 关键字
@@ -14,7 +14,7 @@ class PicResult:
         self.describe = None  # 备注
 
     def __str__(self):
-        return f'\nname(名字)="{self.name}",\n' \
+        return f'\nname(文件名字)="{self.name}",\n' \
                f'ext(后缀)="{self.ext}",\n' \
                f'date(日期)="{self.date}",\n' \
                f'keyword(关键字)="{self.keyword}",\n' \

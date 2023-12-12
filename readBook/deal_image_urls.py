@@ -50,11 +50,15 @@ def deal_image(url, re_run=False):
         original_pic_bak_path = '../crawl/files/redbook/original_bak_pic'
         check(original_pic_bak_path)
         blur_pic_path = "../crawl/files/redbook/blur_pic"
-        check(original_pic_bak_path)
+        check(blur_pic_path)
         source_pic_path = "../readBook/basicPic"
         check(source_pic_path)
         fix_pic_path = "../crawl/files/redbook/fix_pic"
         check(fix_pic_path)
+        resize_image_path = "../crawl/files/redbook/resize_pic"
+        check(resize_image_path)
+        words_image_path = "../crawl/files/redbook/words_pic"
+        check(words_image_path)
         andriod_image = source_pic_path + "/andriod_ok.png"
         iphone_image = source_pic_path + "/iphone_ok.png"
         ipad_image = source_pic_path + "/ipad_ok.png"
@@ -68,17 +72,38 @@ def deal_image(url, re_run=False):
             # 背景图片模糊
             picResult.fix1path = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
                                                re_run=re_run)
-            # 填充安卓图片==>组合到图片
+            # 1.填充安卓图片==>组合到图片
             # 下载的图片A作为底片,调整手机B等大小适配A
-            picResult.fix2path = merge_images(andriod_image, fix_pic_path + "/fix_android." + picResult.name,
-                                              picResult.downpath, re_run=True)
-            # 填充iPhone图片==>组合到图片
+            the_image_info = get_image_size(picResult.downpath)
+            the_phone_info = get_image_size(andriod_image)
 
-            # 填充平板图片==>组合到图片
+            # 获取放缩比例
+            if the_image_info.width >= the_image_info.height:
+                scale_factor = round(the_image_info.height / the_phone_info.height, 2)
+            else:
+                scale_factor = round(the_image_info.width / the_phone_info.width, 2)
+            # x轴位置
+            xAxis = the_phone_info.width * (1 - 0.818)
+            # y轴位置
+            # yAxis = the_phone_info.height * (1 - 0.618)
+            # 调整机型图片比例
+            new_andriod_image = resize_image_proportionally(andriod_image,
+                                                            resize_image_path + "/" + the_image_info.name + "." + the_image_info.ext,
+                                                            scale_factor,
+                                                            re_run=re_run)
 
-            # 填充电脑图片==>组合到图片
+            # 组合图片
+            picResult.fix2path = merge_images(new_andriod_image, fix_pic_path + "/fix_android." + picResult.name,
+                                              picResult.downpath, smallPicCenterAxes=(xAxis, 0), re_run=True)
+            # 裁剪图片
 
-            # 填充成品文字
+            # 2.填充iPhone图片==>组合到图片
+
+            # 3.填充平板图片==>组合到图片
+
+            # 4.填充电脑图片==>组合到图片
+
+            # 5.填充成品文字
 
         except Exception as e:
             picResult.describe = "ERR:deal"
