@@ -43,18 +43,17 @@ def get_image_size(picPath):
         return picInfo
 
 
-def blur_bg_image(picResult, output_image_path, blur_strength=5, width=1280, height=1707):
-    input_image_path = picResult.downpath
-    picInfo = get_image_size(picResult)
-    if picInfo.width > picInfo.height:
-        newHight = picInfo.height
-        newWidth = newHight * width / height
-    else:
-        newWidth = picInfo.width
-        newHight = newWidth * height / width
+def blur_bg_image(input_image_path, output_image_path, blur_strength=5, width=1280, height=1707, re_run=False):
+    picInfo = get_image_size(input_image_path)
     try:
         # 判断是否需要调整图像尺寸
         if picInfo.width < width or picInfo.height < height:
+            if picInfo.width >= picInfo.height:
+                newHight = picInfo.height
+                newWidth = newHight * width / height
+            else:
+                newWidth = picInfo.width
+                newHight = newWidth * height / width
             vf_filter = f'boxblur={blur_strength},crop={newWidth}:{newHight}'
         else:
             vf_filter = f'boxblur={blur_strength},crop={width}:{height}'
@@ -69,14 +68,12 @@ def blur_bg_image(picResult, output_image_path, blur_strength=5, width=1280, hei
         ]
 
         # 执行命令
-        if not exists(output_image_path):
+        if not exists(output_image_path) or re_run:
             subprocess.run(command, check=True)
-        picResult.fix1path = output_image_path
-        return picResult
+        return output_image_path
     except Exception as e:
         print(e)
-        picResult.describe = 'ERR:BLUR'
-        return picResult
+        return "ERR:BLUR"
 
 
 def resize_image_proportionally(picResult, scale_factor=0.5):
@@ -159,12 +156,12 @@ def put_words_on_image(words, picResult, axes=(0, 0)):
         return picResult
 
 
-def copy_file(source_path, destination_path):
-    if os.path.exists(destination_path):
+def copy_file(source_path, destination_path, re_run=False):
+    if os.path.exists(destination_path) and not re_run:
         return destination_path
     elif not os.path.exists(source_path):
         print("目标文件不存在:" + source_path)
-        return None
+        return "ERR:copy_file"
     else:
         shutil.copy(source_path, destination_path)
         return destination_path

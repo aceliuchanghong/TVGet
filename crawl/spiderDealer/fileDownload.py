@@ -3,7 +3,7 @@ import requests
 import os
 
 
-def download(fileUrl, name=None, path=None, proxies=None):
+def download(fileUrl, name=None, path=None, proxies=None, re_run=False):
     try:
         # Get file name
         fileName = fileUrl.split('/')[-1]
@@ -20,7 +20,7 @@ def download(fileUrl, name=None, path=None, proxies=None):
         filePath = relative_path + fileExtension + '/' + fileName
         if path is not None:
             filePath = path + '/' + fileName
-        if not os.path.exists(filePath):
+        if not os.path.exists(filePath) or re_run:
             # Write file
             # Download file
             response = requests.get(fileUrl, stream=True, proxies=proxies)
@@ -33,4 +33,4 @@ def download(fileUrl, name=None, path=None, proxies=None):
         return filePath
     except Exception as e:
         print(e)
-        return None
+        return "ERR:download"

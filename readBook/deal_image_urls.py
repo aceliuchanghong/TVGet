@@ -1,7 +1,6 @@
 from readBook.download_images import *
 from datetime import datetime
-
-from readBook.image_utils import copy_file
+from readBook.image_utils import *
 
 urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png?ex=6580c028&is=656e4b28&hm=5af62b9613c1a769c14fe8d7a2e30850c91f5e24c5bb9e5cb54c64a191f7d303&',
@@ -11,7 +10,7 @@ urls_list = [
 ]
 
 
-def deal_image(url):
+def deal_image(url, re_run=False):
     picResult = PicResult()
     if url is not None and len(url) > 10:
         # 获取url
@@ -50,9 +49,42 @@ def deal_image(url):
         check(original_pic_path)
         original_pic_bak_path = '../crawl/files/redbook/original_bak_pic'
         check(original_pic_bak_path)
+        blur_pic_path = "../crawl/files/redbook/blur_pic"
+        check(original_pic_bak_path)
+        source_pic_path = "../readBook/basicPic"
+        check(source_pic_path)
+        andriod_image = source_pic_path + "/andriod_ok.png"
+        iphone_image = source_pic_path + "/iphone_ok.png"
+        ipad_image = source_pic_path + "/ipad_ok.png"
+        laptop_image = source_pic_path + "/huawei_laptop_ok.png"
 
-        picResult.downpath = download(picResult.url, name=picResult.name, path=original_pic_path, proxies=proxies)
-        picResult.bakpath = copy_file(picResult.downpath, original_pic_bak_path + "/" + picResult.name)
+        try:
+            picResult.downpath = download(picResult.url, name=picResult.name, path=original_pic_path, proxies=proxies,
+                                          re_run=re_run)
+            picResult.bakpath = copy_file(picResult.downpath, original_pic_bak_path + "/" + picResult.name,
+                                          re_run=re_run)
+            # 背景图片模糊
+            blured_background_image = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
+                                                    re_run=re_run)
+            picResult.fix1path = blured_background_image
+            # 填充安卓图片==>组合到图片
+
+            picInfo = get_image_size(andriod_image)
+            print(picInfo)
+            # 填充iPhone图片==>组合到图片
+
+            # 填充平板图片==>组合到图片
+
+            # 填充电脑图片==>组合到图片
+
+            # 填充成品文字
+
+        except Exception as e:
+            picResult.describe = "ERR:deal"
+            print(e)
+            return picResult
+
+        picResult.describe = "SUC"
         return picResult
     else:
         picResult.describe = "ERR:url"
@@ -61,6 +93,6 @@ def deal_image(url):
 
 if __name__ == '__main__':
     for url in urls_list:
-        picResult = deal_image(url)
+        picResult = deal_image(url, False)
         print(picResult)
         break
