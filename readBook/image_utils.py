@@ -102,32 +102,27 @@ def resize_image_proportionally(picResult, scale_factor=0.5):
         return picResult
 
 
-def merge_images(picResult, background_image, smallPicCenterAxes=(0, 0)):
-    picPath = picResult.fix2path
-    output_image_path = "../crawl/files/redbook/merge_pic/"
-    check(output_image_path)
-    output_image = output_image_path + picResult.name
+def merge_images(input_image_path, output_image_path, background_image, smallPicCenterAxes=(0, 0), re_run=False):
     try:
+        picinfo  = get_image_size(input_image_path)
         # 构建ffmpeg命令
         command = [
             'ffmpeg',
             '-i', background_image,  # 输入图片文件
-            '-i', picPath,  # 输入图片文件
+            '-i', input_image_path,  # 输入图片文件
             '-filter_complex',
-            f'[1]scale=100:100[small];[0][small]overlay={smallPicCenterAxes[0]}:{smallPicCenterAxes[1]}',
+            f'[1]scale={picinfo.width}:{picinfo.height}[small];[0][small]overlay={smallPicCenterAxes[0]}:{smallPicCenterAxes[1]}',
             '-y',  # 覆盖输出文件（如果已经存在）
-            output_image  # 输出图片文件
+            output_image_path  # 输出图片文件
         ]
 
         # 执行命令
-        if not exists(output_image):
+        if not exists(output_image_path) or re_run:
             subprocess.run(command, check=True)
-        picResult.fix3path = output_image
-        return picResult
+        return output_image_path
     except Exception as e:
         print(e)
-        picResult.describe = 'ERR:MERGE'
-        return picResult
+        return "ERR:merge"
 
 
 def put_words_on_image(words, picResult, axes=(0, 0)):

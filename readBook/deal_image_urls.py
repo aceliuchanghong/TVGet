@@ -53,6 +53,8 @@ def deal_image(url, re_run=False):
         check(original_pic_bak_path)
         source_pic_path = "../readBook/basicPic"
         check(source_pic_path)
+        fix_pic_path = "../crawl/files/redbook/fix_pic"
+        check(fix_pic_path)
         andriod_image = source_pic_path + "/andriod_ok.png"
         iphone_image = source_pic_path + "/iphone_ok.png"
         ipad_image = source_pic_path + "/ipad_ok.png"
@@ -64,13 +66,12 @@ def deal_image(url, re_run=False):
             picResult.bakpath = copy_file(picResult.downpath, original_pic_bak_path + "/" + picResult.name,
                                           re_run=re_run)
             # 背景图片模糊
-            blured_background_image = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
-                                                    re_run=re_run)
-            picResult.fix1path = blured_background_image
+            picResult.fix1path = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
+                                               re_run=re_run)
             # 填充安卓图片==>组合到图片
-
-            picInfo = get_image_size(andriod_image)
-            print(picInfo)
+            # 下载的图片A作为底片,调整手机B等大小适配A
+            picResult.fix2path = merge_images(andriod_image, fix_pic_path + "/fix_android." + picResult.name,
+                                              picResult.downpath, re_run=True)
             # 填充iPhone图片==>组合到图片
 
             # 填充平板图片==>组合到图片
