@@ -27,6 +27,20 @@ class PicResult:
                f'anspath(结果路径)="{self.anspath}",\n' \
                f'describe(备注)="{self.describe}"'
 
+    def to_clazz(self):
+        return f'\npicresult.name = "{self.name}"\n' \
+               f'picresult.ext = "{self.ext}"\n' \
+               f'picresult.date = "{self.date}"\n' \
+               f'picresult.keyword = "{self.keyword}"\n' \
+               f'picresult.url = "{self.url}"\n' \
+               f'picresult.downpath = "{self.downpath}"\n' \
+               f'picresult.bakpath = "{self.bakpath}"\n' \
+               f'picresult.fix1path = "{self.fix1path}"\n' \
+               f'picresult.fix2path = "{self.fix2path}"\n' \
+               f'picresult.fix3path = "{self.fix3path}"\n' \
+               f'picresult.anspath = "{self.anspath}"\n' \
+               f'picresult.describe = "{self.describe}"'
+
 
 class PicInfo:
     def __init__(self):

@@ -6,6 +6,7 @@ from readBook.PicResult import PicResult, PicInfo
 import subprocess
 import re
 import json
+from PIL import Image
 
 
 def get_image_size(picPath):
@@ -118,7 +119,7 @@ def merge_images(input_image_path, output_image_path, background_image, smallPic
         return "ERR:merge"
 
 
-def cut_image(input_image_path, output_image_path, width, height, center_coords=(0, 0), re_run=False):
+def cut_image2(input_image_path, output_image_path, width, height, center_coords=(0, 0), re_run=False):
     try:
         # 计算剪切区域的起始点
         start_x = center_coords[0] - width // 2
@@ -174,27 +175,85 @@ def copy_file(source_path, destination_path, re_run=False):
         return destination_path
 
 
-if __name__ == '__main__':
-    pic_result = PicResult()
-    pic_result.name = "eggon_a_production_still_from_1987_of_a_live-action_Yoshitaka__62c47ec4-54b2-43ce-8556-d6bcde4fd4cb.png"
-    pic_result.ext = "png"
-    pic_result.date = None
-    pic_result.keyword = None
-    pic_result.url = "https://cdn.discordapp.com/attachments/951197655021797436/1181366776353804399/croakie_black_woman_afro_portrait_cartoon__gel_plate_Lithograph_4c9ee6a3-41bd-47ce-9974-2ae9ec4dc0fb.png"
-    pic_result.downpath = "../crawl/files/redbook/original_pic/eggon_a_production_still_from_1987_of_a_live-action_Yoshitaka__62c47ec4-54b2-43ce-8556-d6bcde4fd4cb.png"
-    pic_result.bakpath = None
-    pic_result.fix1path = "../crawl/files/redbook/blur_pic/eggon_a_production_still_from_1987_of_a_live-action_Yoshitaka__62c47ec4-54b2-43ce-8556-d6bcde4fd4cb.png",
-    pic_result.fix2path = "../crawl/files/redbook/resize_pic/0.3eggon_a_production_still_from_1987_of_a_live-action_Yoshitaka__62c47ec4-54b2-43ce-8556-d6bcde4fd4cb.png",
-    pic_result.fix3path = "../crawl/files/redbook/resize_pic/5.0eggon_a_production_still_from_1987_of_a_live-action_Yoshitaka__62c47ec4-54b2-43ce-8556-d6bcde4fd4cb.png"
-    pic_result.anspath = None
-    pic_result.describe = "SUC"
+def cut_image(input_image_path, output_image_path, width, height, center_coords=(0, 0), re_run=False):
+    try:
+        # 打开输入图片
+        with Image.open(input_image_path) as img:
+            img_width, img_height = img.size
 
-    # picPathGazz = "../crawl/files/redbook/blur_pic/"
-    # check(picPathGazz)
-    # print(get_image_size(pic_result))
-    # print(blur_bg_image(pic_result, picPathGazz + pic_result.name, 5, 1280, 1707))
-    # print(blur_bg_image(pic_result, picPathGazz + pic_result.name, 5, 1280, 1707))
-    # print(resize_image_proportionally(pic_result, 0.5))
-    # print(merge_images(pic_result, "../crawl/files/redbook/original_pic/image.png"))
-    print(put_words_on_image("../crawl/files/redbook/original_pic/image.png 厉害", pic_result))
-    # print(get_image_size(pic_result.fix3path))
+            # 计算裁剪区域的起始点
+            start_x = center_coords[0]
+            start_y = center_coords[1]
+
+            # 确保裁剪区域不会超出图片的边界
+            end_x = min(start_x + width, img_width)
+            end_y = min(start_y + height, img_height)
+
+            # 裁剪图片
+            crop_area = (start_x, start_y, end_x, end_y)
+            cropped_img = img.crop(crop_area)
+
+            # 如果输出路径不存在或者指定了重新运行，则保存裁剪后的图片
+            if not os.path.exists(output_image_path) or re_run:
+                cropped_img.save(output_image_path)
+
+        return output_image_path
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "ERR:cut"
+
+
+def fill_image(input_image_path, background_image, output_image_path, width=0, height=0, center_coords=(0, 0),
+               re_run=False):
+    try:
+        # 打开输入图片
+        with Image.open(input_image_path) as img:
+            img_width, img_height = img.size
+
+            # 计算填充区域的起始点
+            start_x = center_coords[0] - width // 2
+            start_y = center_coords[1] - height // 2
+
+            # 确保填充区域不会超出图片的边界
+            end_x = min(start_x + width, img_width)
+            end_y = min(start_y + height, img_height)
+
+            # 计算填充区域的大小
+            fill_width = end_x - start_x
+            fill_height = end_y - start_y
+
+            # 打开背景图片
+            with Image.open(background_image) as bg_img:
+                # 如果背景图片的大小和填充区域的大小不一致，则调整背景图片的大小
+                if bg_img.size != (fill_width, fill_height):
+                    bg_img = bg_img.resize((fill_width, fill_height))
+
+                # 将输入图片粘贴到背景图片中
+                bg_img.paste(img, (start_x, start_y))
+
+                # 如果输出路径不存在或者指定了重新运行，则保存填充后的图片
+                if not os.path.exists(output_image_path) or re_run:
+                    bg_img.save(output_image_path)
+
+        return output_image_path
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "ERR:fill"
+
+
+if __name__ == '__main__':
+    picresult = PicResult()
+    picresult.name = "stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.ext = "png"
+    picresult.date = "20231213"
+    picresult.keyword = "stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8"
+    picresult.url = "https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.downpath = "../crawl/files/redbook/original_pic/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.bakpath = "../crawl/files/redbook/original_bak_pic/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.fix1path = "../crawl/files/redbook/blur_pic/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.fix2path = "../crawl/files/redbook/fix_pic/fix_merge_android.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.fix3path = "../crawl/files/redbook/fix_pic/fix_cut_android_cut.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.anspath = "None"
+    picresult.describe = "SUC"
+
+    print(picresult)

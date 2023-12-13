@@ -59,10 +59,14 @@ def deal_image(url, re_run=False):
         check(resize_image_path)
         words_image_path = "../crawl/files/redbook/words_pic"
         check(words_image_path)
-        andriod_image = source_pic_path + "/andriod_ok.png"
-        iphone_image = source_pic_path + "/iphone_ok.png"
-        ipad_image = source_pic_path + "/ipad_ok.png"
-        laptop_image = source_pic_path + "/huawei_laptop_ok.png"
+        the_andriod_image = "andriod_ok.png"
+        the_iphone_image = "iphone_ok.png"
+        the_ipad_image = "ipad_ok.png"
+        the_laptop_image = "huawei_laptop_ok.png"
+        andriod_image = source_pic_path + "/" + the_andriod_image
+        iphone_image = source_pic_path + "/" + the_iphone_image
+        ipad_image = source_pic_path + "/" + the_ipad_image
+        laptop_image = source_pic_path + "/" + the_laptop_image
 
         try:
             picResult.downpath = download(picResult.url, name=picResult.name, path=original_pic_path, proxies=proxies,
@@ -73,30 +77,39 @@ def deal_image(url, re_run=False):
             picResult.fix1path = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
                                                re_run=re_run)
             # 1.填充安卓图片==>组合到图片
-            # 下载的图片A作为底片,调整手机B等大小适配A
-            the_image_info = get_image_size(picResult.downpath)
-            the_phone_info = get_image_size(andriod_image)
-
-            # 获取放缩比例
-            if the_image_info.width >= the_image_info.height:
-                scale_factor = round(the_image_info.height / the_phone_info.height, 2)
-            else:
-                scale_factor = round(the_image_info.width / the_phone_info.width, 2)
-            # x轴位置
-            xAxis = the_phone_info.width * (1 - 0.818)
-            # y轴位置
-            # yAxis = the_phone_info.height * (1 - 0.618)
-            # 调整机型图片比例
-            new_andriod_image = resize_image_proportionally(andriod_image,
-                                                            resize_image_path + "/" + the_image_info.name + "." + the_image_info.ext,
-                                                            scale_factor,
-                                                            re_run=re_run)
-
-            # 组合图片
-            picResult.fix2path = merge_images(new_andriod_image, fix_pic_path + "/fix_android." + picResult.name,
-                                              picResult.downpath, smallPicCenterAxes=(xAxis, 0), re_run=True)
-            # 裁剪图片
-
+            """以下可以,但是,太复杂了,且不可复用,所以写个函数
+            
+            """
+            # # 下载的图片A作为底片,调整手机B等大小适配A
+            # the_image_info = get_image_size(picResult.downpath)
+            # the_phone_info = get_image_size(andriod_image)
+            #
+            # # 获取放缩比例
+            # if the_image_info.width >= the_image_info.height:
+            #     scale_factor = round(the_image_info.height / the_phone_info.height, 2)
+            # else:
+            #     scale_factor = round(the_image_info.width / the_phone_info.width, 2)
+            # # x轴位置
+            # xAxis = the_phone_info.width * (1 - 0.818)
+            # # y轴位置
+            # # yAxis = the_phone_info.height * (1 - 0.618)
+            # # 调整机型图片比例
+            # new_andriod_image = resize_image_proportionally(andriod_image,
+            #                                                 resize_image_path + "/" + the_image_info.name + "." + the_image_info.ext,
+            #                                                 scale_factor,
+            #                                                 re_run=re_run)
+            #
+            # # 组合图片
+            # picResult.fix2path = merge_images(new_andriod_image, fix_pic_path + "/fix_merge_android." + picResult.name,
+            #                                   picResult.downpath, smallPicCenterAxes=(xAxis, 0), re_run=re_run)
+            # # 裁剪图片
+            # fix_cut_info = get_image_size(new_andriod_image)
+            # picResult.fix3path = cut_image(picResult.fix2path, fix_pic_path + "/fix_cut_android_cut." + picResult.name,
+            #                                fix_cut_info.width, fix_cut_info.height, center_coords=(xAxis, 0),
+            #                                re_run=re_run)
+            picResult.fix2path = fill_image(input_image_path=andriod_image, background_image=picResult.downpath,
+                                            output_image_path=fix_pic_path + "/fix_android." + picResult.name,
+                                            center_coords=(0, 0), re_run=re_run)
             # 2.填充iPhone图片==>组合到图片
 
             # 3.填充平板图片==>组合到图片
@@ -120,5 +133,5 @@ def deal_image(url, re_run=False):
 if __name__ == '__main__':
     for url in urls_list:
         picResult = deal_image(url, False)
-        print(picResult)
+        print(picResult.to_clazz())
         break
