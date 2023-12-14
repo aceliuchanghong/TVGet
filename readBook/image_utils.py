@@ -119,29 +119,24 @@ def merge_images(input_image_path, output_image_path, background_image, smallPic
         return "ERR:merge"
 
 
-def cut_image2(input_image_path, output_image_path, width, height, center_coords=(0, 0), re_run=False):
-    try:
-        # 计算剪切区域的起始点
-        start_x = center_coords[0] - width // 2
-        start_y = center_coords[1] - height // 2
+def calculate_position_and_scale(input_image_info, background_image_info, debug=False):
+    width_scale = background_image_info.width / input_image_info.width
+    height_scale = background_image_info.height / input_image_info.height
 
-        # 构建ffmpeg命令
-        command = [
-            'ffmpeg',
-            '-i', input_image_path,  # 输入图片文件
-            '-filter_complex',
-            f'crop={width}:{height}:{start_x}:{start_y}',  # 剪切区域和起始点
-            '-y',  # 覆盖输出文件（如果已经存在）
-            output_image_path  # 输出图片文件
-        ]
+    scale_factor = min(width_scale, height_scale)
 
-        # 执行命令
-        if not exists(output_image_path) or re_run:
-            subprocess.run(command, check=True)
-        return output_image_path
-    except Exception as e:
-        print(e)
-        return "ERR:cut"
+    new_input_image_width = input_image_info.width * scale_factor
+    new_input_image_height = input_image_info.height * scale_factor
+
+    xAxis = (background_image_info.width - new_input_image_width) / 2.0
+    yAxis = (background_image_info.height - new_input_image_height) / 2.0
+
+    if debug:
+        print(f"Scale factor: {scale_factor}")
+        print(f"New image size: {new_input_image_width}x{new_input_image_height}")
+        print(f"Position: {xAxis}, {yAxis}")
+
+    return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
 
 
 def put_words_on_image(words, input_image_path, output_image_path, center_coords=(0, 0), re_run=False):
@@ -215,66 +210,8 @@ def fill_image(input_image_path, background_image_path, width=0, height=0, cente
         3.外面框架宽大于或等于,高小于下载图片
         4.外面框架高大于或等于,宽小于下载图片
         """
-        if input_image_info.width >= background_image_info.width and input_image_info.height >= background_image_info.height:
-            if debug:
-                print("情况一")
-            if background_image_info.width >= background_image_info.height:
-                scale_factor = round(background_image_info.height / input_image_info.height, 2)
-                new_input_image_width = input_image_info.width * scale_factor
-                new_input_image_height = background_image_info.height
-                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
-                yAxis = 0
-            else:
-                scale_factor = round(background_image_info.width / input_image_info.width, 2)
-                new_input_image_width = background_image_info.width
-                new_input_image_height = input_image_info.height * scale_factor
-                xAxis = 0
-                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
-        elif input_image_info.width < background_image_info.width and input_image_info.height < background_image_info.height:
-            if debug:
-                print("情况二")
-            if background_image_info.width >= background_image_info.height:
-                scale_factor = round(background_image_info.height / input_image_info.height, 2)
-                new_input_image_width = input_image_info.width * scale_factor
-                new_input_image_height = background_image_info.height
-                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
-                yAxis = 0
-            else:
-                scale_factor = round(background_image_info.width / input_image_info.width, 2)
-                new_input_image_width = background_image_info.width
-                new_input_image_height = input_image_info.height * scale_factor
-                xAxis = 0
-                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
-        elif input_image_info.width >= background_image_info.width and input_image_info.height < background_image_info.height:
-            if debug:
-                print("情况三")
-            if background_image_info.width >= background_image_info.height:
-                scale_factor = round(background_image_info.width / input_image_info.width, 2)
-                new_input_image_width = background_image_info.width
-                new_input_image_height = background_image_info.height * scale_factor
-                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
-                yAxis = 0
-            else:
-                scale_factor = round(background_image_info.width / input_image_info.width, 2)
-                new_input_image_width = background_image_info.width
-                new_input_image_height = input_image_info.height * scale_factor
-                xAxis = 0
-                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
-        else:
-            if debug:
-                print("情况四")
-            if background_image_info.width >= background_image_info.height:
-                scale_factor = round(background_image_info.height / input_image_info.height, 2)
-                new_input_image_width = background_image_info.width * scale_factor
-                new_input_image_height = background_image_info.height
-                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
-                yAxis = 0
-            else:
-                scale_factor = round(background_image_info.width / input_image_info.width, 2)
-                new_input_image_width = background_image_info.width
-                new_input_image_height = input_image_info.height * scale_factor
-                xAxis = 0
-                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
+        xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height = calculate_position_and_scale(
+            input_image_info, background_image_info, debug)
 
         resize_image_path = "../crawl/files/redbook/resize_pic"
         check(resize_image_path)

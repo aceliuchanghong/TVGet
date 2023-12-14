@@ -80,7 +80,7 @@ def deal_image(url, re_run=False):
                                             center_coords=(0, 0), re_run=re_run)
             # 2.填充iPhone图片==>组合到图片
             picResult.fix3path = fill_image(input_image_path=iphone_image, background_image_path=picResult.downpath,
-                                            center_coords=(0, 0), re_run=True, debug=True)
+                                            center_coords=(0, 0), re_run=re_run, debug=False)
             # 3.填充平板图片==>组合到图片
             picResult.fix4path = fill_image(input_image_path=ipad_image, background_image_path=picResult.downpath,
                                             center_coords=(0, 0), re_run=re_run)
@@ -103,6 +103,6 @@ def deal_image(url, re_run=False):
 
 if __name__ == '__main__':
     for url in urls_list:
-        picResult = deal_image(url, False)
+        picResult = deal_image(url, True)
         print(picResult)
         break
