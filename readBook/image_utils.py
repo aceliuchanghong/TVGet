@@ -203,18 +203,21 @@ def cut_image(input_image_path, output_image_path, width, height, center_coords=
         return "ERR:cut"
 
 
-def fill_image(input_image_path, background_image_path, output_image_path, width=0, height=0, center_coords=(0, 0),
-               re_run=False):
+def fill_image(input_image_path, background_image_path, width=0, height=0, center_coords=(0, 0),
+               re_run=False, debug=False):
     try:
         # 获取长宽
         input_image_info = get_image_size(input_image_path)
         background_image_info = get_image_size(background_image_path)
         """一共4种情况
-        1.外面框架远大于或等于下载图片
-        2.外面框架远小于下载图片
+        1.外面框架高宽均大于或等于下载图片
+        2.外面框架高宽均小于下载图片
+        3.外面框架宽大于或等于,高小于下载图片
+        4.外面框架高大于或等于,宽小于下载图片
         """
         if input_image_info.width >= background_image_info.width and input_image_info.height >= background_image_info.height:
-            print("情况一")
+            if debug:
+                print("情况一")
             if background_image_info.width >= background_image_info.height:
                 scale_factor = round(background_image_info.height / input_image_info.height, 2)
                 new_input_image_width = input_image_info.width * scale_factor
@@ -228,7 +231,8 @@ def fill_image(input_image_path, background_image_path, output_image_path, width
                 xAxis = 0
                 yAxis = 0.5 * (background_image_info.height - new_input_image_height)
         elif input_image_info.width < background_image_info.width and input_image_info.height < background_image_info.height:
-            print("情况二")
+            if debug:
+                print("情况二")
             if background_image_info.width >= background_image_info.height:
                 scale_factor = round(background_image_info.height / input_image_info.height, 2)
                 new_input_image_width = input_image_info.width * scale_factor
@@ -242,7 +246,8 @@ def fill_image(input_image_path, background_image_path, output_image_path, width
                 xAxis = 0
                 yAxis = 0.5 * (background_image_info.height - new_input_image_height)
         elif input_image_info.width >= background_image_info.width and input_image_info.height < background_image_info.height:
-            print("情况三")
+            if debug:
+                print("情况三")
             if background_image_info.width >= background_image_info.height:
                 scale_factor = round(background_image_info.width / input_image_info.width, 2)
                 new_input_image_width = background_image_info.width
@@ -256,11 +261,12 @@ def fill_image(input_image_path, background_image_path, output_image_path, width
                 xAxis = 0
                 yAxis = 0.5 * (background_image_info.height - new_input_image_height)
         else:
-            print("情况四")
+            if debug:
+                print("情况四")
             if background_image_info.width >= background_image_info.height:
-                scale_factor = round(background_image_info.width / input_image_info.width, 2)
-                new_input_image_width = background_image_info.width
-                new_input_image_height = background_image_info.height * scale_factor
+                scale_factor = round(background_image_info.height / input_image_info.height, 2)
+                new_input_image_width = background_image_info.width * scale_factor
+                new_input_image_height = background_image_info.height
                 xAxis = 0.5 * (background_image_info.width - new_input_image_width)
                 yAxis = 0
             else:
@@ -278,18 +284,18 @@ def fill_image(input_image_path, background_image_path, output_image_path, width
         check(cut_pic_path)
 
         output_image_path = resize_image_proportionally(input_image_path,
-                                                        resize_image_path + "/resize." + input_image_info.name + "." + input_image_info.ext,
+                                                        resize_image_path + "/resize." + input_image_info.name + "." + background_image_info.name + "." + input_image_info.ext,
                                                         scale_factor,
                                                         re_run=re_run)
 
         output_image_path = merge_images(output_image_path,
-                                         merge_pic_path + "/merge." + input_image_info.name + "." + input_image_info.ext,
+                                         merge_pic_path + "/merge." + input_image_info.name + "." + background_image_info.name + "." + input_image_info.ext,
                                          background_image_path,
                                          smallPicCenterAxes=(xAxis, yAxis),
                                          re_run=re_run)
 
         output_image_path = cut_image(output_image_path,
-                                      cut_pic_path + "/cut." + input_image_info.name + "." + input_image_info.ext,
+                                      cut_pic_path + "/cut." + input_image_info.name + "." + background_image_info.name + "." + input_image_info.ext,
                                       new_input_image_width, new_input_image_height,
                                       center_coords=(xAxis, yAxis),
                                       re_run=re_run)

@@ -3,10 +3,11 @@ from datetime import datetime
 from readBook.image_utils import *
 
 urls_list = [
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png?ex=6580c028&is=656e4b28&hm=5af62b9613c1a769c14fe8d7a2e30850c91f5e24c5bb9e5cb54c64a191f7d303&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353473762148363/stevenbills_silky._Following._Smoke._Gloomy._sharp._cenobite.__a4dd1bd1-1b50-4363-b769-4b6d0c4c6684.png?ex=6580c028&is=656e4b28&hm=d56d745b0b31e781235b9488a5d65bd1cc67dcac84ea06884eb7bc2ca6f1eb17&',
     'https://cdn.discordapp.com/attachments/951197655021797436/1181316240761950298/grnkrby_A_technological_computer_screen_coded_in_old_programmin_e5cbf877-dda1-44ff-8caf-db3d88de1f9f.png?ex=657fdb',
     'https://cdn.discordapp.com/attachments/951197655021797436/1181366776353804399/croakie_black_woman_afro_portrait_cartoon__gel_plate_Lithograph_4c9ee6a3-41bd-47ce-9974-2ae9ec4dc0fb.png?ex=657fdb',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png?ex=6580c028&is=656e4b28&hm=5af62b9613c1a769c14fe8d7a2e30850c91f5e24c5bb9e5cb54c64a191f7d303&',
+
 ]
 
 
@@ -71,24 +72,20 @@ def deal_image(url, re_run=False):
                                           re_run=re_run)
             picResult.bakpath = copy_file(picResult.downpath, original_pic_bak_path + "/" + picResult.name,
                                           re_run=re_run)
-            # 背景图片模糊
+            # 0.背景图片模糊
             picResult.fix1path = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
                                                re_run=re_run)
             # 1.填充安卓图片==>组合到图片
             picResult.fix2path = fill_image(input_image_path=andriod_image, background_image_path=picResult.downpath,
-                                            output_image_path=fix_pic_path + "/fix_android." + picResult.name,
                                             center_coords=(0, 0), re_run=re_run)
             # 2.填充iPhone图片==>组合到图片
             picResult.fix3path = fill_image(input_image_path=iphone_image, background_image_path=picResult.downpath,
-                                            output_image_path=fix_pic_path + "/fix_iphone." + picResult.name,
-                                            center_coords=(0, 0), re_run=re_run)
+                                            center_coords=(0, 0), re_run=True, debug=True)
             # 3.填充平板图片==>组合到图片
             picResult.fix4path = fill_image(input_image_path=ipad_image, background_image_path=picResult.downpath,
-                                            output_image_path=fix_pic_path + "/fix_ipad." + picResult.name,
                                             center_coords=(0, 0), re_run=re_run)
             # 4.填充电脑图片==>组合到图片
             picResult.fix5path = fill_image(input_image_path=laptop_image, background_image_path=picResult.downpath,
-                                            output_image_path=fix_pic_path + "/fix_laptop." + picResult.name,
                                             center_coords=(0, 0), re_run=re_run)
             # 5.填充成品文字
 
