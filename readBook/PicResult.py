@@ -7,9 +7,12 @@ class PicResult:
         self.url = None  # 链接地址
         self.downpath = None  # 下载路径
         self.bakpath = None  # 备份路径
-        self.fix1path = None  # 1处理之后路径
-        self.fix2path = None  # 2处理之后路径
-        self.fix3path = None  # 3处理之后路径
+        self.fix1path = None  #
+        self.fix2path = None  #
+        self.fix3path = None  #
+        self.fix4path = None  #
+        self.fix5path = None  #
+        self.fix6path = None  #
         self.anspath = None  # 结果路径
         self.describe = None  # 备注
 
@@ -21,9 +24,12 @@ class PicResult:
                f'url(链接地址)="{self.url}",\n' \
                f'downpath(下载路径)="{self.downpath}",\n' \
                f'bakpath(备份路径)="{self.bakpath}",\n' \
-               f'fix1path(1处理之后路径)="{self.fix1path}",\n' \
-               f'fix2path(2处理之后路径)="{self.fix2path}",\n' \
-               f'fix3path(3处理之后路径)="{self.fix3path}",\n' \
+               f'fix1path(模糊处理之后路径)="{self.fix1path}",\n' \
+               f'fix2path(安卓处理之后路径)="{self.fix2path}",\n' \
+               f'fix3path(iphone处理之后路径)="{self.fix3path}",\n' \
+               f'fix4path(ipad处理之后路径)="{self.fix4path}",\n' \
+               f'fix5path(laptop处理之后路径)="{self.fix5path}",\n' \
+               f'fix6path(文字处理之后路径)="{self.fix6path}",\n' \
                f'anspath(结果路径)="{self.anspath}",\n' \
                f'describe(备注)="{self.describe}"'
 
@@ -38,6 +44,9 @@ class PicResult:
                f'picresult.fix1path = "{self.fix1path}"\n' \
                f'picresult.fix2path = "{self.fix2path}"\n' \
                f'picresult.fix3path = "{self.fix3path}"\n' \
+               f'picresult.fix4path = "{self.fix4path}"\n' \
+               f'picresult.fix5path = "{self.fix5path}"\n' \
+               f'picresult.fix6path = "{self.fix6path}"\n' \
                f'picresult.anspath = "{self.anspath}"\n' \
                f'picresult.describe = "{self.describe}"'
 

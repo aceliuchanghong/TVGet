@@ -55,8 +55,6 @@ def deal_image(url, re_run=False):
         check(source_pic_path)
         fix_pic_path = "../crawl/files/redbook/fix_pic"
         check(fix_pic_path)
-        resize_image_path = "../crawl/files/redbook/resize_pic"
-        check(resize_image_path)
         words_image_path = "../crawl/files/redbook/words_pic"
         check(words_image_path)
         the_andriod_image = "andriod_ok.png"
@@ -77,45 +75,21 @@ def deal_image(url, re_run=False):
             picResult.fix1path = blur_bg_image(picResult.downpath, blur_pic_path + "/" + picResult.name,
                                                re_run=re_run)
             # 1.填充安卓图片==>组合到图片
-            """以下可以,但是,太复杂了,且不可复用,所以写个函数
-            
-            """
-            # # 下载的图片A作为底片,调整手机B等大小适配A
-            # the_image_info = get_image_size(picResult.downpath)
-            # the_phone_info = get_image_size(andriod_image)
-            #
-            # # 获取放缩比例
-            # if the_image_info.width >= the_image_info.height:
-            #     scale_factor = round(the_image_info.height / the_phone_info.height, 2)
-            # else:
-            #     scale_factor = round(the_image_info.width / the_phone_info.width, 2)
-            # # x轴位置
-            # xAxis = the_phone_info.width * (1 - 0.818)
-            # # y轴位置
-            # # yAxis = the_phone_info.height * (1 - 0.618)
-            # # 调整机型图片比例
-            # new_andriod_image = resize_image_proportionally(andriod_image,
-            #                                                 resize_image_path + "/" + the_image_info.name + "." + the_image_info.ext,
-            #                                                 scale_factor,
-            #                                                 re_run=re_run)
-            #
-            # # 组合图片
-            # picResult.fix2path = merge_images(new_andriod_image, fix_pic_path + "/fix_merge_android." + picResult.name,
-            #                                   picResult.downpath, smallPicCenterAxes=(xAxis, 0), re_run=re_run)
-            # # 裁剪图片
-            # fix_cut_info = get_image_size(new_andriod_image)
-            # picResult.fix3path = cut_image(picResult.fix2path, fix_pic_path + "/fix_cut_android_cut." + picResult.name,
-            #                                fix_cut_info.width, fix_cut_info.height, center_coords=(xAxis, 0),
-            #                                re_run=re_run)
-            picResult.fix2path = fill_image(input_image_path=andriod_image, background_image=picResult.downpath,
+            picResult.fix2path = fill_image(input_image_path=andriod_image, background_image_path=picResult.downpath,
                                             output_image_path=fix_pic_path + "/fix_android." + picResult.name,
                                             center_coords=(0, 0), re_run=re_run)
             # 2.填充iPhone图片==>组合到图片
-
+            picResult.fix3path = fill_image(input_image_path=iphone_image, background_image_path=picResult.downpath,
+                                            output_image_path=fix_pic_path + "/fix_iphone." + picResult.name,
+                                            center_coords=(0, 0), re_run=re_run)
             # 3.填充平板图片==>组合到图片
-
+            picResult.fix4path = fill_image(input_image_path=ipad_image, background_image_path=picResult.downpath,
+                                            output_image_path=fix_pic_path + "/fix_ipad." + picResult.name,
+                                            center_coords=(0, 0), re_run=re_run)
             # 4.填充电脑图片==>组合到图片
-
+            picResult.fix5path = fill_image(input_image_path=laptop_image, background_image_path=picResult.downpath,
+                                            output_image_path=fix_pic_path + "/fix_laptop." + picResult.name,
+                                            center_coords=(0, 0), re_run=re_run)
             # 5.填充成品文字
 
         except Exception as e:
@@ -133,5 +107,5 @@ def deal_image(url, re_run=False):
 if __name__ == '__main__':
     for url in urls_list:
         picResult = deal_image(url, False)
-        print(picResult.to_clazz())
+        print(picResult)
         break

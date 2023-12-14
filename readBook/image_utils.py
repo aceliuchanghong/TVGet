@@ -203,37 +203,96 @@ def cut_image(input_image_path, output_image_path, width, height, center_coords=
         return "ERR:cut"
 
 
-def fill_image(input_image_path, background_image, output_image_path, width=0, height=0, center_coords=(0, 0),
+def fill_image(input_image_path, background_image_path, output_image_path, width=0, height=0, center_coords=(0, 0),
                re_run=False):
     try:
-        # 打开输入图片
-        with Image.open(input_image_path) as img:
-            img_width, img_height = img.size
+        # 获取长宽
+        input_image_info = get_image_size(input_image_path)
+        background_image_info = get_image_size(background_image_path)
+        """一共4种情况
+        1.外面框架远大于或等于下载图片
+        2.外面框架远小于下载图片
+        """
+        if input_image_info.width >= background_image_info.width and input_image_info.height >= background_image_info.height:
+            print("情况一")
+            if background_image_info.width >= background_image_info.height:
+                scale_factor = round(background_image_info.height / input_image_info.height, 2)
+                new_input_image_width = input_image_info.width * scale_factor
+                new_input_image_height = background_image_info.height
+                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
+                yAxis = 0
+            else:
+                scale_factor = round(background_image_info.width / input_image_info.width, 2)
+                new_input_image_width = background_image_info.width
+                new_input_image_height = input_image_info.height * scale_factor
+                xAxis = 0
+                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
+        elif input_image_info.width < background_image_info.width and input_image_info.height < background_image_info.height:
+            print("情况二")
+            if background_image_info.width >= background_image_info.height:
+                scale_factor = round(background_image_info.height / input_image_info.height, 2)
+                new_input_image_width = input_image_info.width * scale_factor
+                new_input_image_height = background_image_info.height
+                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
+                yAxis = 0
+            else:
+                scale_factor = round(background_image_info.width / input_image_info.width, 2)
+                new_input_image_width = background_image_info.width
+                new_input_image_height = input_image_info.height * scale_factor
+                xAxis = 0
+                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
+        elif input_image_info.width >= background_image_info.width and input_image_info.height < background_image_info.height:
+            print("情况三")
+            if background_image_info.width >= background_image_info.height:
+                scale_factor = round(background_image_info.width / input_image_info.width, 2)
+                new_input_image_width = background_image_info.width
+                new_input_image_height = background_image_info.height * scale_factor
+                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
+                yAxis = 0
+            else:
+                scale_factor = round(background_image_info.width / input_image_info.width, 2)
+                new_input_image_width = background_image_info.width
+                new_input_image_height = input_image_info.height * scale_factor
+                xAxis = 0
+                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
+        else:
+            print("情况四")
+            if background_image_info.width >= background_image_info.height:
+                scale_factor = round(background_image_info.width / input_image_info.width, 2)
+                new_input_image_width = background_image_info.width
+                new_input_image_height = background_image_info.height * scale_factor
+                xAxis = 0.5 * (background_image_info.width - new_input_image_width)
+                yAxis = 0
+            else:
+                scale_factor = round(background_image_info.width / input_image_info.width, 2)
+                new_input_image_width = background_image_info.width
+                new_input_image_height = input_image_info.height * scale_factor
+                xAxis = 0
+                yAxis = 0.5 * (background_image_info.height - new_input_image_height)
 
-            # 计算填充区域的起始点
-            start_x = center_coords[0] - width // 2
-            start_y = center_coords[1] - height // 2
+        resize_image_path = "../crawl/files/redbook/resize_pic"
+        check(resize_image_path)
+        merge_pic_path = "../crawl/files/redbook/merge_pic"
+        check(merge_pic_path)
+        cut_pic_path = "../crawl/files/redbook/cut_pic"
+        check(cut_pic_path)
 
-            # 确保填充区域不会超出图片的边界
-            end_x = min(start_x + width, img_width)
-            end_y = min(start_y + height, img_height)
+        output_image_path = resize_image_proportionally(input_image_path,
+                                                        resize_image_path + "/resize." + input_image_info.name + "." + input_image_info.ext,
+                                                        scale_factor,
+                                                        re_run=re_run)
 
-            # 计算填充区域的大小
-            fill_width = end_x - start_x
-            fill_height = end_y - start_y
+        output_image_path = merge_images(output_image_path,
+                                         merge_pic_path + "/merge." + input_image_info.name + "." + input_image_info.ext,
+                                         background_image_path,
+                                         smallPicCenterAxes=(xAxis, yAxis),
+                                         re_run=re_run)
 
-            # 打开背景图片
-            with Image.open(background_image) as bg_img:
-                # 如果背景图片的大小和填充区域的大小不一致，则调整背景图片的大小
-                if bg_img.size != (fill_width, fill_height):
-                    bg_img = bg_img.resize((fill_width, fill_height))
-
-                # 将输入图片粘贴到背景图片中
-                bg_img.paste(img, (start_x, start_y))
-
-                # 如果输出路径不存在或者指定了重新运行，则保存填充后的图片
-                if not os.path.exists(output_image_path) or re_run:
-                    bg_img.save(output_image_path)
+        output_image_path = cut_image(output_image_path,
+                                      cut_pic_path + "/cut." + input_image_info.name + "." + input_image_info.ext,
+                                      new_input_image_width, new_input_image_height,
+                                      center_coords=(xAxis, yAxis),
+                                      re_run=re_run)
 
         return output_image_path
     except Exception as e:
