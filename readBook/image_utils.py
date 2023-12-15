@@ -139,14 +139,15 @@ def calculate_position_and_scale(input_image_info, background_image_info, debug=
     return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
 
 
-def put_words_on_image(words, input_image_path, output_image_path, center_coords=(0, 0), re_run=False):
+def put_words_on_image(words, input_image_path, output_image_path, center_coords=(0, 0), fontfile="my.ttf",
+                       fontcolor="white", fontsize=24, re_run=False):
     try:
-        # 构建ffmpeg命令
+        # 构建ffmpeg命令，确保参数值被正确引用，尤其是文字内容可能包含特殊字符
         command = [
             'ffmpeg',
             '-i', input_image_path,  # 输入图片文件
             '-vf',
-            f'drawtext=fontfile=my.ttf:text={words}:fontcolor=black:fontsize=24:x={center_coords[0]}:y={center_coords[1]}',
+            f"drawtext=fontfile={fontfile}:text='{words}':fontcolor={fontcolor}:fontsize={fontsize}:x={center_coords[0]}:y={center_coords[1]}",
             '-y',  # 覆盖输出文件（如果已经存在）
             output_image_path  # 输出图片文件
         ]
