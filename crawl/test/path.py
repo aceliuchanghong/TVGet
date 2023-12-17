@@ -1,8 +1,10 @@
 from datetime import datetime
 
-# 获取当前日期和时间
-now = datetime.now()
+def get_current_hour():
+    now = datetime.now()
+    print(datetime.now().hour)
+    return now.hour
 
-# 格式化日期为 'yyyymmdd' 格式
-date_str = now.strftime("%Y%m%d")
-print(date_str)
+# 使用函数
+current_hour = get_current_hour()
+print(current_hour)

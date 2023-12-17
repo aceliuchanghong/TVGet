@@ -139,18 +139,37 @@ def calculate_position_and_scale(input_image_info, background_image_info, debug=
     return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
 
 
+def calculate_center_coords(image_path, number_width, number_height):
+    """ 计算中心坐标 """
+    width, height = get_image_size(image_path).width, get_image_size(image_path).height
+    center_coords = (width / number_width, height / number_height)
+    return center_coords
+
+
+def escape_ffmpeg_text(text):
+    # 对ffmpeg特殊字符进行转义
+    return text.replace(':', '\\:').replace("'", "\\'")
+
+
 def put_words_on_image(words, input_image_path, output_image_path, center_coords=(0, 0), fontfile="my.ttf",
-                       fontcolor="white", fontsize=24, re_run=False):
+                       fontcolor='ffffff', fontsize=24, re_run=False, alpha=0.75):
     try:
-        # 构建ffmpeg命令，确保参数值被正确引用，尤其是文字内容可能包含特殊字符
+        # 转义文本
+        escaped_words = escape_ffmpeg_text(words)
+
+        # 转换透明度为16进制
+        alpha_hex = format(int(alpha * 255), '02x')
+
+        # 构建ffmpeg命令
         command = [
             'ffmpeg',
-            '-i', input_image_path,  # 输入图片文件
+            '-i', input_image_path,
             '-vf',
-            f"drawtext=fontfile={fontfile}:text='{words}':fontcolor={fontcolor}:fontsize={fontsize}:x={center_coords[0]}:y={center_coords[1]}",
-            '-y',  # 覆盖输出文件（如果已经存在）
-            output_image_path  # 输出图片文件
+            f"drawtext=fontfile={fontfile}:text='{escaped_words}':fontcolor={fontcolor}{alpha_hex}:fontsize={fontsize}:x={center_coords[0]}:y={center_coords[1]}",
+            '-y',
+            output_image_path
         ]
+
         # 执行命令
         if not exists(output_image_path) or re_run:
             subprocess.run(command, check=True)
