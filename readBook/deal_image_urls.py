@@ -1,6 +1,7 @@
 from readBook.download_images import *
 from datetime import datetime
 from readBook.image_utils import *
+# 优化函数,其中参数,逻辑按照我这个,将保持原有逻辑不变，对代码进行优化。优化的重点将放在减少重复代码、提高代码的可读性和维护性上,给出完整具体的代码
 
 urls_list = [
     'https://cdn.discordapp.com/attachments/951197655021797436/1181316240761950298/grnkrby_A_technological_computer_screen_coded_in_old_programmin_e5cbf877-dda1-44ff-8caf-db3d88de1f9f.png?ex=657fdb',
