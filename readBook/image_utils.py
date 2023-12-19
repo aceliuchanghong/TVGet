@@ -149,47 +149,43 @@ def calculate_position_and_scale2(input_image_info, background_image_info, scale
     return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
 
 
-def calculate_position_and_scale3(fill_area, input_image_info, background_image_info):
-    # 定义背景区域的比例
-    area_ratios = {
-        "left_half": (0.5, 1.0),
-        "right_half": (0.5, 1.0),
-        "right_quarter": (0.25, 1.0),
-        "top_half": (1.0, 0.5),
-        "bottom_half": (1.0, 0.5)
-    }
+def calculate_position_and_scale3(input_image_info, background_image_info, scale_ratio=1.0, x_shift_ratio=0.0,
+                                  y_shift_ratio=0.0, vertical_position='top'):
+    # 确保scale_ratio在0到1之间,大小放缩
+    scale_ratio = max(0.0, min(scale_ratio, 1.0))
 
-    # 获取指定填充区域的宽高比例
-    area_width_ratio, area_height_ratio = area_ratios.get(fill_area, (1.0, 1.0))
+    # 确保x_shift_ratio在-1到1之间 x轴移动
+    x_shift_ratio = max(-1.0, min(x_shift_ratio, 1.0))
 
-    # 计算背景区域的目标宽度和高度
-    target_width = background_image_info.width * area_width_ratio
-    target_height = background_image_info.height * area_height_ratio
+    # 确保y_shift_ratio在-1到1之间 y轴移动
+    y_shift_ratio = max(-1.0, min(y_shift_ratio, 1.0))
 
-    # 计算缩放因子
-    width_scale = target_width / input_image_info.width
-    height_scale = target_height / input_image_info.height
+    # 计算基础的缩放因子
+    width_scale = background_image_info.width / input_image_info.width
+    height_scale = (background_image_info.height / 2) / input_image_info.height  # 由于图片只占据上半部分或下半部分，因此高度比例要除以2
+    base_scale_factor = min(width_scale, height_scale)
 
-    scale_factor = min(width_scale, height_scale)
+    # 应用scale_ratio来调整缩放因子
+    scale_factor = base_scale_factor * scale_ratio
 
     # 计算新的图片尺寸
     new_input_image_width = input_image_info.width * scale_factor
     new_input_image_height = input_image_info.height * scale_factor
 
-    # 根据填充区域，计算x轴和y轴的位置
-    if fill_area in ["left_half", "top_half", "bottom_half"]:
-        xAxis = 0
-    elif fill_area == "right_half":
-        xAxis = background_image_info.width / 2.0
-    elif fill_area == "right_quarter":
-        xAxis = background_image_info.width * 0.75
+    # 计算新的图片应该放置的位置，包括x轴和y轴的偏移
+    xAxis = ((background_image_info.width - new_input_image_width) / 2.0) + (
+            x_shift_ratio * (background_image_info.width - new_input_image_width) / 2.0)
 
-    if fill_area in ["left_half", "right_half", "right_quarter"]:
-        yAxis = (background_image_info.height - new_input_image_height) / 2.0
-    elif fill_area == "top_half":
-        yAxis = 0
-    elif fill_area == "bottom_half":
-        yAxis = background_image_info.height / 2.0
+    # 根据vertical_position参数来决定yAxis的基本位置
+    if vertical_position == 'top':
+        base_yAxis = 0  # 图片放在上半部分，因此y轴的基本坐标为0
+    elif vertical_position == 'bottom':
+        base_yAxis = background_image_info.height / 2  # 图片放在下半部分，因此y轴的基本坐标为背景图片高度的一半
+    else:
+        raise ValueError("vertical_position must be 'top' or 'bottom'")
+
+    # 应用y_shift_ratio来调整y轴的偏移
+    yAxis = base_yAxis + (y_shift_ratio * (background_image_info.height / 2 - new_input_image_height) / 2.0)
 
     return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
 
@@ -486,11 +482,56 @@ def fill_image_model2(input_image_path, background_image_path, re_run):
                                                fontcolor="ffffff",
                                                fontfile="Bo Le Locust Tree Handwriting Pen Chinese Font-Simplified Chinese Fonts.ttf",
                                                fontsize=60,
-                                               center_coords=(640, 40), re_run=True, alpha=0.55)
-        return output_image_path
+                                               center_coords=(640, 40), re_run=re_run, alpha=0.55)
+        return output_image_path, words
     except Exception as e:
         print(f"An error occurred: {e}")
         return "ERR:fill_image_model3"
+
+
+def fill_image_model3(input_image_path_up, input_image_path_down, background_image_path, re_run):
+    try:
+        # 获取长宽
+        input_image_info_up = get_image_size(input_image_path_up)
+        input_image_info_down = get_image_size(input_image_path_down)
+        background_image_info = get_image_size(background_image_path)
+
+        xAxis_left, yAxis_left, scale_factor_left, new_input_image_width_left, new_input_image_height_left = calculate_position_and_scale3(
+            input_image_info_up, background_image_info, vertical_position='top')
+        xAxis_right, yAxis_right, scale_factor_right, new_input_image_width_right, new_input_image_height_right = calculate_position_and_scale3(
+            input_image_info_down, background_image_info, vertical_position='bottom')
+
+        resize_image_path = "../crawl/files/redbook/resize_pic"
+        check(resize_image_path)
+        merge_pic_path = "../crawl/files/redbook/merge_pic"
+        check(merge_pic_path)
+        cut_pic_path = "../crawl/files/redbook/cut_pic"
+        check(cut_pic_path)
+
+        output_image_path_up = resize_image_proportionally(input_image_path_up,
+                                                           resize_image_path + "/resize.up." + input_image_info_up.name + "." + input_image_info_up.ext,
+                                                           scale_factor_left,
+                                                           re_run=re_run)
+
+        output_image_path_up = merge_images(output_image_path_up,
+                                            merge_pic_path + "/merge.up." + input_image_info_up.name + "." + input_image_info_up.ext,
+                                            background_image_path,
+                                            smallPicCenterAxes=(xAxis_left, yAxis_left),
+                                            re_run=re_run)
+        output_image_path_down = resize_image_proportionally(input_image_path_down,
+                                                             resize_image_path + "/resize.bottom." + input_image_info_down.name + "." + input_image_info_down.ext,
+                                                             scale_factor_right,
+                                                             re_run=re_run)
+        output_image_path_down = merge_images(output_image_path_down,
+                                              merge_pic_path + "/merge.bottom." + input_image_info_down.name + "." + input_image_info_down.ext,
+                                              output_image_path_up,
+                                              smallPicCenterAxes=(xAxis_right, yAxis_right),
+                                              re_run=re_run)
+
+        return output_image_path_down
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "ERR:fill_image_model1"
 
 
 if __name__ == '__main__':
