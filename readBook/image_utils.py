@@ -119,6 +119,51 @@ def merge_images(input_image_path, output_image_path, background_image, smallPic
         return "ERR:merge"
 
 
+def calculate_position_and_scale2(fill_area, input_image_info, background_image_info):
+    # 定义背景区域的比例
+    area_ratios = {
+        "left_half": (0.5, 1.0),
+        "right_half": (0.5, 1.0),
+        "right_quarter": (0.25, 1.0),
+        "top_half": (1.0, 0.5),
+        "bottom_half": (1.0, 0.5)
+    }
+
+    # 获取指定填充区域的宽高比例
+    area_width_ratio, area_height_ratio = area_ratios.get(fill_area, (1.0, 1.0))
+
+    # 计算背景区域的目标宽度和高度
+    target_width = background_image_info.width * area_width_ratio
+    target_height = background_image_info.height * area_height_ratio
+
+    # 计算缩放因子
+    width_scale = target_width / input_image_info.width
+    height_scale = target_height / input_image_info.height
+
+    scale_factor = min(width_scale, height_scale)
+
+    # 计算新的图片尺寸
+    new_input_image_width = input_image_info.width * scale_factor
+    new_input_image_height = input_image_info.height * scale_factor
+
+    # 根据填充区域，计算x轴和y轴的位置
+    if fill_area in ["left_half", "top_half", "bottom_half"]:
+        xAxis = 0
+    elif fill_area == "right_half":
+        xAxis = background_image_info.width / 2.0
+    elif fill_area == "right_quarter":
+        xAxis = background_image_info.width * 0.75
+
+    if fill_area in ["left_half", "right_half", "right_quarter"]:
+        yAxis = (background_image_info.height - new_input_image_height) / 2.0
+    elif fill_area == "top_half":
+        yAxis = 0
+    elif fill_area == "bottom_half":
+        yAxis = background_image_info.height / 2.0
+
+    return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
+
+
 def calculate_position_and_scale(input_image_info, background_image_info, debug=False):
     width_scale = background_image_info.width / input_image_info.width
     height_scale = background_image_info.height / input_image_info.height
@@ -261,6 +306,54 @@ def fill_image(input_image_path, background_image_path, width=0, height=0, cente
     except Exception as e:
         print(f"An error occurred: {e}")
         return "ERR:fill"
+
+
+# 图片填充,左边input_image_path_left,右边input_image_path_right,调整2图合适长宽,满足各占一半,一左一右
+def fill_image_model1(input_image_path_left, input_image_path_right, background_image_path, re_run):
+    try:
+        # 获取长宽
+        input_image_info_left = get_image_size(input_image_path_left)
+        input_image_info_right = get_image_size(input_image_path_right)
+        background_image_info = get_image_size(background_image_path)
+
+        xAxis_left, yAxis_left, scale_factor_left, new_input_image_width_left, new_input_image_height_left = calculate_position_and_scale2(
+            'left_half',
+            input_image_info_left, background_image_info)
+        xAxis_right, yAxis_right, scale_factor_right, new_input_image_width_right, new_input_image_height_right = calculate_position_and_scale2(
+            'right_half',
+            input_image_info_right, background_image_info)
+
+        resize_image_path = "../crawl/files/redbook/resize_pic"
+        check(resize_image_path)
+        merge_pic_path = "../crawl/files/redbook/merge_pic"
+        check(merge_pic_path)
+        cut_pic_path = "../crawl/files/redbook/cut_pic"
+        check(cut_pic_path)
+
+        output_image_path_left = resize_image_proportionally(input_image_path_left,
+                                                             resize_image_path + "/resize.left." + input_image_info_left.name + "." + input_image_info_left.ext,
+                                                             scale_factor_left,
+                                                             re_run=re_run)
+
+        output_image_path_left = merge_images(output_image_path_left,
+                                              merge_pic_path + "/merge.left." + input_image_info_left.name + "." + input_image_info_left.ext,
+                                              background_image_path,
+                                              smallPicCenterAxes=(xAxis_left, yAxis_left),
+                                              re_run=re_run)
+        output_image_path_right = resize_image_proportionally(input_image_path_right,
+                                                              resize_image_path + "/resize.right." + input_image_info_right.name + "." + input_image_info_right.ext,
+                                                              scale_factor_right,
+                                                              re_run=re_run)
+        output_image_path_right = merge_images(output_image_path_right,
+                                               merge_pic_path + "/merge.right." + input_image_info_right.name + "." + input_image_info_right.ext,
+                                               output_image_path_left,
+                                               smallPicCenterAxes=(xAxis_right, yAxis_right),
+                                               re_run=re_run)
+
+        return output_image_path_right
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "ERR:fill_image_model1"
 
 
 if __name__ == '__main__':
