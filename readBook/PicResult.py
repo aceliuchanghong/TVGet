@@ -27,14 +27,14 @@ class PicResult:
                  'fix1path', 'fix2path', 'fix3path', 'fix4path', 'fix5path',
                  'fix6path', 'fix7path', 'fix8path', 'fix9path', 'fix10path', 'fix11path',
                  'fix12path', 'anspath', 'describe']
-        return '\n'.join(f'{attr}="{getattr(self, attr)}"' for attr in attrs)
+        return '\n' + '\n'.join(f'{attr}="{getattr(self, attr)}"' for attr in attrs)
 
     def to_clazz(self):
         attrs = ['name', 'ext', 'date', 'keyword', 'url', 'downpath', 'bakpath',
                  'fix1path', 'fix2path', 'fix3path', 'fix4path', 'fix5path',
                  'fix6path', 'fix7path', 'fix8path', 'fix9path', 'fix10path', 'fix11path',
                  'fix12path', 'anspath', 'describe']
-        return '\n'.join(f'picresult.{attr} = "{getattr(self, attr)}"' for attr in attrs)
+        return '\n' + '\n'.join(f'picresult.{attr} = "{getattr(self, attr)}"' for attr in attrs)
 
 
 class PicInfo:

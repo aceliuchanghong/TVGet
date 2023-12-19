@@ -197,14 +197,14 @@ def deal_image(url, re_run=False):
             picResult.fix6path = fill_image_model1(input_image_path_left=picResult.fix2path,
                                                    input_image_path_right=picResult.fix3path,
                                                    background_image_path=picResult.fix1path, re_run=re_run)
-            # # 5.2.上面ipad,下面laptop
-            # picResult.fix6path = fill_image_model2(input_image_path=picResult.fix5path,
-            #                                        background_image_path=picResult.fix1path,
-            #                                        center_coords=(0, 0), re_run=re_run)
-            # 5.3.单独iphone手机,右边文字
-            picResult.fix7path = fill_image_model3(input_image_path=picResult.fix3path,
+            # 5.2.单独iphone手机,右边文字
+            picResult.fix7path = fill_image_model2(input_image_path=picResult.fix3path,
                                                    background_image_path=picResult.fix1path,
                                                    re_run=re_run)
+            # # 5.3.上面ipad,下面laptop
+            # picResult.fix6path = fill_image_model3(input_image_path=picResult.fix5path,
+            #                                        background_image_path=picResult.fix1path,
+            #                                        center_coords=(0, 0), re_run=re_run)
 
         except Exception as e:
             picResult.describe = "ERR:deal"

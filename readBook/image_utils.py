@@ -412,7 +412,7 @@ def get_gpt_response(prompt, picFile, re_run):
         return "She possesses an ethereal beauty, a timeless elegance that whispers softly to the heart, yet echoes profoundly."
 
 
-def fill_image_model3(input_image_path, background_image_path, re_run):
+def fill_image_model2(input_image_path, background_image_path, re_run):
     try:
         # 获取长宽
         input_image_info_left = get_image_size(input_image_path)
@@ -434,6 +434,7 @@ def fill_image_model3(input_image_path, background_image_path, re_run):
         ans_files2 = words_image_path + "/words.model3.2." + input_image_info_left.name + "." + input_image_info_left.ext
         ans_files3 = words_image_path + "/words.model3.3." + input_image_info_left.name + "." + input_image_info_left.ext
         ans_files4 = words_image_path + "/words.model3.4." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files5 = words_image_path + "/words.model3.5." + input_image_info_left.name + "." + input_image_info_left.ext
         words = get_gpt_response("给我一段形容女子美丽的英语句子,要求文雅,字数在15-25个单词内", ans_files, re_run)
         output_image_path_left = resize_image_proportionally(input_image_path,
                                                              resize_image_path + "/resize.model3." + input_image_info_left.name + "." + input_image_info_left.ext,
@@ -474,6 +475,18 @@ def fill_image_model3(input_image_path, background_image_path, re_run):
                                                fontfile="BiLuoSiJianHeLuoQingSong-2.ttf",
                                                fontsize=50,
                                                center_coords=(20, 880), re_run=re_run, alpha=0.9)
+
+        with open('uploaded.log', 'r') as file:
+            # 读取所有行到一个列表中
+            lines = len(file.readlines())
+
+        output_image_path = put_words_on_image(words="#" + str(lines),
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files5,
+                                               fontcolor="ffffff",
+                                               fontfile="Bo Le Locust Tree Handwriting Pen Chinese Font-Simplified Chinese Fonts.ttf",
+                                               fontsize=60,
+                                               center_coords=(640, 40), re_run=True, alpha=0.55)
         return output_image_path
     except Exception as e:
         print(f"An error occurred: {e}")
