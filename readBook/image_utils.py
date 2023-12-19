@@ -7,6 +7,8 @@ import subprocess
 import re
 import json
 from PIL import Image
+import httpx
+from openai import OpenAI
 
 
 def get_image_size(picPath):
@@ -119,7 +121,35 @@ def merge_images(input_image_path, output_image_path, background_image, smallPic
         return "ERR:merge"
 
 
-def calculate_position_and_scale2(fill_area, input_image_info, background_image_info):
+def calculate_position_and_scale2(input_image_info, background_image_info, scale_ratio, x_shift_ratio=0.0):
+    # 确保scale_ratio在0到1之间
+    scale_ratio = max(0, min(scale_ratio, 1))
+
+    # 确保x_shift_ratio在-1到1之间
+    x_shift_ratio = max(-1.0, min(x_shift_ratio, 1.0))
+
+    # 计算基础的缩放因子
+    width_scale = background_image_info.width / input_image_info.width
+    height_scale = background_image_info.height / input_image_info.height
+    base_scale_factor = min(width_scale, height_scale)
+
+    # 应用scale_ratio来调整缩放因子
+    scale_factor = base_scale_factor * scale_ratio
+
+    # 计算新的图片尺寸
+    new_input_image_width = input_image_info.width * scale_factor
+    new_input_image_height = input_image_info.height * scale_factor
+
+    # 计算新的图片应该放置的位置
+    # xAxis现在包括x_shift_ratio的影响
+    xAxis = ((background_image_info.width - new_input_image_width) / 2.0) + (
+            x_shift_ratio * (background_image_info.width - new_input_image_width) / 2.0)
+    yAxis = (background_image_info.height - new_input_image_height) / 2.0
+
+    return xAxis, yAxis, scale_factor, new_input_image_width, new_input_image_height
+
+
+def calculate_position_and_scale3(fill_area, input_image_info, background_image_info):
     # 定义背景区域的比例
     area_ratios = {
         "left_half": (0.5, 1.0),
@@ -317,11 +347,9 @@ def fill_image_model1(input_image_path_left, input_image_path_right, background_
         background_image_info = get_image_size(background_image_path)
 
         xAxis_left, yAxis_left, scale_factor_left, new_input_image_width_left, new_input_image_height_left = calculate_position_and_scale2(
-            'left_half',
-            input_image_info_left, background_image_info)
+            input_image_info_left, background_image_info, 1)
         xAxis_right, yAxis_right, scale_factor_right, new_input_image_width_right, new_input_image_height_right = calculate_position_and_scale2(
-            'right_half',
-            input_image_info_right, background_image_info)
+            input_image_info_right, background_image_info, 0.85)
 
         resize_image_path = "../crawl/files/redbook/resize_pic"
         check(resize_image_path)
@@ -356,6 +384,102 @@ def fill_image_model1(input_image_path_left, input_image_path_right, background_
         return "ERR:fill_image_model1"
 
 
+def get_gpt_response(prompt, picFile, re_run):
+    # 配置代理服务器
+    proxyHost = "127.0.0.1"
+    proxyPort = 10809
+    if re_run or not exists(picFile):
+        # 创建 OpenAI 客户端并配置代理
+        client = OpenAI(http_client=httpx.Client(proxies=f"http://{proxyHost}:{proxyPort}"))
+        client.api_key = os.getenv("OPENAI_API_KEY")
+        try:
+            # 使用 OpenAI GPT-4 API 获取回复
+            completion = client.chat.completions.create(
+                model="gpt-4-1106-preview",
+                messages=[
+                    {"role": "user",
+                     "content": prompt
+                     }
+                ]
+            )
+            # 返回回复的内容
+            return completion.choices[0].message.content
+        except Exception as e:
+            # 如果有错误发生，打印错误信息
+            print(f"An error occurred: {e}")
+            return "Her grace is like a serene dawn, casting a gentle glow that captivates and enchants the soul."
+    else:
+        return "She possesses an ethereal beauty, a timeless elegance that whispers softly to the heart, yet echoes profoundly."
+
+
+def fill_image_model3(input_image_path, background_image_path, re_run):
+    try:
+        # 获取长宽
+        input_image_info_left = get_image_size(input_image_path)
+        background_image_info = get_image_size(background_image_path)
+
+        xAxis_left, yAxis_left, scale_factor_left, new_input_image_width_left, new_input_image_height_left = calculate_position_and_scale2(
+            input_image_info_left, background_image_info, 1, x_shift_ratio=-0.65)
+
+        resize_image_path = "../crawl/files/redbook/resize_pic"
+        check(resize_image_path)
+        merge_pic_path = "../crawl/files/redbook/merge_pic"
+        check(merge_pic_path)
+        cut_pic_path = "../crawl/files/redbook/cut_pic"
+        check(cut_pic_path)
+        words_image_path = "../crawl/files/redbook/words_pic"
+        check(words_image_path)
+        tmp_files = merge_pic_path + "/merge.model3." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files = words_image_path + "/words.model3." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files2 = words_image_path + "/words.model3.2." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files3 = words_image_path + "/words.model3.3." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files4 = words_image_path + "/words.model3.4." + input_image_info_left.name + "." + input_image_info_left.ext
+        words = get_gpt_response("给我一段形容女子美丽的英语句子,要求文雅,字数在15-25个单词内", ans_files, re_run)
+        output_image_path_left = resize_image_proportionally(input_image_path,
+                                                             resize_image_path + "/resize.model3." + input_image_info_left.name + "." + input_image_info_left.ext,
+                                                             scale_factor_left,
+                                                             re_run=re_run)
+
+        output_image_path = merge_images(output_image_path_left,
+                                         tmp_files,
+                                         background_image_path,
+                                         smallPicCenterAxes=(xAxis_left, yAxis_left),
+                                         re_run=re_run)
+
+        output_image_path = put_words_on_image(words=words[0:36],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files,
+                                               fontcolor="ffffff",
+                                               fontfile="BiLuoSiJianHeLuoQingSong-2.ttf",
+                                               fontsize=50,
+                                               center_coords=(20, 700), re_run=re_run, alpha=0.9)
+        output_image_path = put_words_on_image(words=words[36:72],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files2,
+                                               fontcolor="ffffff",
+                                               fontfile="BiLuoSiJianHeLuoQingSong-2.ttf",
+                                               fontsize=50,
+                                               center_coords=(20, 760), re_run=re_run, alpha=0.9)
+        output_image_path = put_words_on_image(words=words[72:108],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files3,
+                                               fontcolor="ffffff",
+                                               fontfile="BiLuoSiJianHeLuoQingSong-2.ttf",
+                                               fontsize=50,
+                                               center_coords=(20, 820), re_run=re_run, alpha=0.9)
+        output_image_path = put_words_on_image(words=words[108:1000],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files4,
+                                               fontcolor="ffffff",
+                                               fontfile="BiLuoSiJianHeLuoQingSong-2.ttf",
+                                               fontsize=50,
+                                               center_coords=(20, 880), re_run=re_run, alpha=0.9)
+        return output_image_path
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "ERR:fill_image_model3"
+
+
 if __name__ == '__main__':
     picresult = PicResult()
     picresult.name = "stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
@@ -371,4 +495,6 @@ if __name__ == '__main__':
     picresult.anspath = "None"
     picresult.describe = "SUC"
 
-    print(picresult)
+    print(get_gpt_response("给我一段形容女子美丽的英语句子,要求文雅,字数在15-25个单词内",
+                           "../crawl/files/redbook/cut_pic/cut.iphone_ok.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png",
+                           False))
