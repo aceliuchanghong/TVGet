@@ -17,8 +17,38 @@ urls_list = [
 ]
 
 
-def deal_image(url, re_run=False):
+def deal_image(
+        url='https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png?ex=6580c028&is=656e4b28&hm=5af62b9613c1a769c14fe8d7a2e30850c91f5e24c5bb9e5cb54c64a191f7d303&',
+        picPath=None, re_run=False):
     picResult = PicResult()
+    proxy_host = '127.0.0.1'
+    proxy_port = 10809
+    proxies = {
+        'http': f'http://{proxy_host}:{proxy_port}',
+        'https': f'http://{proxy_host}:{proxy_port}'
+    }
+
+    original_pic_path = '../crawl/files/redbook/original_pic'
+    check(original_pic_path)
+    original_pic_bak_path = '../crawl/files/redbook/original_bak_pic'
+    check(original_pic_bak_path)
+    blur_pic_path = "../crawl/files/redbook/blur_pic"
+    check(blur_pic_path)
+    source_pic_path = "../readBook/basicPic"
+    check(source_pic_path)
+    fix_pic_path = "../crawl/files/redbook/fix_pic"
+    check(fix_pic_path)
+    words_image_path = "../crawl/files/redbook/words_pic"
+    check(words_image_path)
+    the_andriod_image = "andriod_ok.png"
+    the_iphone_image = "iphone_ok.png"
+    the_ipad_image = "ipad_ok.png"
+    the_laptop_image = "huawei_laptop_ok.png"
+    andriod_image = source_pic_path + "/" + the_andriod_image
+    iphone_image = source_pic_path + "/" + the_iphone_image
+    ipad_image = source_pic_path + "/" + the_ipad_image
+    laptop_image = source_pic_path + "/" + the_laptop_image
+
     if url is not None and len(url) > 10:
         # 获取url
         try:
@@ -45,37 +75,15 @@ def deal_image(url, re_run=False):
             print(e)
             return picResult
 
-        proxy_host = '127.0.0.1'
-        proxy_port = 10809
-        proxies = {
-            'http': f'http://{proxy_host}:{proxy_port}',
-            'https': f'http://{proxy_host}:{proxy_port}'
-        }
-
-        original_pic_path = '../crawl/files/redbook/original_pic'
-        check(original_pic_path)
-        original_pic_bak_path = '../crawl/files/redbook/original_bak_pic'
-        check(original_pic_bak_path)
-        blur_pic_path = "../crawl/files/redbook/blur_pic"
-        check(blur_pic_path)
-        source_pic_path = "../readBook/basicPic"
-        check(source_pic_path)
-        fix_pic_path = "../crawl/files/redbook/fix_pic"
-        check(fix_pic_path)
-        words_image_path = "../crawl/files/redbook/words_pic"
-        check(words_image_path)
-        the_andriod_image = "andriod_ok.png"
-        the_iphone_image = "iphone_ok.png"
-        the_ipad_image = "ipad_ok.png"
-        the_laptop_image = "huawei_laptop_ok.png"
-        andriod_image = source_pic_path + "/" + the_andriod_image
-        iphone_image = source_pic_path + "/" + the_iphone_image
-        ipad_image = source_pic_path + "/" + the_ipad_image
-        laptop_image = source_pic_path + "/" + the_laptop_image
-
         try:
-            picResult.downpath = download(picResult.url, name=picResult.name, path=original_pic_path, proxies=proxies,
-                                          re_run=re_run)
+            if picPath is not None:
+                picResult.downpath = picPath
+                picResult.ext = picPath.split(".")[-1]
+                picResult.name = picPath.split("/")[-1]
+            else:
+                picResult.downpath = download(picResult.url, name=picResult.name, path=original_pic_path,
+                                              proxies=proxies,
+                                              re_run=re_run)
             picResult.bakpath = copy_file(picResult.downpath, original_pic_bak_path + "/" + picResult.name,
                                           re_run=re_run)
             # 0.背景图片模糊
@@ -204,7 +212,9 @@ def deal_image(url, re_run=False):
             # 5.3.上面ipad,下面laptop
             picResult.fix8path = fill_image_model3(input_image_path_up=picResult.fix4path,
                                                    input_image_path_down=picResult.fix5path,
-                                                   background_image_path=picResult.fix1path, re_run=True)
+                                                   background_image_path=picResult.fix1path,
+                                                   words=picResult.keyword,
+                                                   re_run=re_run)
 
         except Exception as e:
             picResult.describe = "ERR:deal"
@@ -220,6 +230,10 @@ def deal_image(url, re_run=False):
 
 if __name__ == '__main__':
     for url in urls_list:
-        picResult = deal_image(url, False)
+        picResult = deal_image(url=url, re_run=False)
         print(picResult)
+        # picResult = deal_image(
+        #     picPath='../crawl/files/redbook/original_pic/stevenbills_silky._Following._Smoke._Gloomy._sharp._cenobite.__a4dd1bd1-1b50-4363-b769-4b6d0c4c6684.png',
+        #     re_run=False)
+        # print(picResult)
         break

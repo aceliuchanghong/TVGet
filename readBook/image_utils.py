@@ -425,12 +425,12 @@ def fill_image_model2(input_image_path, background_image_path, re_run):
         check(cut_pic_path)
         words_image_path = "../crawl/files/redbook/words_pic"
         check(words_image_path)
-        tmp_files = merge_pic_path + "/merge.model3." + input_image_info_left.name + "." + input_image_info_left.ext
-        ans_files = words_image_path + "/words.model3." + input_image_info_left.name + "." + input_image_info_left.ext
-        ans_files2 = words_image_path + "/words.model3.2." + input_image_info_left.name + "." + input_image_info_left.ext
-        ans_files3 = words_image_path + "/words.model3.3." + input_image_info_left.name + "." + input_image_info_left.ext
-        ans_files4 = words_image_path + "/words.model3.4." + input_image_info_left.name + "." + input_image_info_left.ext
-        ans_files5 = words_image_path + "/words.model3.5." + input_image_info_left.name + "." + input_image_info_left.ext
+        tmp_files = merge_pic_path + "/merge.model2." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files = words_image_path + "/words.model2.1" + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files2 = words_image_path + "/words.model2.2." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files3 = words_image_path + "/words.model2.3." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files4 = words_image_path + "/words.model2.4." + input_image_info_left.name + "." + input_image_info_left.ext
+        ans_files5 = words_image_path + "/words.model2.5." + input_image_info_left.name + "." + input_image_info_left.ext
         words = get_gpt_response("给我一段形容女子美丽的英语句子,要求文雅,字数在15-25个单词内", ans_files, re_run)
         output_image_path_left = resize_image_proportionally(input_image_path,
                                                              resize_image_path + "/resize.model3." + input_image_info_left.name + "." + input_image_info_left.ext,
@@ -489,7 +489,7 @@ def fill_image_model2(input_image_path, background_image_path, re_run):
         return "ERR:fill_image_model3"
 
 
-def fill_image_model3(input_image_path_up, input_image_path_down, background_image_path, re_run):
+def fill_image_model3(input_image_path_up, input_image_path_down, background_image_path, words="", re_run=False):
     try:
         # 获取长宽
         input_image_info_up = get_image_size(input_image_path_up)
@@ -497,9 +497,9 @@ def fill_image_model3(input_image_path_up, input_image_path_down, background_ima
         background_image_info = get_image_size(background_image_path)
 
         xAxis_left, yAxis_left, scale_factor_left, new_input_image_width_left, new_input_image_height_left = calculate_position_and_scale3(
-            input_image_info_up, background_image_info, vertical_position='top')
+            input_image_info_up, background_image_info, scale_ratio=0.75, vertical_position='top')
         xAxis_right, yAxis_right, scale_factor_right, new_input_image_width_right, new_input_image_height_right = calculate_position_and_scale3(
-            input_image_info_down, background_image_info, vertical_position='bottom')
+            input_image_info_down, background_image_info, y_shift_ratio=1.0, vertical_position='bottom')
 
         resize_image_path = "../crawl/files/redbook/resize_pic"
         check(resize_image_path)
@@ -528,7 +528,55 @@ def fill_image_model3(input_image_path_up, input_image_path_down, background_ima
                                               smallPicCenterAxes=(xAxis_right, yAxis_right),
                                               re_run=re_run)
 
-        return output_image_path_down
+        words_image_path = "../crawl/files/redbook/words_pic"
+        check(words_image_path)
+        words = words
+        ans_files = words_image_path + "/words.model3.1." + input_image_info_down.name + "." + input_image_info_down.ext
+        ans_files2 = words_image_path + "/words.model3.2." + input_image_info_down.name + "." + input_image_info_down.ext
+        ans_files3 = words_image_path + "/words.model3.3." + input_image_info_down.name + "." + input_image_info_down.ext
+        ans_files4 = words_image_path + "/words.model3.4." + input_image_info_down.name + "." + input_image_info_down.ext
+        ans_files5 = words_image_path + "/words.model3.5." + input_image_info_down.name + "." + input_image_info_down.ext
+
+        output_image_path = put_words_on_image(words=words[0:36],
+                                               input_image_path=output_image_path_down,
+                                               output_image_path=ans_files,
+                                               fontcolor="000000",
+                                               fontfile="my.ttf",
+                                               fontsize=40,
+                                               center_coords=(95, 400), re_run=re_run, alpha=1.0)
+        output_image_path = put_words_on_image(words=words[36:72],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files2,
+                                               fontcolor="000000",
+                                               fontfile="my.ttf",
+                                               fontsize=40,
+                                               center_coords=(95, 440), re_run=re_run, alpha=1.0)
+        output_image_path = put_words_on_image(words=words[72:108],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files3,
+                                               fontcolor="000000",
+                                               fontfile="my.ttf",
+                                               fontsize=40,
+                                               center_coords=(95, 480), re_run=re_run, alpha=1.0)
+        output_image_path = put_words_on_image(words=words[108:1000],
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files4,
+                                               fontcolor="000000",
+                                               fontfile="my.ttf",
+                                               fontsize=40,
+                                               center_coords=(95, 520), re_run=re_run, alpha=1.0)
+        with open('uploaded.log', 'r') as file:
+            # 读取所有行到一个列表中
+            lines = len(file.readlines())
+
+        output_image_path = put_words_on_image(words="#" + str(lines),
+                                               input_image_path=output_image_path,
+                                               output_image_path=ans_files5,
+                                               fontcolor="ffffff",
+                                               fontfile="Bo Le Locust Tree Handwriting Pen Chinese Font-Simplified Chinese Fonts.ttf",
+                                               fontsize=60,
+                                               center_coords=(670, 40), re_run=re_run, alpha=0.55)
+        return output_image_path
     except Exception as e:
         print(f"An error occurred: {e}")
         return "ERR:fill_image_model1"
