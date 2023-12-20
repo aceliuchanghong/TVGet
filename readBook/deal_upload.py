@@ -70,11 +70,11 @@ async def upload_to_read_book(playwright, picResult, re_run):
             await page.press(css_selector, "Enter")
         print("开始设置地点")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/input').fill('上海')
-        await asyncio.sleep(4)
+        await asyncio.sleep(5)
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/div[1]/ul/li[1]').click()
         print("开始发布")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[7]/button[1]/span').click()
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(2)
         return True
     except Exception as e:
         print(f"Upload error occurred: {e}")
