@@ -7,6 +7,35 @@ import asyncio
 
 async def upload_to_read_book(playwright, picResult, re_run):
     upload_url1 = "https://creator.xiaohongshu.com/publish/publish"
+    keywords = [
+        "高清壁纸",
+        "希望有人看",
+        "我的意义",
+        "平板壁纸",
+        "全屏壁纸",
+        "好想谈恋爱",
+        "每日壁纸",
+        "插画",
+        "公主",
+        "女王",
+        "目标",
+        "对象",
+        "希望",
+        "生活",
+        "原创壁纸",
+        "电脑壁纸",
+        "今日壁纸",
+        "AI绘画",
+        "AI插画",
+        "iphone壁纸",
+        "动漫壁纸",
+        "ipad壁纸",
+        "完美女孩",
+        "美女",
+        "可爱女孩",
+        "恋爱日常",
+        "我和他"
+    ]
 
     browser = await playwright.chromium.launch(headless=False)
     current_path = os.path.dirname(os.path.abspath(__file__))
@@ -23,27 +52,42 @@ async def upload_to_read_book(playwright, picResult, re_run):
     context = await browser.new_context(storage_state=storage_state)
     page = await context.new_page()
 
-    await page.goto(upload_url1)
-    # 确保页面已经加载完成
-    await page.wait_for_url(upload_url1)
-    print("准备上传图片,切换至上传图片界面")
-    await page.locator('//*[@id="web"]/div/div[1]/div[1]/div[2]/span').click()
-    # 点击上传按钮
-    file_input_locator = page.locator('//*[@id="web"]/div/div[1]/div[2]/div[1]/div/input')
-    await file_input_locator.wait_for(state="visible")
-    print("1.开始上传封面图片")
-    # 封面
-    await file_input_locator.set_input_files(picResult.fix7path)
-    print("2.开始上传第二张图片")
-    file_input_locator2 = page.locator('//*[@id="web"]/div/div[2]/div[2]/div[1]/div[1]/button/span')
-    await file_input_locator2.wait_for(state="visible")
-    # 第二张
-    await file_input_locator.set_input_files(picResult.fix6path)
-    # 第三张
-    # await file_input_locator.set_input_files(picResult.fix8path)
-    # 最后一张
-    # await file_input_locator.set_input_files(picResult.fix1path)
-    await asyncio.sleep(1000)
+    try:
+        await page.goto(upload_url1)
+        # 确保页面已经加载完成
+        await page.wait_for_url(upload_url1)
+        print("准备上传图片,切换至上传图片界面")
+        await page.locator('//*[@id="web"]/div/div[1]/div[1]/div[2]/span').click()
+        # 点击上传按钮
+        file_input_locator = page.locator('//*[@id="web"]/div/div[1]/div[2]/div[1]/div/input')
+        await file_input_locator.wait_for(state="visible")
+        print("开始上传图片")
+        # 封面
+        await file_input_locator.set_input_files(
+            [picResult.fix7path, picResult.fix6path, picResult.fix8path, picResult.downpath])
+        print("开始设置标题")
+        with open('uploaded.log', 'r') as file:
+            # 读取所有行到一个列表中
+            lines = len(file.readlines())
+        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[2]/input').fill(
+            str(lines) + "||" + picResult.anspath + "||我的完美女孩目标之一")
+        print("开始设置话题")
+        for i in keywords:
+            css_selector = ".topic-container"
+            await page.locator('//*[@id="topicBtn"]/span').click()
+            await page.locator('//*[@id="post-textarea"]').type(i)
+            await asyncio.sleep(2)
+            await page.press(css_selector, "Enter")
+        print("开始设置地点")
+        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/input').fill('上海')
+        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/div[1]/ul/li[1]').click()
+        print("开始发布")
+        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[7]/button[1]/span').click()
+        # await asyncio.sleep(2000)
+        return True
+    except Exception as e:
+        print(f"Upload error occurred: {e}")
+        return False
 
 
 async def start(picresult, re_run):
@@ -72,7 +116,7 @@ if __name__ == '__main__':
     picresult.fix10path = "None"
     picresult.fix11path = "None"
     picresult.fix12path = "None"
-    picresult.anspath = "None"
+    picresult.anspath = "玉立花容月下生"
     picresult.describe = "SUC"
 
     if picresult.describe == "SUC":

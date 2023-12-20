@@ -408,6 +408,34 @@ def get_gpt_response(prompt, picFile, re_run):
         return "She possesses an ethereal beauty, a timeless elegance that whispers softly to the heart, yet echoes profoundly."
 
 
+def get_gpt_response2(prompt, picFile, re_run):
+    # 配置代理服务器
+    proxyHost = "127.0.0.1"
+    proxyPort = 10809
+    if re_run or not exists(picFile):
+        # 创建 OpenAI 客户端并配置代理
+        client = OpenAI(http_client=httpx.Client(proxies=f"http://{proxyHost}:{proxyPort}"))
+        client.api_key = os.getenv("OPENAI_API_KEY")
+        try:
+            # 使用 OpenAI GPT-4 API 获取回复
+            completion = client.chat.completions.create(
+                model="gpt-4-1106-preview",
+                messages=[
+                    {"role": "user",
+                     "content": prompt
+                     }
+                ]
+            )
+            # 返回回复的内容
+            return completion.choices[0].message.content
+        except Exception as e:
+            # 如果有错误发生，打印错误信息
+            print(f"An error occurred: {e}")
+            return "云发皓齿月初圆"
+    else:
+        return "玉立花容月下生"
+
+
 def fill_image_model2(input_image_path, background_image_path, x_shift_ratio=0, re_run=False):
     try:
         # 获取长宽
