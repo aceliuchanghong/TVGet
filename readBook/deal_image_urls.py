@@ -201,13 +201,18 @@ def deal_image(
                                                     center_coords=center_coords, re_run=re_run)
 
             # 5.成品
-            # 5.1.中间安卓,里面iPhone
-            picResult.fix6path = fill_image_model1(input_image_path_left=picResult.fix2path,
-                                                   input_image_path_right=picResult.fix3path,
-                                                   background_image_path=picResult.fix1path, re_run=re_run)
+            # 5.1.单独安卓在中间
+            # picResult.fix6path = fill_image_model1(input_image_path_left=picResult.fix2path,
+            #                                        input_image_path_right=picResult.fix3path,
+            #                                        background_image_path=picResult.fix1path, re_run=re_run)
+            picResult.fix6path, mmm = fill_image_model2(input_image_path=picResult.fix2path,
+                                                        background_image_path=picResult.fix1path,
+                                                        x_shift_ratio=0.65,
+                                                        re_run=re_run)
             # 5.2.单独iphone手机,右边文字
             picResult.fix7path, picResult.keyword = fill_image_model2(input_image_path=picResult.fix3path,
                                                                       background_image_path=picResult.fix1path,
+                                                                      x_shift_ratio=-0.65,
                                                                       re_run=re_run)
             # 5.3.上面ipad,下面laptop
             picResult.fix8path = fill_image_model3(input_image_path_up=picResult.fix4path,
@@ -231,7 +236,7 @@ def deal_image(
 if __name__ == '__main__':
     for url in urls_list:
         picResult = deal_image(url=url, re_run=False)
-        print(picResult)
+        print(picResult.to_clazz())
         # picResult = deal_image(
         #     picPath='../crawl/files/redbook/original_pic/stevenbills_silky._Following._Smoke._Gloomy._sharp._cenobite.__a4dd1bd1-1b50-4363-b769-4b6d0c4c6684.png',
         #     re_run=False)

@@ -44,6 +44,9 @@ npx playwright install
 # 生成cookie
 cd .\douyin_upload\test
 playwright codegen www.douyin.com --save-storage=cookie.json
+# 小红书通过Cookie Master获取之后 后添加头部==>https://chromewebstore.google.com/detail/cookie-master/jahkihogapggenanjnlfdcbgmldngnfl
+# {"cookies": }
+# 然后替换sameSite值为==>"sameSite": "Lax",
 ```
 ## 开始执行
 ```

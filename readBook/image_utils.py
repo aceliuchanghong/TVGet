@@ -408,14 +408,14 @@ def get_gpt_response(prompt, picFile, re_run):
         return "She possesses an ethereal beauty, a timeless elegance that whispers softly to the heart, yet echoes profoundly."
 
 
-def fill_image_model2(input_image_path, background_image_path, re_run):
+def fill_image_model2(input_image_path, background_image_path, x_shift_ratio=0, re_run=False):
     try:
         # 获取长宽
         input_image_info_left = get_image_size(input_image_path)
         background_image_info = get_image_size(background_image_path)
 
         xAxis_left, yAxis_left, scale_factor_left, new_input_image_width_left, new_input_image_height_left = calculate_position_and_scale2(
-            input_image_info_left, background_image_info, 1, x_shift_ratio=-0.65)
+            input_image_info_left, background_image_info, 1, x_shift_ratio=x_shift_ratio)
 
         resize_image_path = "../crawl/files/redbook/resize_pic"
         check(resize_image_path)
