@@ -6,7 +6,7 @@ import asyncio
 
 
 async def upload_to_read_book(playwright, picResult, re_run):
-    upload_url1 = "https://creator.xiaohongshu.com/creator/home"
+    upload_url1 = "https://creator.xiaohongshu.com/publish/publish"
 
     browser = await playwright.chromium.launch(headless=False)
     current_path = os.path.dirname(os.path.abspath(__file__))
@@ -24,12 +24,26 @@ async def upload_to_read_book(playwright, picResult, re_run):
     page = await context.new_page()
 
     await page.goto(upload_url1)
+    # 确保页面已经加载完成
     await page.wait_for_url(upload_url1)
-    await asyncio.sleep(100)
-    print("准备上传视频")
-    await page.locator(
-        "label:has-text(\"为了更好的观看体验和平台安全，平台将对上传的视频预审。超过40秒的视频建议上传横版视频\")").set_input_files(
-        picResult.fix1path)
+    print("准备上传图片,切换至上传图片界面")
+    await page.locator('//*[@id="web"]/div/div[1]/div[1]/div[2]/span').click()
+    # 点击上传按钮
+    file_input_locator = page.locator('//*[@id="web"]/div/div[1]/div[2]/div[1]/div/input')
+    await file_input_locator.wait_for(state="visible")
+    print("1.开始上传封面图片")
+    # 封面
+    await file_input_locator.set_input_files(picResult.fix7path)
+    print("2.开始上传第二张图片")
+    file_input_locator2 = page.locator('//*[@id="web"]/div/div[2]/div[2]/div[1]/div[1]/button/span')
+    await file_input_locator2.wait_for(state="visible")
+    # 第二张
+    await file_input_locator.set_input_files(picResult.fix6path)
+    # 第三张
+    # await file_input_locator.set_input_files(picResult.fix8path)
+    # 最后一张
+    # await file_input_locator.set_input_files(picResult.fix1path)
+    await asyncio.sleep(1000)
 
 
 async def start(picresult, re_run):
