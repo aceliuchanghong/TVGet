@@ -9,10 +9,6 @@ async def upload_to_read_book(playwright, picResult, re_run):
     upload_url1 = "https://creator.xiaohongshu.com/publish/publish"
     keywords = [
         "高清壁纸",
-        "希望有人看",
-        "我的意义",
-        "平板壁纸",
-        "全屏壁纸",
         "好想谈恋爱",
         "每日壁纸",
         "插画",
@@ -20,11 +16,8 @@ async def upload_to_read_book(playwright, picResult, re_run):
         "女王",
         "目标",
         "对象",
-        "希望",
         "生活",
         "原创壁纸",
-        "电脑壁纸",
-        "今日壁纸",
         "AI绘画",
         "AI插画",
         "iphone壁纸",
@@ -66,11 +59,8 @@ async def upload_to_read_book(playwright, picResult, re_run):
         await file_input_locator.set_input_files(
             [picResult.fix7path, picResult.fix6path, picResult.fix8path, picResult.downpath])
         print("开始设置标题")
-        with open('uploaded.log', 'r') as file:
-            # 读取所有行到一个列表中
-            lines = len(file.readlines())
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[2]/input').fill(
-            str(lines) + "||" + picResult.anspath + "||我的完美女孩目标之一")
+            picResult.fix12path + "|" + picResult.anspath + "|我的完美女孩目标之一")
         print("开始设置话题")
         for i in keywords:
             css_selector = ".topic-container"
@@ -80,10 +70,11 @@ async def upload_to_read_book(playwright, picResult, re_run):
             await page.press(css_selector, "Enter")
         print("开始设置地点")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/input').fill('上海')
+        await asyncio.sleep(4)
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/div[1]/ul/li[1]').click()
         print("开始发布")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[7]/button[1]/span').click()
-        # await asyncio.sleep(2000)
+        await asyncio.sleep(0.2)
         return True
     except Exception as e:
         print(f"Upload error occurred: {e}")
@@ -92,7 +83,8 @@ async def upload_to_read_book(playwright, picResult, re_run):
 
 async def start(picresult, re_run):
     async with async_playwright() as playwright:
-        await upload_to_read_book(playwright, picresult, re_run=re_run)
+        isOK = await upload_to_read_book(playwright, picresult, re_run=re_run)
+        return isOK
 
 
 if __name__ == '__main__':
@@ -121,10 +113,5 @@ if __name__ == '__main__':
 
     if picresult.describe == "SUC":
         asyncio.run(start(picresult, False))
-        # if bool_test:
-        #     with open('../readBook/uploaded.log', 'w') as file:
-        #         file.write(f"{testPicResult.url}\n")
-        # else:
-        #     print("ERR")
     else:
         print("??")

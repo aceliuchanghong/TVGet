@@ -503,6 +503,7 @@ def fill_image_model2(input_image_path, background_image_path, x_shift_ratio=0, 
         with open('uploaded.log', 'r') as file:
             # 读取所有行到一个列表中
             lines = len(file.readlines())
+            file.close()
 
         output_image_path = put_words_on_image(words="#" + str(lines),
                                                input_image_path=output_image_path,
@@ -511,7 +512,7 @@ def fill_image_model2(input_image_path, background_image_path, x_shift_ratio=0, 
                                                fontfile="Bo Le Locust Tree Handwriting Pen Chinese Font-Simplified Chinese Fonts.ttf",
                                                fontsize=60,
                                                center_coords=(640, 40), re_run=re_run, alpha=0.55)
-        return output_image_path, words
+        return output_image_path, words, str(lines)
     except Exception as e:
         print(f"An error occurred: {e}")
         return "ERR:fill_image_model3"
@@ -596,6 +597,7 @@ def fill_image_model3(input_image_path_up, input_image_path_down, background_ima
         with open('uploaded.log', 'r') as file:
             # 读取所有行到一个列表中
             lines = len(file.readlines())
+            file.close()
 
         output_image_path = put_words_on_image(words="#" + str(lines),
                                                input_image_path=output_image_path,

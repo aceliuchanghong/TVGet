@@ -7,13 +7,14 @@ from readBook.image_utils import *
 urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png?ex=6580c028&is=656e4b28&hm=5af62b9613c1a769c14fe8d7a2e30850c91f5e24c5bb9e5cb54c64a191f7d303&',
     'https://cdn.discordapp.com/attachments/941582479117127680/1186480579345125376/lawrence_aceliuchanghong_a_lanky_blonde_with_a_kazoo_in_a_churc_ad86dcb2-7673-40f0-b750-4336ddab27e4.png?ex=65936725&is=6580f225&hm=9555eed4a42654c8a55113ac0e9a0e52e9d234deab0155df6a717f578ee13deb&',
+]
+bak = [
     'https://cdn.discordapp.com/attachments/941582479117127680/1186480604624199751/lawrence_aceliuchanghong_a_lanky_blonde_with_a_kazoo_in_a_churc_b151993c-dec3-46c1-942f-81aa2cba0ca0.png?ex=6593672b&is=6580f22b&hm=684c60175ba522fcf6329592c5a72902a968444b16e50798b7538521f1135218&',
     'https://cdn.discordapp.com/attachments/941582479117127680/1186480585447854100/lawrence_aceliuchanghong_a_lanky_blonde_with_a_kazoo_in_a_churc_d6d9e024-49b8-41f5-9368-461b08368578.png?ex=65936727&is=6580f227&hm=7c064ca70a170e09c5469f4dfe2a945e273750318df3c88fdabedba868135fc4&',
     'https://cdn.discordapp.com/attachments/941582479117127680/1186480615005098035/lawrence_aceliuchanghong_a_lanky_blonde_with_a_kazoo_in_a_churc_d1722e22-b247-49a9-9929-266a8c3ac3d9.png?ex=6593672e&is=6580f22e&hm=24aac05abf57c3414f220dfce028b314bd3e74c3e2aba79d54f2537ee5bde731&',
     'https://cdn.discordapp.com/attachments/951197655021797436/1181316240761950298/grnkrby_A_technological_computer_screen_coded_in_old_programmin_e5cbf877-dda1-44ff-8caf-db3d88de1f9f.png?ex=657fdb',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1181353473762148363/stevenbills_silky._Following._Smoke._Gloomy._sharp._cenobite.__a4dd1bd1-1b50-4363-b769-4b6d0c4c6684.png?ex=6580c028&is=656e4b28&hm=d56d745b0b31e781235b9488a5d65bd1cc67dcac84ea06884eb7bc2ca6f1eb17&',
     'https://cdn.discordapp.com/attachments/951197655021797436/1181366776353804399/croakie_black_woman_afro_portrait_cartoon__gel_plate_Lithograph_4c9ee6a3-41bd-47ce-9974-2ae9ec4dc0fb.png?ex=657fdb',
-
 ]
 
 
@@ -205,15 +206,16 @@ def deal_image(
             # picResult.fix6path = fill_image_model1(input_image_path_left=picResult.fix2path,
             #                                        input_image_path_right=picResult.fix3path,
             #                                        background_image_path=picResult.fix1path, re_run=re_run)
-            picResult.fix6path, mmm = fill_image_model2(input_image_path=picResult.fix2path,
-                                                        background_image_path=picResult.fix1path,
-                                                        x_shift_ratio=0.65,
-                                                        re_run=re_run)
+            picResult.fix6path, mmm, nnn = fill_image_model2(input_image_path=picResult.fix2path,
+                                                             background_image_path=picResult.fix1path,
+                                                             x_shift_ratio=0.65,
+                                                             re_run=re_run)
             # 5.2.单独iphone手机,右边文字
-            picResult.fix7path, picResult.keyword = fill_image_model2(input_image_path=picResult.fix3path,
-                                                                      background_image_path=picResult.fix1path,
-                                                                      x_shift_ratio=-0.65,
-                                                                      re_run=re_run)
+            picResult.fix7path, picResult.keyword, picResult.fix12path = fill_image_model2(
+                input_image_path=picResult.fix3path,
+                background_image_path=picResult.fix1path,
+                x_shift_ratio=-0.65,
+                re_run=re_run)
             # 5.3.上面ipad,下面laptop
             picResult.fix8path = fill_image_model3(input_image_path_up=picResult.fix4path,
                                                    input_image_path_down=picResult.fix5path,
@@ -221,7 +223,7 @@ def deal_image(
                                                    words=picResult.keyword,
                                                    re_run=re_run)
             picResult.anspath = get_gpt_response2(
-                "给我一段形容女子美丽的中文句子,要求文雅,字数在10个子以内,最好是7字诗句,不要最后一个标点",
+                "给我一段形容女子美丽的中文句子,要求文雅,字数在8个字以内,最好是7字诗句,不要最后一个标点",
                 picResult.fix8path, re_run)
         except Exception as e:
             picResult.describe = "ERR:deal"
