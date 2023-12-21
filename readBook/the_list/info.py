@@ -38,10 +38,7 @@ bak = [
     'https://cdn.discordapp.com/attachments/1123710007335211078/1181811042922274899/grnkrby_Japanese_Light_Novel_art_this_Latina_wearing_a_green_dr_e0f81c1b-5384-41c3-b132-6d2149a3a7f8.png?ex=6594df4d&is=65826a4d&hm=bb479528601157c1e44e8cace405798cf763d03927d0d9f1d8fc47e1bcafe6c6&',
     'https://cdn.discordapp.com/attachments/1125522435257683968/1170478200892166267/grnkrby_Pin-up_poster_of_a_Latina_anime_woman_short_shes_wearin_d00bebf7-34db-4c1e-af26-6166508358f6.png?ex=65908ec5&is=657e19c5&hm=1681e261c90c4f442937598365c0cf036a56bbb1bd873ec367c6a59409f32f18&',
     'https://cdn.discordapp.com/attachments/1125522435257683968/1170478575179268286/grnkrby_Pin-up_poster_of_a_Latina_anime_woman_olive_skin_short__806343b1-546f-4459-9f35-93980560a6b3.png?ex=65908f1e&is=657e1a1e&hm=28fe2a718e8573be4163c4426e4de3f6126643245b842a77b055b07c43aff465&',
-    'https://cdn.discordapp.com/attachments/995431274267279440/1187248536362958939/zhenaretofty_Hyukas_style_a_couple_cutechibisweet_full_bodyswee_0bb3a549-13d6-4029-b9a8-0bb5aad08197.png?ex=6596325d&is=6583bd5d&hm=893efaf7bfecab00629d250cb849f70cf4b4822f01bc675aaec41d91a34eaae3&',
-    'https://cdn.discordapp.com/attachments/1081612977897226280/1187250748988330064/zhenaretofty_Hyukas_style_a_couple_cutechibisweet_full_bodyswee_8b34f5e8-a067-420f-92c5-aec1e3ef6d7e.png?ex=6596346c&is=6583bf6c&hm=feb21369180ad09e2c39446f5853e89377df50f96b4c3b1d09d59c7e048610ca&',
-    'https://cdn.discordapp.com/attachments/1081612977897226280/1187250749504241734/zhenaretofty_Hyukas_style_a_couple_cutechibisweet_full_bodyswee_8b34f5e8-a067-420f-92c5-aec1e3ef6d7e.png?ex=6596346c&is=6583bf6c&hm=096de7c4326ff8c21e17e00b67b5976675824db560d68e9f09bd9c71598cf767&',
-    '',
+   '',
     '',
     '',
     '',
@@ -62,5 +59,7 @@ urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186753093648535632/intoward_A_Hyperrealistic_beautiful_vampire_girl_made_of_fire_m_582e2bf2-7a02-4ff0-b3fe-6cfa653e0c33.png?ex=659464f2&is=6581eff2&hm=da8463a5c968a995f1c5999a241b70283b523cb1a25510f1dfd479ef6776f69e&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186747255726805002/0_2.png?ex=65945f82&is=6581ea82&hm=7dcf2acceee2627957c8aaa3b855441b479e87d06b846d5fcf44344fd479bcd7&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186671383875432639/0_2.png?ex=659418d9&is=6581a3d9&hm=3188a1fb4aba02f0e36c2a91c19d1f63436f95ea0192b00231a582d521d7724c&',
+    'https://cdn.discordapp.com/attachments/995431274267279440/1187248536362958939/zhenaretofty_Hyukas_style_a_couple_cutechibisweet_full_bodyswee_0bb3a549-13d6-4029-b9a8-0bb5aad08197.png?ex=6596325d&is=6583bd5d&hm=893efaf7bfecab00629d250cb849f70cf4b4822f01bc675aaec41d91a34eaae3&',
+    'https://cdn.discordapp.com/attachments/1081612977897226280/1187250748988330064/zhenaretofty_Hyukas_style_a_couple_cutechibisweet_full_bodyswee_8b34f5e8-a067-420f-92c5-aec1e3ef6d7e.png?ex=6596346c&is=6583bf6c&hm=feb21369180ad09e2c39446f5853e89377df50f96b4c3b1d09d59c7e048610ca&',
 
 ]
