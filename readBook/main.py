@@ -33,7 +33,7 @@ def publish_xhs(urls_list, re_run=False):
                         copy_file(source_path=picResult.downpath,
                                   destination_path=words_image_path + "/" + picResult.fix12path + "." + picResult.name,
                                   re_run=re_run)
-                        print(words_image_path + "/" + picResult.fix12path + "." + picResult.name)
+                        # print(words_image_path + "/" + picResult.fix12path + "." + picResult.name)
                     else:
                         print("ERR:上传失败")
                 else:
