@@ -82,6 +82,7 @@ async def upload_to_read_book(playwright, picResult, re_run):
                 await asyncio.sleep(3)
             # 检查当前页面的 URL
             if page.url == upload_url2:
+                print("发布成功")
                 return True
             else:
                 print("ERR:跳转错误")
