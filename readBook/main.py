@@ -25,7 +25,6 @@ def publish_xhs(urls_list, re_run=False):
                     if is_success:
                         with open('uploaded.log', 'a+') as file:
                             file.seek(0)
-                            content = file.read()
                             file.write(f"{url}\n")
                             file.close()
                         words_image_path = "../crawl/files/redbook/pub_send_pics"
