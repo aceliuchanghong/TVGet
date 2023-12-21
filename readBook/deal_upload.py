@@ -7,6 +7,7 @@ import asyncio
 
 async def upload_to_read_book(playwright, picResult, re_run):
     upload_url1 = "https://creator.xiaohongshu.com/publish/publish"
+    upload_url2 = "https://creator.xiaohongshu.com/publish/success?source&bind_status=not_bind"
     keywords = [
         "高清壁纸",
         "好想谈恋爱",
@@ -60,7 +61,7 @@ async def upload_to_read_book(playwright, picResult, re_run):
             [picResult.fix7path, picResult.fix6path, picResult.fix8path, picResult.downpath])
         print("开始设置标题")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[2]/input').fill(
-            picResult.fix12path + "|" + picResult.anspath + "|我的完美女孩目标之一")
+            picResult.fix12path + "|" + picResult.anspath + "|My BFFs")
         print("开始设置话题")
         for i in keywords:
             css_selector = ".topic-container"
@@ -70,12 +71,25 @@ async def upload_to_read_book(playwright, picResult, re_run):
             await page.press(css_selector, "Enter")
         print("开始设置地点")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/input').fill('上海')
-        await asyncio.sleep(5)
-        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/div[1]/ul/li[1]').click()
-        print("开始发布")
-        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[7]/button[1]/span').click()
         await asyncio.sleep(2)
-        return True
+        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/div[1]/ul/li[1]').click()
+        await asyncio.sleep(2)
+        print("开始发布")
+        try:
+            # 点击 等待页面跳转，这里设置了一个超时时间
+            async with page.expect_navigation(timeout=3000):
+                await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[7]/button[1]/span').click()
+                await asyncio.sleep(3)
+            # 检查当前页面的 URL
+            if page.url == upload_url2:
+                return True
+            else:
+                print("ERR:跳转错误")
+                return False
+        except Exception as e:
+            # 如果超时或者有其他异常，输出异常信息
+            print(f"ERR:发布失败 {e}")
+            return False
     except Exception as e:
         print(f"Upload error occurred: {e}")
         return False
@@ -94,20 +108,20 @@ if __name__ == '__main__':
     picresult.date = "20231220"
     picresult.keyword = "She possesses an ethereal beauty, a timeless elegance that whispers softly to the heart, yet echoes profoundly."
     picresult.url = "https://cdn.discordapp.com/attachments/1054958023698825266/1181353473258827908/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
-    picresult.downpath = "../crawl/files/redbook/original_pic/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.downpath = "../crawl/files/redbook/original_pic/640.jpg"
     picresult.bakpath = "../crawl/files/redbook/original_bak_pic/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
     picresult.fix1path = "../crawl/files/redbook/blur_pic/stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
     picresult.fix2path = "../crawl/files/redbook/words_pic/4.andriod.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
     picresult.fix3path = "../crawl/files/redbook/words_pic/4.iphone.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
     picresult.fix4path = "../crawl/files/redbook/words_pic/4.ipad.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
     picresult.fix5path = "../crawl/files/redbook/words_pic/4.laptop.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
-    picresult.fix6path = "../crawl/files/redbook/words_pic/words.model2.5.4.andriod.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
-    picresult.fix7path = "../crawl/files/redbook/words_pic/words.model2.5.4.iphone.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
-    picresult.fix8path = "../crawl/files/redbook/words_pic/words.model3.5.4.laptop.stevenbills_silky._flowing._Smokey._Gloomy._sharp._cenobite._h_a2b8dcc2-9016-4093-a25c-3fb62ce17cd8.png"
+    picresult.fix6path = "../crawl/files/redbook/original_pic/640.jpg"
+    picresult.fix7path = "../crawl/files/redbook/original_pic/640.jpg"
+    picresult.fix8path = "../crawl/files/redbook/original_pic/640.jpg"
     picresult.fix9path = "None"
     picresult.fix10path = "None"
     picresult.fix11path = "None"
-    picresult.fix12path = "None"
+    picresult.fix12path = "ttt"
     picresult.anspath = "玉立花容月下生"
     picresult.describe = "SUC"
 
