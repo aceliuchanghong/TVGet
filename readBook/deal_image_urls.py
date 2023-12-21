@@ -66,7 +66,7 @@ def deal_image(
             pattern_name = r"/([\w.-]+)\.[a-z]{3}\?"
             match = re.search(pattern_name, url)
             if match:
-                match_ext = re.search(r'\.(gif|png|jpg)\?', url)
+                match_ext = re.search(r'\.(gif|png|jpg|webp)\?', url)
                 picResult.ext = match_ext.group(1)
                 picResult.keyword = match.group(1)
                 picResult.name = match.group(1) + "." + picResult.ext
