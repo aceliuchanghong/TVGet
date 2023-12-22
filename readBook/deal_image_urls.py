@@ -222,9 +222,13 @@ def deal_image(
                                                    background_image_path=picResult.fix1path,
                                                    words=picResult.keyword,
                                                    re_run=re_run)
-            picResult.anspath = get_gpt_response2(
-                "给我一段形容女子美丽的中文句子,要求文雅,字数在8个字以内,最好是7字诗句,不要最后一个标点",
-                picResult.fix8path, re_run)
+            from readBook import the_list
+            import random
+            words = random.choice(the_list.poem_lists)
+            picResult.anspath = words
+            # picResult.anspath = get_gpt_response2(
+            #     "给我一段形容女子美丽的中文句子,要求文雅,字数在8个字以内,最好是7字诗句,不要最后一个标点",
+            #     picResult.fix8path, re_run)
         except Exception as e:
             picResult.describe = "ERR:deal"
             print(e)

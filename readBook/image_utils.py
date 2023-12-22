@@ -499,7 +499,10 @@ def fill_image_model2(input_image_path, background_image_path, x_shift_ratio=0, 
         ans_files3 = words_image_path + "/words.model2.3." + input_image_info_left.name + "." + input_image_info_left.ext
         ans_files4 = words_image_path + "/words.model2.4." + input_image_info_left.name + "." + input_image_info_left.ext
         ans_files5 = words_image_path + "/words.model2.5." + input_image_info_left.name + "." + input_image_info_left.ext
-        words = get_gpt_response("给我一段形容女子美丽的英语句子,要求文雅,字数在15-25个单词内", ans_files, re_run)
+        # words = get_gpt_response("给我一段形容女子美丽的英语句子,要求文雅,字数在15-25个单词内", ans_files, re_run)
+        from readBook import the_list
+        import random
+        words = random.choice(the_list.sentence_lists)
         output_image_path_left = resize_image_proportionally(input_image_path,
                                                              resize_image_path + "/resize.model3." + input_image_info_left.name + "." + input_image_info_left.ext,
                                                              scale_factor_left,
