@@ -23,8 +23,6 @@ not_girl = [
     '',
 ]
 bak = [
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1186737376219910155/yohanlibertto_In_the_beginning_God_created_the_heavens_and_the__91cc23ac-d329-4648-b401-90914d82ff72.png?ex=6594564f&is=6581e14f&hm=5f70012ae86b1a377db8ff22fb3f03231f8b3edc3d17e23e243abad17337baab&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1186737377004224573/yohanlibertto_In_the_beginning_God_created_the_heavens_and_the__dba6b70d-29f5-4450-9786-d96353b32a1a.png?ex=6594564f&is=6581e14f&hm=5295b63f33334d3ff965c742e1a45931daf97ee8d801d0101da45a1928798dee&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186636398233653308/kittenhugs_Classic_Disney_art_featuring_a_anthro_female_deep_pu_669a3f29-a379-4515-b39f-dcbd8937ba21.png?ex=6593f843&is=65818343&hm=67574990edd2e94e555f32993cb2971d6331193a92ed3559cf9a82f2607c69b1&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187128598860140685/razeristaken_Nishizumi_Maho_from_Girls_und_Panzer_German_milita_9474beef-ee4f-4ff0-9ee7-cb5d9f2c0f84.png?ex=6595c2a9&is=65834da9&hm=7aafab50299dae5cf70969b6b4c7d437c928dde69bfd2cf48cc5654f302361c6&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187174499888664768/Hand_0_6acbe5f6-de21-4a9d-80a7-ea2ed504e0d1.png?ex=6595ed69&is=65837869&hm=e1895b731df257fa28621ef45df255f35f0f5f928eb784b637ad2c311baa81ea&',
@@ -34,8 +32,6 @@ bak = [
     'https://cdn.discordapp.com/attachments/1064028865741197413/1187074017602060468/i.p.ishipyards_Envision_a_dungeons_and_dragons_high_elf_female__0ef834ca-0223-4459-b7df-54681cb64d6a.png?ex=65958fd4&is=65831ad4&hm=78bef046f719bc4d4bc3591ffd593707c82437c08f8f1a8db4e252c7d8bc636a&',
     'https://cdn.discordapp.com/attachments/1123710007335211078/1181810968938942524/grnkrby_Drama_Anime_opening_a_svelte_Latina_warm_olive_skin_tha_450cacfe-f12c-465c-ad55-7cad69415cbc.png?ex=6594df3b&is=65826a3b&hm=b1c25fe79f32fa5f0bbaf9d71dc0a36e56b1aff989779feeb695d3469588d205&',
     'https://cdn.discordapp.com/attachments/1123710007335211078/1181810969568104468/grnkrby_Drama_Anime_opening_a_Latina_wearing_dress_with_intrica_ff12514f-0966-4dab-a2d2-02d16c1162b8.png?ex=6594df3c&is=65826a3c&hm=abf90ba248271c6726b14960d58ffc281d5eb7cb869a2667f8a95cda430d18b9&',
-    'https://cdn.discordapp.com/attachments/1123710007335211078/1181811042532208682/grnkrby_Japanese_Light_Novel_art_flat_colors_a_svelte_Latina_ac_9442e2f9-75ef-471a-bc8b-f258ce0ea5db.png?ex=6594df4d&is=65826a4d&hm=f9dbdb56531ee5c2322a9907d3f5dcd6c67ea77458b459fe217d7b8d348d8192&',
-    'https://cdn.discordapp.com/attachments/1123710007335211078/1181811042922274899/grnkrby_Japanese_Light_Novel_art_this_Latina_wearing_a_green_dr_e0f81c1b-5384-41c3-b132-6d2149a3a7f8.png?ex=6594df4d&is=65826a4d&hm=bb479528601157c1e44e8cace405798cf763d03927d0d9f1d8fc47e1bcafe6c6&',
    '',
     '',
     '',
@@ -61,5 +57,9 @@ urls_list = [
     'https://cdn.discordapp.com/attachments/1081612977897226280/1187250748988330064/zhenaretofty_Hyukas_style_a_couple_cutechibisweet_full_bodyswee_8b34f5e8-a067-420f-92c5-aec1e3ef6d7e.png?ex=6596346c&is=6583bf6c&hm=feb21369180ad09e2c39446f5853e89377df50f96b4c3b1d09d59c7e048610ca&',
     'https://cdn.discordapp.com/attachments/1125522435257683968/1170478200892166267/grnkrby_Pin-up_poster_of_a_Latina_anime_woman_short_shes_wearin_d00bebf7-34db-4c1e-af26-6166508358f6.png?ex=65908ec5&is=657e19c5&hm=1681e261c90c4f442937598365c0cf036a56bbb1bd873ec367c6a59409f32f18&',
     'https://cdn.discordapp.com/attachments/1125522435257683968/1170478575179268286/grnkrby_Pin-up_poster_of_a_Latina_anime_woman_olive_skin_short__806343b1-546f-4459-9f35-93980560a6b3.png?ex=65908f1e&is=657e1a1e&hm=28fe2a718e8573be4163c4426e4de3f6126643245b842a77b055b07c43aff465&',
+    'https://cdn.discordapp.com/attachments/1123710007335211078/1181811042532208682/grnkrby_Japanese_Light_Novel_art_flat_colors_a_svelte_Latina_ac_9442e2f9-75ef-471a-bc8b-f258ce0ea5db.png?ex=6594df4d&is=65826a4d&hm=f9dbdb56531ee5c2322a9907d3f5dcd6c67ea77458b459fe217d7b8d348d8192&',
+    'https://cdn.discordapp.com/attachments/1123710007335211078/1181811042922274899/grnkrby_Japanese_Light_Novel_art_this_Latina_wearing_a_green_dr_e0f81c1b-5384-41c3-b132-6d2149a3a7f8.png?ex=6594df4d&is=65826a4d&hm=bb479528601157c1e44e8cace405798cf763d03927d0d9f1d8fc47e1bcafe6c6&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1186737376219910155/yohanlibertto_In_the_beginning_God_created_the_heavens_and_the__91cc23ac-d329-4648-b401-90914d82ff72.png?ex=6594564f&is=6581e14f&hm=5f70012ae86b1a377db8ff22fb3f03231f8b3edc3d17e23e243abad17337baab&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1186737377004224573/yohanlibertto_In_the_beginning_God_created_the_heavens_and_the__dba6b70d-29f5-4450-9786-d96353b32a1a.png?ex=6594564f&is=6581e14f&hm=5295b63f33334d3ff965c742e1a45931daf97ee8d801d0101da45a1928798dee&',
 
 ]

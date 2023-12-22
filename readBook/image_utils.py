@@ -46,7 +46,7 @@ def get_image_size(picPath):
         return picInfo
 
 
-def blur_bg_image(input_image_path, output_image_path, blur_strength=5, width=1280, height=1707, re_run=False):
+def blur_bg_image2(input_image_path, output_image_path, blur_strength=5, width=1280, height=1707, re_run=False):
     picInfo = get_image_size(input_image_path)
     try:
         # 判断是否需要调整图像尺寸
@@ -77,6 +77,46 @@ def blur_bg_image(input_image_path, output_image_path, blur_strength=5, width=12
     except Exception as e:
         print(e)
         return "ERR:BLUR"
+
+
+def blur_bg_image(input_image_path, output_image_path, blur_strength=5, width=1280, height=1707, re_run=False):
+    picInfo = get_image_size(input_image_path)
+    try:
+        # 判断是否需要调整图像尺寸
+        if picInfo.width < width or picInfo.height < height:
+            # 计算新的宽高比例
+            aspect_ratio = width / height
+            pic_aspect_ratio = picInfo.width / picInfo.height
+
+            if pic_aspect_ratio > aspect_ratio:
+                newHeight = picInfo.height
+                newWidth = int(newHeight * aspect_ratio)  # 确保是整数
+            else:
+                newWidth = picInfo.width
+                newHeight = int(newWidth / aspect_ratio)  # 确保是整数
+            vf_filter = f'boxblur={blur_strength},crop={newWidth}:{newHeight}'
+        else:
+            vf_filter = f'boxblur={blur_strength},crop={width}:{height}'
+
+        # 构建ffmpeg命令
+        command = [
+            'ffmpeg',
+            '-i', input_image_path,  # 输入图片文件
+            '-vf', vf_filter,
+            '-y',  # 覆盖输出文件（如果已经存在）
+            output_image_path  # 输出图片文件
+        ]
+
+        # 执行命令
+        if not exists(output_image_path) or re_run:
+            subprocess.run(command, check=True)
+        return output_image_path
+    except subprocess.CalledProcessError as e:
+        print(f"ffmpeg command failed: {e}")
+        return "ERR:BLUR"
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return "ERR:BLUR2"
 
 
 def resize_image_proportionally(input_image_path, output_image_path, scale_factor=0.5, re_run=False):

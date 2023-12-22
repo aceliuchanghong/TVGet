@@ -67,7 +67,7 @@ async def upload_to_read_book(playwright, picResult, re_run):
             css_selector = ".topic-container"
             await page.locator('//*[@id="topicBtn"]/span').click()
             await page.locator('//*[@id="post-textarea"]').type(i)
-            await asyncio.sleep(2)
+            await asyncio.sleep(1.3)
             await page.press(css_selector, "Enter")
         print("开始设置地点")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/input').fill('上海')
@@ -79,7 +79,7 @@ async def upload_to_read_book(playwright, picResult, re_run):
             # 点击 等待页面跳转，这里设置了一个超时时间
             async with page.expect_navigation(timeout=3000):
                 await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[7]/button[1]/span').click()
-                await asyncio.sleep(3)
+                await asyncio.sleep(2)
             # 检查当前页面的 URL
             if page.url == upload_url2:
                 print("发布成功")
