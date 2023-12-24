@@ -67,7 +67,7 @@ async def upload_to_read_book(playwright, picResult, re_run):
             css_selector = ".topic-container"
             await page.locator('//*[@id="topicBtn"]/span').click()
             await page.locator('//*[@id="post-textarea"]').type(i)
-            await asyncio.sleep(1.3)
+            await asyncio.sleep(1.5)
             await page.press(css_selector, "Enter")
         print("开始设置地点")
         await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[6]/div[1]/div[2]/div/div/div/input').fill('上海')

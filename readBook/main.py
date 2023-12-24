@@ -8,7 +8,7 @@ from readBook.image_utils import copy_file
 from typing import List
 
 
-def publish_xhs2(urls_list, re_run=False):
+def publish_xhs_old(urls_list, re_run=False):
     for url in urls_list:
         # 尝试打开并读取文件内容
         try:
