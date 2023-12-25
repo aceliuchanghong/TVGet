@@ -49,13 +49,7 @@ bak = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186823234398732480/kittenhugs_None_ce5398de-9309-4cfd-a20a-dea1a878014a.png?ex=6594a645&is=65823145&hm=5a23ed1c113048fabdcacfb9ad5b319e6c1f47957051f28f7e63756261bb7b67&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186820521715847268/kittenhugs_None_ffd61bb3-ca7f-4b74-989b-8d3faf3537cd.png?ex=6594a3be&is=65822ebe&hm=afc728a8c8803b1c8ed1774170ed917acd555194f427cb86ac65a1d384229cbd&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1186789050175213689/eggon_Coniferous_core_fashion_shoot_in_a_forest_1980s_manga_st_692130a3-a5dc-4805-94e9-bb5d9a220f04.png?ex=6594866f&is=6582116f&hm=ad6d721ced74c9bd4e568431bcda5989bd41ca922adc345d3bf153ad8f2b4612&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1186789050615603221/eggon_Coniferous_cozy_fall_core_fashion_shoot_in_a_forest_1980_09765da5-0f00-42b0-b815-eaa5bbbbb43d.png?ex=6594866f&is=6582116f&hm=c375fba189502e3e5f3a657b66b3d8cf7c122b3c6530cfc0f551871fac1c1515&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1186789503336186048/eggon_Coniferous_cozy_fall_core_fashion_shoot_in_a_forest_1980_9e9d4d33-7e1f-49e0-b645-49da06127629.png?ex=659486db&is=658211db&hm=f2ed39092be682e695bc57717aefa04d1023e38440ffd33a913006522f46f280&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1186789503894048930/eggon_Coniferous_cozy_fall_core_fashion_shoot_in_a_forest_1980_1bbaf9ea-f535-44df-84ed-473bef2d704a.png?ex=659486db&is=658211db&hm=19f494f7a5cdda7cbf1d447341169b635bd4556f351bfe32d1034806efe707e9&',
-   'https://cdn.discordapp.com/attachments/1088864070045802579/1188091484285710396/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__317e31f7-0b5d-40eb-9edb-f15bac9f1f3a.png?ex=6599436b&is=6586ce6b&hm=00b9408a5454636f381fd75606c9787b6661cc6b8f95b097dcbc185491b25757&',
-    'https://cdn.discordapp.com/attachments/1088864070045802579/1188091504699387975/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__76a07df2-fea9-45e8-a59e-0a6a9e538934.png?ex=65994370&is=6586ce70&hm=4df6f78e53e8c5fb7b4f075512cd77835930d3ac6575be97ffff5caa9fe75565&',
-    'https://cdn.discordapp.com/attachments/1088864070045802579/1188091518435737640/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__adab65e5-9695-4632-b5a1-3e3b07c374f8.png?ex=65994373&is=6586ce73&hm=e8798aa73728cad8fd493d6567978c9d1d947955284e92ef17985fd7ae2577b3&',
-'',
+    '',
     '',
     '',
     '',
@@ -75,6 +69,12 @@ urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187871207475925002/citronashi_Toga_Himiko_from_My_Hero_Academia_black_and_white_fr_4a40aa3e-ed80-4514-a085-2f7718def26f.png?ex=65987645&is=65860145&hm=a212a3dc3fbb3364685f1824f9fc552488c3956edd80301e1ac2293cb3485402&',
     'https://cdn.discordapp.com/attachments/1088864070045802579/1188090657865220106/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__049ebb7b-eb4d-4f40-b45c-2a6a9df6f766.png?ex=659942a6&is=6586cda6&hm=9fc7c82d2c9ee1bb1baf95001c492dc47ff0381ad0a3533bdca435c95b4ca2f2&',
     'https://cdn.discordapp.com/attachments/1088864070045802579/1188090679000317992/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__277c7ba5-7766-42c2-bf64-8cf9123c4b6f.png?ex=659942ab&is=6586cdab&hm=b3ef6f7b9f27d63a2ccf9c8a6a70b669327d4e1fe7834e751288032e1d8e385e&',
+    'https://cdn.discordapp.com/attachments/1088864070045802579/1188091484285710396/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__317e31f7-0b5d-40eb-9edb-f15bac9f1f3a.png?ex=6599436b&is=6586ce6b&hm=00b9408a5454636f381fd75606c9787b6661cc6b8f95b097dcbc185491b25757&',
+    'https://cdn.discordapp.com/attachments/1088864070045802579/1188091504699387975/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__76a07df2-fea9-45e8-a59e-0a6a9e538934.png?ex=65994370&is=6586ce70&hm=4df6f78e53e8c5fb7b4f075512cd77835930d3ac6575be97ffff5caa9fe75565&',
+    'https://cdn.discordapp.com/attachments/1088864070045802579/1188091518435737640/lawrence_aceliuchanghong_yucca_poison_oil_painting_androgynous__adab65e5-9695-4632-b5a1-3e3b07c374f8.png?ex=65994373&is=6586ce73&hm=e8798aa73728cad8fd493d6567978c9d1d947955284e92ef17985fd7ae2577b3&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1186789050615603221/eggon_Coniferous_cozy_fall_core_fashion_shoot_in_a_forest_1980_09765da5-0f00-42b0-b815-eaa5bbbbb43d.png?ex=6594866f&is=6582116f&hm=c375fba189502e3e5f3a657b66b3d8cf7c122b3c6530cfc0f551871fac1c1515&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1186789503336186048/eggon_Coniferous_cozy_fall_core_fashion_shoot_in_a_forest_1980_9e9d4d33-7e1f-49e0-b645-49da06127629.png?ex=659486db&is=658211db&hm=f2ed39092be682e695bc57717aefa04d1023e38440ffd33a913006522f46f280&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1186789503894048930/eggon_Coniferous_cozy_fall_core_fashion_shoot_in_a_forest_1980_1bbaf9ea-f535-44df-84ed-473bef2d704a.png?ex=659486db&is=658211db&hm=19f494f7a5cdda7cbf1d447341169b635bd4556f351bfe32d1034806efe707e9&',
 
 ]
 
