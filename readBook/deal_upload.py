@@ -60,8 +60,13 @@ async def upload_to_read_book(playwright, picResult, re_run):
         await file_input_locator.set_input_files(
             [picResult.fix7path, picResult.fix6path, picResult.fix8path, picResult.downpath])
         print("开始设置标题")
-        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[2]/input').fill(
-            picResult.fix12path + "|" + picResult.anspath + "|My BFFs")
+        # await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[2]/input').fill(
+        #     picResult.fix12path + "|" + picResult.anspath + "|My BFFs")
+        words = [picResult.fix12path + "|关注我帮您了解AI图片的最新进展",
+                 picResult.fix12path + "|关注私信教您批量制作上传此类图片"]
+        import random
+        up_words = random.choice(words)
+        await page.locator('//*[@id="web"]/div/div[2]/div[2]/div[2]/input').fill(up_words)
         print("开始设置话题")
         for i in keywords:
             css_selector = ".topic-container"
