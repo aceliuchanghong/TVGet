@@ -33,7 +33,7 @@ async def upload_to_read_book(playwright, picResult, re_run):
 
     browser = await playwright.chromium.launch(headless=False)
     current_path = os.path.dirname(os.path.abspath(__file__))
-    cookie_path = os.path.join(current_path, "cookie.json")
+    cookie_path = os.path.join(current_path, "../crawl/files/ans/cookie.json")
 
     if not os.path.exists(cookie_path) or os.path.getsize(cookie_path) == 0:
         raise FileNotFoundError("The cookie.json file is missing or empty.")
