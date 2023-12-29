@@ -22,13 +22,8 @@ bak = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615731114848366/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6221-71.png?ex=65978857&is=65851357&hm=8fbb36e2efd13cc56707ddb3b6ab6b15aab447c8f517d6a0dedf1854c0e5f8f8&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615732117295147/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6230-71.png?ex=65978857&is=65851357&hm=5648c75bd857e2fc5255cf2acec3653ec895eb1a448e3021dc191fc2d04c41c2&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615733279113377/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6266-71.png?ex=65978857&is=65851357&hm=11a3b3b02262e49880f7fda01a642681e84dd80ee7c678898a12d94f8c5d6215&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615051931189319/yucca_poison_charcoal_sketch_vintage_1940s_art_style_model_styl_99add265-00b9-4859-a485-bb183bdf02e4.png?ex=659787b5&is=658512b5&hm=cba9ebadea99558a4ee55cb024c72bcbc413defa7a9d39d23303916b9d9c88b4&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615053017526312/yucca_poison_charcoal_sketch_vintage_1940s_art_style_model_styl_8ee25476-91df-4d1f-8730-deb567cf0a4f.png?ex=659787b5&is=658512b5&hm=2876a8c142a200b5596f272867568d117d2e9d950b6ae66a68f2668239bdbe95&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615054095454208/yucca_poison_charcoal_sketch_vintage_1940s_art_style_model_styl_79461976-a949-4762-a2b5-646971a1167e.png?ex=659787b5&is=658512b5&hm=bf161e04ee3860448c86dcdee1613ff925834dfc4911f721af5ea3f76739288b&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187271330400305272/yucca_poison_oil_painting_androgynous_long_red_haired_juvenile__069ef7d4-5b82-447f-90ee-6b15c2be0b6a.png?ex=65964797&is=6583d297&hm=c7bb2736c2f41e3a58503dee85e8e4329a8169e93f768b0f5d4e104c3b462b70&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187542204181397665/0_0.png?ex=659743dc&is=6584cedc&hm=dde2634f62b643a550208b143e95ff9f3f68c9c85f82ff6508d6c44ad13e60e4&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187542203376087120/0_0.png?ex=659743dc&is=6584cedc&hm=5e9cd22dd29e2306a41d20a776af7f0c74d71fd6e73c13a33eb109969f17667f&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187542202700808242/0_0.png?ex=659743dc&is=6584cedc&hm=513436ccda4b362d3ec02637a74bb9d58758888ecfea164e25a774e7f384871a&',
     '',
     '',
     '',
@@ -76,6 +71,9 @@ urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187613329888395347/0_0.png?ex=6597861a&is=6585111a&hm=a14ba8f90a4a629cbf3e04257e90d48d5b6d97e696108dba2f523b44a827b1d9&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187593250178072667/binx.jinx53._piglets_in_pajamas_in_the_style_of_Cecil_Aldin_fd7ef0e2-1bdb-41b6-a4c5-e96f16c98155.png?ex=65977367&is=6584fe67&hm=31cdb1e28fa9cb61c0e368ecf4d3b3cd9987787f4ff608e3a871504f2ef82304&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187560915101560872/0_0.png?ex=65975549&is=6584e049&hm=ee19e4ac70cde9c8c8f523004d4fb332c16b473987bb117037378f29ce89b6ea&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187542202700808242/0_0.png?ex=659743dc&is=6584cedc&hm=513436ccda4b362d3ec02637a74bb9d58758888ecfea164e25a774e7f384871a&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615051931189319/yucca_poison_charcoal_sketch_vintage_1940s_art_style_model_styl_99add265-00b9-4859-a485-bb183bdf02e4.png?ex=659787b5&is=658512b5&hm=cba9ebadea99558a4ee55cb024c72bcbc413defa7a9d39d23303916b9d9c88b4&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187271330400305272/yucca_poison_oil_painting_androgynous_long_red_haired_juvenile__069ef7d4-5b82-447f-90ee-6b15c2be0b6a.png?ex=65964797&is=6583d297&hm=c7bb2736c2f41e3a58503dee85e8e4329a8169e93f768b0f5d4e104c3b462b70&',
 
 ]
 
