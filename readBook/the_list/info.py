@@ -1,6 +1,4 @@
 bak = [
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187886623216631979/ssive_2030s_movie_groupshots_of_growned_upfig-us-36-anarekist-9842-71.png?ex=659884a0&is=65860fa0&hm=a3387499bd35c4d4612f289f0f57a61293cfa9117d133a2262a29ef7d9b50cdc&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187920691023056906/vortexphantom_holy_sister_of_the_church_small_horns_tail_dark_f_fbd4fb16-3b34-444b-9012-2e36193d6602.png?ex=6598a45b&is=65862f5b&hm=1d9ec18a083a210f538fa8c1a91fdcb01977d81f12b12b1259c5a9d2ddc73393&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187739882496479343/1887.png?ex=6597fbf7&is=658586f7&hm=33178b6b28c539bbee9f9a01de26152cbd322eb8104452ff72ffc255b8a154ae&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187634851155812352/scale2.0x_model-anarekist_Full_figured_body_pin_up_illustration_of_cyber_ninj_9759b2a7-3578-41ac-b468-02269a5d0dc6_0.png?ex=65979a25&is=65852525&hm=1bc64fa97a928adbec50c33f192159e8437877f8dcaa35f0e7c7c413e9949d21&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187634845778714704/scale2.0x_model-anarekist_Full_figured_body_pin_up_illustration_of_cyber_ninj_9759b2a7-3578-41ac-b468-02269a5d0dc6_1.png?ex=65979a24&is=65852524&hm=9370a7373b350a15f0b72b84d7fdaf1082f823c23d49f91b88b97baa1a3bc657&',
@@ -19,9 +17,6 @@ bak = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187617789217882153/specimen.png?ex=65978a41&is=65851541&hm=a3065aa110682633b19569a87c6d341bc2267579f52518a18772080656546f40&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615728912826449/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6189-71.png?ex=65978856&is=65851356&hm=3f00c913f1e70d332b1d8fc75f33e43bab2b7453bc65420db7b954eb8bfe0199&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615730036916325/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6207-71.png?ex=65978856&is=65851356&hm=42732430de04052a61e77f06d675a8e964edf2a97a73bbde5548548abc1aa869&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615731114848366/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6221-71.png?ex=65978857&is=65851357&hm=8fbb36e2efd13cc56707ddb3b6ab6b15aab447c8f517d6a0dedf1854c0e5f8f8&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615732117295147/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6230-71.png?ex=65978857&is=65851357&hm=5648c75bd857e2fc5255cf2acec3653ec895eb1a448e3021dc191fc2d04c41c2&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615733279113377/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6266-71.png?ex=65978857&is=65851357&hm=11a3b3b02262e49880f7fda01a642681e84dd80ee7c678898a12d94f8c5d6215&',
     '',
     '',
     '',
@@ -35,6 +30,12 @@ bak = [
     '',
 ]
 urls_list = [
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187920691023056906/vortexphantom_holy_sister_of_the_church_small_horns_tail_dark_f_fbd4fb16-3b34-444b-9012-2e36193d6602.png?ex=6598a45b&is=65862f5b&hm=1d9ec18a083a210f538fa8c1a91fdcb01977d81f12b12b1259c5a9d2ddc73393&',
+
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615733279113377/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6266-71.png?ex=65978857&is=65851357&hm=11a3b3b02262e49880f7fda01a642681e84dd80ee7c678898a12d94f8c5d6215&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615732117295147/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6230-71.png?ex=65978857&is=65851357&hm=5648c75bd857e2fc5255cf2acec3653ec895eb1a448e3021dc191fc2d04c41c2&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615731114848366/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6221-71.png?ex=65978857&is=65851357&hm=8fbb36e2efd13cc56707ddb3b6ab6b15aab447c8f517d6a0dedf1854c0e5f8f8&',
+
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187796463024078919/agathos.png?ex=659830a8&is=6585bba8&hm=1ef2107cde6e98eb5be3582ebea7ea026e789b302a3adc0ca32b98cfa3fab186&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187797228451016834/agathos.png?ex=6598315f&is=6585bc5f&hm=8d7d82e32c1acf1728460d47283b649a41881e490032b2be89dd37fd0ea2537d&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187839380799373502/0_2.png?ex=659858a1&is=6585e3a1&hm=4d4df2659f253b25b2e49962e59c8bc88b7a1b9726f60b976820ad593d343d24&',
@@ -74,6 +75,7 @@ urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187271330400305272/yucca_poison_oil_painting_androgynous_long_red_haired_juvenile__069ef7d4-5b82-447f-90ee-6b15c2be0b6a.png?ex=65964797&is=6583d297&hm=c7bb2736c2f41e3a58503dee85e8e4329a8169e93f768b0f5d4e104c3b462b70&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615054095454208/yucca_poison_charcoal_sketch_vintage_1940s_art_style_model_styl_79461976-a949-4762-a2b5-646971a1167e.png?ex=659787b5&is=658512b5&hm=bf161e04ee3860448c86dcdee1613ff925834dfc4911f721af5ea3f76739288b&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615053017526312/yucca_poison_charcoal_sketch_vintage_1940s_art_style_model_styl_8ee25476-91df-4d1f-8730-deb567cf0a4f.png?ex=659787b5&is=658512b5&hm=2876a8c142a200b5596f272867568d117d2e9d950b6ae66a68f2668239bdbe95&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187886623216631979/ssive_2030s_movie_groupshots_of_growned_upfig-us-36-anarekist-9842-71.png?ex=659884a0&is=65860fa0&hm=a3387499bd35c4d4612f289f0f57a61293cfa9117d133a2262a29ef7d9b50cdc&',
 
 ]
 
