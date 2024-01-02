@@ -14,9 +14,6 @@ bak = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187623183403208805/0_2.png?ex=65978f47&is=65851a47&hm=dc5664a1b5fb4533ad718b3b054c1fcea18755702ed7c13e3cee9e14a8cb1dd2&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187617788194471956/specimen.png?ex=65978a41&is=65851541&hm=376e39e4092ef9a00e18426cf32fd7a279ab9f30f1ed58cf8fcf31fb8a6b7e66&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187617788651642890/specimen.png?ex=65978a41&is=65851541&hm=2934a10758d9771f83a583fd038db04cc2bfcf7b6533e4991540f60334efc67f&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187617789217882153/specimen.png?ex=65978a41&is=65851541&hm=a3065aa110682633b19569a87c6d341bc2267579f52518a18772080656546f40&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615728912826449/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6189-71.png?ex=65978856&is=65851356&hm=3f00c913f1e70d332b1d8fc75f33e43bab2b7453bc65420db7b954eb8bfe0199&',
-    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615730036916325/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6207-71.png?ex=65978856&is=65851356&hm=42732430de04052a61e77f06d675a8e964edf2a97a73bbde5548548abc1aa869&',
     '',
     '',
     '',
@@ -31,6 +28,9 @@ bak = [
 ]
 urls_list = [
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187920691023056906/vortexphantom_holy_sister_of_the_church_small_horns_tail_dark_f_fbd4fb16-3b34-444b-9012-2e36193d6602.png?ex=6598a45b&is=65862f5b&hm=1d9ec18a083a210f538fa8c1a91fdcb01977d81f12b12b1259c5a9d2ddc73393&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615730036916325/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6207-71.png?ex=65978856&is=65851356&hm=42732430de04052a61e77f06d675a8e964edf2a97a73bbde5548548abc1aa869&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187615728912826449/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6189-71.png?ex=65978856&is=65851356&hm=3f00c913f1e70d332b1d8fc75f33e43bab2b7453bc65420db7b954eb8bfe0199&',
+    'https://cdn.discordapp.com/attachments/1054958023698825266/1187617789217882153/specimen.png?ex=65978a41&is=65851541&hm=a3065aa110682633b19569a87c6d341bc2267579f52518a18772080656546f40&',
 
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615733279113377/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6266-71.png?ex=65978857&is=65851357&hm=11a3b3b02262e49880f7fda01a642681e84dd80ee7c678898a12d94f8c5d6215&',
     'https://cdn.discordapp.com/attachments/1054958023698825266/1187615732117295147/masterpiece_growned_up_sister_Mary_Sue_the_nun_2-anarekist-6230-71.png?ex=65978857&is=65851357&hm=5648c75bd857e2fc5255cf2acec3653ec895eb1a448e3021dc191fc2d04c41c2&',
