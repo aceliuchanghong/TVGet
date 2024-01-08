@@ -79,7 +79,7 @@ async def upload(playwright, result):
     except Exception as e:
         print("ERR:上传没有成功******************************************************************************************************")
         print("发布时失败:", e)
-
+    # await asyncio.sleep(1000)
 
 async def start(result):
     if "-横" in result.mp4name:
